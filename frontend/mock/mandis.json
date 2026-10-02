@@ -1,0 +1,62 @@
+[
+  {
+    "mandi": "Lasalgaon",
+    "lat": 20.143,
+    "lon": 74.24,
+    "crops": ["onion", "soybean"]
+  },
+  {
+    "mandi": "Pimpalgaon",
+    "lat": 20.165,
+    "lon": 73.986,
+    "crops": ["onion", "tomato", "soybean"]
+  },
+  {
+    "mandi": "Nashik",
+    "lat": 19.997,
+    "lon": 73.79,
+    "crops": ["onion", "tomato", "soybean"]
+  },
+  {
+    "mandi": "Chandwad",
+    "lat": 20.329,
+    "lon": 74.245,
+    "crops": ["onion", "soybean"]
+  },
+  {
+    "mandi": "Yeola",
+    "lat": 20.043,
+    "lon": 74.489,
+    "crops": ["onion", "soybean"]
+  },
+  {
+    "mandi": "Manmad",
+    "lat": 20.251,
+    "lon": 74.438,
+    "crops": ["onion", "tomato", "soybean"]
+  },
+  {
+    "mandi": "Sinnar",
+    "lat": 19.85,
+    "lon": 74.0,
+    "crops": ["onion", "tomato", "soybean"]
+  },
+  {
+    "mandi": "Sangamner",
+    "lat": 19.566,
+    "lon": 74.211,
+    "crops": ["onion", "tomato", "soybean"]
+  },
+  {
+    "mandi": "Ahmednagar",
+    "lat": 19.095,
+    "lon": 74.749,
+    "crops": ["onion", "tomato", "soybean"]
+  },
+  {
+    "mandi": "Pune",
+    "lat": 18.52,
+    "lon": 73.857,
+    "crops": ["onion", "tomato", "soybean"]
+  }
+]

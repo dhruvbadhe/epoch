@@ -1,0 +1,73 @@
+[
+  {
+    "village": "Niphad",
+    "name_mr": "निफाड",
+    "name_hi": "निफाड",
+    "lat": 20.077,
+    "lon": 74.107
+  },
+  {
+    "village": "Lasalgaon",
+    "name_mr": "लासलगाव",
+    "name_hi": "लासलगांव",
+    "lat": 20.143,
+    "lon": 74.24
+  },
+  {
+    "village": "Ozar",
+    "name_mr": "ओझर",
+    "name_hi": "ओझर",
+    "lat": 20.094,
+    "lon": 73.928
+  },
+  {
+    "village": "Dindori",
+    "name_mr": "दिंडोरी",
+    "name_hi": "दिंडोरी",
+    "lat": 20.203,
+    "lon": 73.829
+  },
+  {
+    "village": "Chandori",
+    "name_mr": "चांदोरी",
+    "name_hi": "चांदोरी",
+    "lat": 20.022,
+    "lon": 74.026
+  },
+  {
+    "village": "Palkhed",
+    "name_mr": "पालखेड",
+    "name_hi": "पालखेड",
+    "lat": 20.117,
+    "lon": 74.076
+  },
+  {
+    "village": "Pimpalgaon Baswant",
+    "name_mr": "पिंपळगाव बसवंत",
+    "lat": 20.165,
+    "lon": 73.986
+  },
+  { "village": "Vinchur", "name_mr": "विंचूर", "lat": 20.104, "lon": 74.303 },
+  { "village": "Deogaon", "name_mr": "देवगाव", "lat": 20.01, "lon": 74.19 },
+  { "village": "Saikheda", "name_mr": "सायखेडा", "lat": 19.981, "lon": 74.033 },
+  {
+    "village": "Nandur Madhyameshwar",
+    "name_mr": "नांदूर मध्यमेश्वर",
+    "lat": 20.008,
+    "lon": 74.12
+  },
+  {
+    "village": "Kundewadi",
+    "name_mr": "कुंदेवाडी",
+    "lat": 20.062,
+    "lon": 74.09
+  },
+  { "village": "Shivare", "name_mr": "शिवरे", "lat": 20.039, "lon": 74.157 },
+  { "village": "Kothure", "name_mr": "कोठुरे", "lat": 20.032, "lon": 74.151 },
+  { "village": "Ugaon", "name_mr": "उगाव", "lat": 20.103, "lon": 74.16 },
+  { "village": "Naitale", "name_mr": "नैताळे", "lat": 20.075, "lon": 74.227 },
+  { "village": "Sukene", "name_mr": "सुकेणे", "lat": 20.013, "lon": 73.968 },
+  { "village": "Vadali", "name_mr": "वडाळी", "lat": 20.144, "lon": 74.081 },
+  { "village": "Rui", "name_mr": "रुई", "lat": 20.084, "lon": 74.178 },
+  { "village": "Tamaswadi", "name_mr": "तामसवाडी", "lat": 20.018, "lon": 74.09 }
+]

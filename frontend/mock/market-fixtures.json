@@ -1,0 +1,113 @@
+{
+  "onion": {
+    "Lasalgaon": 1700,
+    "Pimpalgaon": 1760,
+    "Nashik": 1790,
+    "Chandwad": 1720,
+    "Yeola": 1680,
+    "Manmad": 1730,
+    "Sinnar": 1750,
+    "Sangamner": 1800,
+    "Ahmednagar": 1850,
+    "Pune": 1990
+  },
+  "tomato": {
+    "Pimpalgaon": 1200,
+    "Nashik": 1280,
+    "Manmad": 1220,
+    "Sinnar": 1190,
+    "Sangamner": 1320,
+    "Ahmednagar": 1380,
+    "Pune": 1550
+  },
+  "soybean": {
+    "Lasalgaon": 4400,
+    "Pimpalgaon": 4460,
+    "Nashik": 4480,
+    "Chandwad": 4380,
+    "Yeola": 4360,
+    "Manmad": 4440,
+    "Sinnar": 4420,
+    "Sangamner": 4500,
+    "Ahmednagar": 4560,
+    "Pune": 4700
+  },
+  "forecast_multipliers": {
+    "onion": [1.006, 1.017, 1.04, 1.085, 1.176, 1.142],
+    "tomato": [1.025, 1.05, 1.07, 1.1, 1.12, 1.13],
+    "soybean": [1.003, 1.007, 1.01, 1.023, 1.047, 1.058]
+  },
+  "forecast_spreads": {
+    "onion": [0.028, 0.045, 0.058, 0.074, 0.097, 0.176],
+    "tomato": [0.04, 0.06, 0.09, 0.12, 0.16, 0.2],
+    "soybean": [0.015, 0.02, 0.025, 0.035, 0.04, 0.06]
+  },
+  "baseline_horizons": [1, 2],
+  "stale_mandis": ["Lasalgaon"],
+  "glut_mandis": ["Nashik"],
+  "storage_tips": {
+    "onion": "Keep in a dry, well-ventilated place off the ground; remove rotting or sprouting bulbs.",
+    "tomato": "Keep in shade, in clean ventilated crates; remove damaged fruit.",
+    "soybean": "Keep fully dried grain in a dry place away from moisture."
+  },
+  "sample_lots": [
+    {
+      "member": "Anita Patil",
+      "crop": "onion",
+      "quantity_qtl": 40,
+      "village": "Niphad",
+      "lot_condition": true,
+      "cash_needed_in_days": 3
+    },
+    {
+      "member": "Suresh Jadhav",
+      "crop": "onion",
+      "quantity_qtl": 55,
+      "village": "Ozar",
+      "lot_condition": true,
+      "cash_needed_in_days": null
+    },
+    {
+      "member": "Meena Shinde",
+      "crop": "tomato",
+      "quantity_qtl": 20,
+      "village": "Chandori",
+      "lot_condition": 1,
+      "cash_needed_in_days": null
+    },
+    {
+      "member": "Vijay Pawar",
+      "crop": "soybean",
+      "quantity_qtl": 35,
+      "village": "Dindori",
+      "lot_condition": true,
+      "cash_needed_in_days": 7
+    },
+    {
+      "member": "Sunita More",
+      "crop": "tomato",
+      "quantity_qtl": 15,
+      "village": "Palkhed",
+      "lot_condition": 2,
+      "cash_needed_in_days": 3
+    },
+    {
+      "member": "Ramesh Kale",
+      "crop": "soybean",
+      "quantity_qtl": 30,
+      "village": "Niphad",
+      "lot_condition": false,
+      "cash_needed_in_days": null
+    }
+  ],
+  "storage_tips_mr": {
+    "tomato": "टोमॅटो सावलीत, स्वच्छ हवेशीर क्रेटमध्ये ठेवा; खराब फळे वेगळी काढा.",
+    "onion": "कांदे कोरड्या, हवेशीर जागी जमिनीपासून उंच ठेवा; सडलेले किंवा अंकुरलेले कांदे काढून टाका.",
+    "soybean": "पूर्ण वाळवलेले सोयाबीन कोरड्या जागी, ओलाव्यापासून दूर ठेवा."
+  },
+  "storage_tips_hi": {
+    "tomato": "टमाटर छाया में, साफ हवादार क्रेट में रखें; खराब फल हटाएं।",
+    "onion": "प्याज को सूखी, हवादार जगह पर जमीन से ऊपर रखें; सड़े या अंकुरित प्याज हटाएं।",
+    "soybean": "पूरी तरह सूखे सोयाबीन को सूखी जगह पर नमी से दूर रखें।"
+  }
+}

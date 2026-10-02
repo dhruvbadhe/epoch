@@ -1,0 +1,68 @@
+{
+  "crop": "onion",
+  "mandi": "Pimpalgaon",
+  "prices_as_of": "2026-08-31",
+  "history": [
+    { "date": "2026-08-01", "price": 1480 },
+    { "date": "2026-08-04", "price": 1520 },
+    { "date": "2026-08-07", "price": 1490 },
+    { "date": "2026-08-10", "price": 1580 },
+    { "date": "2026-08-13", "price": 1550 },
+    { "date": "2026-08-16", "price": 1640 },
+    { "date": "2026-08-19", "price": 1610 },
+    { "date": "2026-08-22", "price": 1690 },
+    { "date": "2026-08-25", "price": 1670 },
+    { "date": "2026-08-28", "price": 1730 },
+    { "date": "2026-08-31", "price": 1760 }
+  ],
+  "forecast": [
+    {
+      "horizon_days": 1,
+      "date": "2026-09-01",
+      "price_low": 1720,
+      "price_mid": 1770,
+      "price_high": 1820,
+      "uses_baseline": true
+    },
+    {
+      "horizon_days": 2,
+      "date": "2026-09-02",
+      "price_low": 1710,
+      "price_mid": 1790,
+      "price_high": 1870,
+      "uses_baseline": true
+    },
+    {
+      "horizon_days": 3,
+      "date": "2026-09-03",
+      "price_low": 1720,
+      "price_mid": 1830,
+      "price_high": 1930,
+      "uses_baseline": false
+    },
+    {
+      "horizon_days": 7,
+      "date": "2026-09-07",
+      "price_low": 1780,
+      "price_mid": 1910,
+      "price_high": 2040,
+      "uses_baseline": false
+    },
+    {
+      "horizon_days": 14,
+      "date": "2026-09-14",
+      "price_low": 1900,
+      "price_mid": 2070,
+      "price_high": 2240,
+      "uses_baseline": false
+    },
+    {
+      "horizon_days": 21,
+      "date": "2026-09-21",
+      "price_low": 1700,
+      "price_mid": 2010,
+      "price_high": 2320,
+      "uses_baseline": false
+    }
+  ]
+}

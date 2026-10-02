@@ -1,0 +1,6 @@
+node_modules/
+.next/
+.next-production/
+test-results/
+pnpm-lock.yaml
+next-env.d.ts

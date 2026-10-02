@@ -1,0 +1,43 @@
+{
+  "crop": "onion",
+  "assumptions": "default",
+  "test_period": { "start": "2026-06-01", "end": "2026-08-31" },
+  "cases_tested": 0,
+  "cases_excluded_by_reason": {},
+  "avg_gain_per_qtl": null,
+  "median_gain_per_qtl": null,
+  "loss_share": null,
+  "worst_loss_per_qtl": null,
+  "hold_cases": 0,
+  "hold_success_rate": null,
+  "ladder": [
+    { "policy": "nearest_today", "avg_net": null },
+    { "policy": "highest_price_today", "avg_net": null },
+    { "policy": "best_net_today", "avg_net": null },
+    { "policy": "full_advice", "avg_net": null }
+  ],
+  "coverage": [
+    { "horizon_days": 1, "coverage": null, "n": 0 },
+    { "horizon_days": 2, "coverage": null, "n": 0 },
+    { "horizon_days": 3, "coverage": null, "n": 0 },
+    { "horizon_days": 7, "coverage": null, "n": 0 },
+    { "horizon_days": 14, "coverage": null, "n": 0 },
+    { "horizon_days": 21, "coverage": null, "n": 0 }
+  ],
+  "selfcheck": [
+    {
+      "mandi": "Lasalgaon",
+      "horizon_days": 7,
+      "ratio": null,
+      "rows": 0,
+      "passed": false
+    },
+    {
+      "mandi": "Pimpalgaon",
+      "horizon_days": 14,
+      "ratio": null,
+      "rows": 0,
+      "passed": false
+    }
+  ]
+}
