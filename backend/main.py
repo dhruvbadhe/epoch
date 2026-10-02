@@ -1,6 +1,6 @@
 """FastAPI app and routes only. Shapes: docs/api_contract.md.
 
-Run from the repo root:  python -m uvicorn backend.main:app --port 8000
+Run from the repo root:  .venv/bin/python -m uvicorn backend.main:app --port 8000
 (no --reload and one worker during the demo, or conversation memory is lost)
 """
 import logging
@@ -18,7 +18,8 @@ from starlette.exceptions import HTTPException as StarletteHTTPException
 
 from . import data_loader
 
-load_dotenv(data_loader.ROOT / ".env")          # before anything reads a key or ENGINE_MODE
+load_dotenv(data_loader.ROOT / "backend" / ".env")   # keys live here; before anything reads a key
+load_dotenv(data_loader.ROOT / ".env")
 
 from . import advice, conversation, engine_api, lookups, querylog, replies, speech, state  # noqa: E402
 from .errors import ApiError  # noqa: E402
@@ -258,3 +259,11 @@ app.include_router(cloud_api.router)
 
 log.info("engine: %s", engine_api.status())
 log.info("data: %s", data_loader.sources())
+
+# Never serve example data: refuse to start unless the engine and every handoff file are real.
+# (Only an explicit ENGINE_MODE=fake, which the backend self-tests set, skips this.)
+_engine_status = engine_api.status()
+_not_real = [k for k in ("advise", "fpo_plan") if _engine_status[k] != "real"] + \
+    [k for k, v in data_loader.sources().items() if v != "real"]
+if _not_real and _engine_status["mode"] != "fake":
+    raise RuntimeError(f"not real, refusing to start: {_not_real} (engine: {_engine_status})")

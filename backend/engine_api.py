@@ -3,8 +3,8 @@
 Until a function exists there, its answer comes from the example JSON in backend/fake, adjusted
 just enough that the hold limit, cash deadline and blocked mandis can be exercised end to end.
 
-ENGINE_MODE in .env: auto (default) = real when available, else fake; real = never fall back
-(use this for the demo); fake = always the example JSON.
+ENGINE_MODE: real (default) = the engine or a 503, never example data; auto = real when available,
+else fake; fake = always the example JSON (self-tests only).
 """
 from __future__ import annotations
 
@@ -30,7 +30,7 @@ class EngineUnavailable(Exception):
 
 
 def _mode() -> str:
-    return os.getenv("ENGINE_MODE", "auto").strip().lower()
+    return os.getenv("ENGINE_MODE", "real").strip().lower()
 
 
 def _load_module():
@@ -109,13 +109,14 @@ def advise(crop: str, quantity_qtl: float, village: str, lot_condition=None,
     """The engine's answer in the /advise response shape, without storage_tip and message."""
     kwargs = {"crop": crop, "quantity_qtl": quantity_qtl, "village": village,
               "lot_condition": lot_condition, "cash_needed_in_days": cash_needed_in_days,
-              "blocked_mandis": list(blocked_mandis or []), "overrides": overrides or None}
+              "blocked_mandis": list(blocked_mandis or []), "overrides": overrides or None,
+              "as_of_date": data_loader.as_of_date()}
     fn = _real("advise")
     return _call(fn, kwargs) if fn else _fake_advise(**kwargs)
 
 
 def _fake_advise(crop, quantity_qtl, village, lot_condition, cash_needed_in_days,
-                 blocked_mandis, overrides) -> dict:
+                 blocked_mandis, overrides, as_of_date=None) -> dict:
     result = data_loader.fake("advise.json")
     blocked = {m.lower() for m in blocked_mandis}
     limit = data_loader.hold_limit_days(crop, lot_condition)
@@ -152,7 +153,8 @@ def fpo_plan(lots: list[dict], blocked_mandis: list[str] | None = None,
              overrides: dict | None = None) -> dict:
     kwargs = {"lots": lots, "blocked_mandis": list(blocked_mandis or []),
               "mandi_cap_qtl_per_day": mandi_cap_qtl_per_day,
-              "collection_centre": collection_centre, "overrides": overrides or None}
+              "collection_centre": collection_centre, "overrides": overrides or None,
+              "as_of_date": data_loader.as_of_date()}
     fn = _real("fpo_plan")
     if fn:
         return _call(fn, kwargs)

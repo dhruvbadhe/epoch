@@ -247,6 +247,12 @@ def price_history(crop: str, mandi: str, end: str, days: int) -> list[dict]:
 
 # ---------- evidence ------------------------------------------------------
 
+def as_of_date() -> str | None:
+    """The demo's "today" (data/splits.json as_of_date); None makes the engine use the forecast's date."""
+    splits = _load(DATA / "splits.json", _read_json)
+    return splits.get("as_of_date") if isinstance(splits, dict) else None
+
+
 def backtest() -> object | None:
     return _load(DATA / "backtest.json", _read_json)
 

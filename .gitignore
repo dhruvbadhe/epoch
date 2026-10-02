@@ -10,3 +10,4 @@ venv/
 .wwebjs_cache/
 data/raw/
 backend/queries.log
+backend/.env

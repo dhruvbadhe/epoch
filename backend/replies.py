@@ -76,6 +76,9 @@ _T = {
         "tip": "📦 साठवण: {tip}",
         "success": "📊 मागील हंगामात थांबण्याचा सल्ला {pct}% वेळा फायद्याचा ठरला",
         "unreliable": "ℹ️ येथे अंदाज विश्वासार्ह नाही; फक्त आजच्या भावांची तुलना केली",
+        "hold_suppressed": "ℹ️ {mandi} येथे {days} दिवस थांबल्यास ₹{extra}/क्विंटल जास्त मिळू शकतात, पण मागील "
+                           "हंगामात असा सल्ला {total} पैकी फक्त {won} वेळा फायद्याचा ठरला. म्हणून आजच विका.",
+        "note": "ℹ️ {note}",
         "footer": "🗓 {date} च्या भावांनुसार · खात्री: {confidence}",
         "correct": "बरोबर? 1) हो 2) नाही",
         "village_unclear": "गाव नक्की समजले नाही. कोणते?",
@@ -103,6 +106,9 @@ _T = {
         "tip": "📦 भंडारण: {tip}",
         "success": "📊 पिछले सीज़न में रुकने की सलाह {pct}% बार फ़ायदेमंद रही",
         "unreliable": "ℹ️ यहाँ अनुमान भरोसेमंद नहीं; सिर्फ़ आज के भाव की तुलना की",
+        "hold_suppressed": "ℹ️ {mandi} में {days} दिन रुकने पर ₹{extra}/क्विंटल ज़्यादा मिल सकते हैं, पर पिछले "
+                           "सीज़न में ऐसी सलाह {total} में से सिर्फ़ {won} बार फ़ायदेमंद रही. इसलिए आज ही बेचें.",
+        "note": "ℹ️ {note}",
         "footer": "🗓 {date} के भाव के अनुसार · भरोसा: {confidence}",
         "correct": "सही है? 1) हाँ 2) नहीं",
         "village_unclear": "गाँव ठीक से समझ नहीं आया. कौन सा?",
@@ -130,6 +136,9 @@ _T = {
         "tip": "📦 Storage: {tip}",
         "success": "📊 Last season our advice to wait paid off {pct}% of the time",
         "unreliable": "ℹ️ The forecast isn't reliable here; only today's prices were compared",
+        "hold_suppressed": "ℹ️ Waiting {days} days at {mandi} might add ₹{extra}/quintal, but last season this "
+                           "advice won {won} of {total} times, so sell today.",
+        "note": "ℹ️ {note}",
         "footer": "🗓 Prices as of {date} · Confidence: {confidence}",
         "correct": "Correct? 1) yes 2) no",
         "village_unclear": "I couldn't match the village. Which one?",
@@ -273,12 +282,33 @@ def advice_message(advice: dict, lang: str = "mr", tip: str | None = None,
     confidence = advice.get("confidence")
     if confidence == "low" and advice.get("uses_baseline"):
         lines.append(t["unreliable"])
+    for note in advice.get("notes") or []:
+        line = note_line(note, lang)
+        if line not in lines:
+            lines.append(line)
     lines.append(t["footer"].format(
         date=long_date(advice.get("prices_as_of"), lang),
         confidence=CONFIDENCE.get(confidence, {}).get(lang, confidence or "–")))
     if example_data:
         lines.append(EXAMPLE_DATA)
     return "\n".join(lines)
+
+
+# The engine's notes (ml/engine/api.py), rendered through a fixed template per language. The numbers
+# are copied from the note text as they are; a note we don't recognise is shown as the engine wrote it.
+_HOLD_SUPPRESSED = re.compile(r"Hold suppressed: (?P<days>\d+) days at (?P<mandi>.+?), expected extra "
+                              r"Rs (?P<extra>-?\d+) per qtl; won (?P<won>\d+) of (?P<total>\d+)\.")
+_UNRELIABLE_NOTE = "forecast not reliable here; compared today's prices only"
+
+
+def note_line(note: str, lang: str = "mr") -> str:
+    t = _T[_lang(lang)]
+    m = _HOLD_SUPPRESSED.fullmatch(note.strip())
+    if m:
+        return t["hold_suppressed"].format(**{**m.groupdict(), "mandi": mandi_name(m["mandi"], lang)})
+    if note.strip() == _UNRELIABLE_NOTE:
+        return t["unreliable"]
+    return t["note"].format(note=note)
 
 
 # ---------- the conversation ----------------------------------------------
