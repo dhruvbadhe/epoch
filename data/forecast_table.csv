@@ -1,0 +1,120 @@
+crop,mandi,as_of_date,horizon_days,price_low,price_mid,price_high,uses_baseline,last_price_date,falling
+onion,Lasalgaon,2025-11-03,0,1600,1600,1600,true,2025-11-03,false
+onion,Lasalgaon,2025-11-03,1,1469,1600,1749,true,2025-11-03,false
+onion,Lasalgaon,2025-11-03,2,1426,1600,1798,true,2025-11-03,false
+onion,Lasalgaon,2025-11-03,3,1400,1600,1842,true,2025-11-03,false
+onion,Lasalgaon,2025-11-03,7,1313,1600,1977,true,2025-11-03,false
+onion,Lasalgaon,2025-11-03,14,1211,1600,2171,true,2025-11-03,false
+onion,Lasalgaon,2025-11-03,21,1121,1600,2362,true,2025-11-03,false
+onion,Lasalgaon (Niphad),2025-11-03,0,1650,1650,1650,true,2025-11-01,false
+onion,Lasalgaon (Niphad),2025-11-03,1,1523,1650,1788,true,2025-11-01,false
+onion,Lasalgaon (Niphad),2025-11-03,2,1479,1650,1843,true,2025-11-01,false
+onion,Lasalgaon (Niphad),2025-11-03,3,1450,1650,1909,true,2025-11-01,false
+onion,Lasalgaon (Niphad),2025-11-03,7,1367,1650,2064,true,2025-11-01,false
+onion,Lasalgaon (Niphad),2025-11-03,14,1285,1650,2441,true,2025-11-01,false
+onion,Lasalgaon (Niphad),2025-11-03,21,1293,1650,2585,true,2025-11-01,false
+onion,Lasalgaon (Vinchur),2025-11-03,0,1600,1600,1600,true,2025-11-01,false
+onion,Lasalgaon (Vinchur),2025-11-03,1,1501,1600,1714,true,2025-11-01,false
+onion,Lasalgaon (Vinchur),2025-11-03,2,1477,1600,1785,true,2025-11-01,false
+onion,Lasalgaon (Vinchur),2025-11-03,3,1449,1600,1837,true,2025-11-01,false
+onion,Lasalgaon (Vinchur),2025-11-03,7,1365,1600,1982,true,2025-11-01,false
+onion,Lasalgaon (Vinchur),2025-11-03,14,1289,1600,2184,true,2025-11-01,false
+onion,Lasalgaon (Vinchur),2025-11-03,21,1301,1600,2400,true,2025-11-01,false
+onion,Nasik,2025-11-03,0,1300,1300,1300,true,2025-10-29,false
+onion,Nasik,2025-11-03,1,1182,1300,1444,true,2025-10-29,false
+onion,Nasik,2025-11-03,2,1156,1300,1473,true,2025-10-29,false
+onion,Nasik,2025-11-03,3,1127,1300,1529,true,2025-10-29,false
+onion,Nasik,2025-11-03,7,1071,1300,1625,true,2025-10-29,false
+onion,Nasik,2025-11-03,14,1063,1300,1841,true,2025-10-29,false
+onion,Nasik,2025-11-03,21,1035,1300,2020,true,2025-10-29,false
+onion,Pimpalgaon,2025-11-03,0,1800,1800,1800,true,2025-11-03,false
+onion,Pimpalgaon,2025-11-03,1,1675,1800,1929,true,2025-11-03,false
+onion,Pimpalgaon,2025-11-03,2,1631,1800,1994,true,2025-11-03,false
+onion,Pimpalgaon,2025-11-03,3,1586,1800,2057,true,2025-11-03,false
+onion,Pimpalgaon,2025-11-03,7,1488,1800,2201,true,2025-11-03,false
+onion,Pimpalgaon,2025-11-03,14,1413,1800,2426,true,2025-11-03,false
+onion,Pimpalgaon,2025-11-03,21,1448,1800,2600,true,2025-11-03,false
+onion,Pune,2025-11-03,0,1250,1250,1250,true,2025-10-27,false
+onion,Pune,2025-11-03,1,1143,1250,1364,true,2025-10-27,false
+onion,Pune,2025-11-03,2,1121,1250,1406,true,2025-10-27,false
+onion,Pune,2025-11-03,3,1094,1250,1432,true,2025-10-27,false
+onion,Pune,2025-11-03,7,1023,1250,1502,true,2025-10-27,false
+onion,Pune,2025-11-03,14,938,1250,1605,true,2025-10-27,false
+onion,Pune,2025-11-03,21,858,1250,1699,true,2025-10-27,false
+onion,Solapur,2025-11-03,0,1050,1050,1050,true,2025-10-29,false
+onion,Solapur,2025-11-03,1,945,1050,1167,true,2025-10-29,false
+onion,Solapur,2025-11-03,2,919,1050,1188,true,2025-10-29,false
+onion,Solapur,2025-11-03,3,875,1050,1225,true,2025-10-29,false
+onion,Solapur,2025-11-03,7,817,1050,1313,true,2025-10-29,false
+onion,Solapur,2025-11-03,14,770,1050,1421,true,2025-10-29,false
+onion,Solapur,2025-11-03,21,700,1050,1556,true,2025-10-29,false
+soybean,Akola,2025-11-03,0,4350,4350,4350,true,2025-11-03,false
+soybean,Akola,2025-11-03,1,4238,4349,4431,false,2025-11-03,false
+soybean,Akola,2025-11-03,2,4198,4350,4502,true,2025-11-03,false
+soybean,Akola,2025-11-03,3,4169,4348,4511,false,2025-11-03,false
+soybean,Akola,2025-11-03,7,4137,4350,4599,true,2025-11-03,false
+soybean,Akola,2025-11-03,14,4068,4358,4675,false,2025-11-03,false
+soybean,Akola,2025-11-03,21,4005,4367,4791,false,2025-11-03,false
+soybean,Amarawati,2025-11-03,0,3925,3925,3925,true,2025-10-28,false
+soybean,Amarawati,2025-11-03,1,3849,3925,4001,true,2025-10-28,false
+soybean,Amarawati,2025-11-03,2,3832,3925,4023,true,2025-10-28,false
+soybean,Amarawati,2025-11-03,3,3811,3925,4032,true,2025-10-28,false
+soybean,Amarawati,2025-11-03,7,3786,3925,4069,true,2025-10-28,false
+soybean,Amarawati,2025-11-03,14,3733,3925,4093,true,2025-10-28,false
+soybean,Amarawati,2025-11-03,21,3684,3925,4170,true,2025-10-28,false
+soybean,Latur,2025-11-03,0,4325,4325,4325,true,2025-10-29,false
+soybean,Latur,2025-11-03,1,4257,4325,4412,true,2025-10-29,false
+soybean,Latur,2025-11-03,2,4235,4325,4430,true,2025-10-29,false
+soybean,Latur,2025-11-03,3,4207,4325,4455,true,2025-10-29,false
+soybean,Latur,2025-11-03,7,4146,4325,4521,true,2025-10-29,false
+soybean,Latur,2025-11-03,14,4055,4318,4718,false,2025-10-29,false
+soybean,Latur,2025-11-03,21,4066,4325,4768,true,2025-10-29,false
+soybean,Nagpur,2025-11-03,0,4205,4205,4205,true,2025-11-01,false
+soybean,Nagpur,2025-11-03,1,4097,4205,4329,true,2025-11-01,false
+soybean,Nagpur,2025-11-03,2,4075,4205,4354,true,2025-11-01,false
+soybean,Nagpur,2025-11-03,3,4074,4205,4366,true,2025-11-01,false
+soybean,Nagpur,2025-11-03,7,4030,4205,4411,true,2025-11-01,false
+soybean,Nagpur,2025-11-03,14,3993,4205,4488,true,2025-11-01,false
+soybean,Nagpur,2025-11-03,21,3951,4205,4557,true,2025-11-01,false
+soybean,Washim,2025-11-03,0,4500,4500,4500,true,2025-10-29,false
+soybean,Washim,2025-11-03,1,4303,4500,4709,true,2025-10-29,false
+soybean,Washim,2025-11-03,2,4305,4500,4702,true,2025-10-29,false
+soybean,Washim,2025-11-03,3,4295,4500,4718,true,2025-10-29,false
+soybean,Washim,2025-11-03,7,4249,4500,4800,true,2025-10-29,false
+soybean,Washim,2025-11-03,14,4154,4500,4891,true,2025-10-29,false
+soybean,Washim,2025-11-03,21,4122,4641,5117,false,2025-10-29,false
+tomato,Junnar (Narayangaon),2025-11-03,0,1250,1250,1250,true,2025-10-16,false
+tomato,Junnar (Narayangaon),2025-11-03,1,545,822,1691,false,2025-10-16,false
+tomato,Junnar (Narayangaon),2025-11-03,2,527,818,1693,false,2025-10-16,false
+tomato,Junnar (Narayangaon),2025-11-03,3,531,818,1717,false,2025-10-16,false
+tomato,Junnar (Narayangaon),2025-11-03,7,546,839,1672,false,2025-10-16,false
+tomato,Junnar (Narayangaon),2025-11-03,14,530,893,1772,false,2025-10-16,false
+tomato,Junnar (Narayangaon),2025-11-03,21,531,886,1882,false,2025-10-16,false
+tomato,Nasik,2025-11-03,0,675,675,675,true,2025-11-02,false
+tomato,Nasik,2025-11-03,1,490,699,907,false,2025-11-02,false
+tomato,Nasik,2025-11-03,2,482,699,924,false,2025-11-02,false
+tomato,Nasik,2025-11-03,3,491,675,928,true,2025-11-02,false
+tomato,Nasik,2025-11-03,7,478,719,1061,false,2025-11-02,false
+tomato,Nasik,2025-11-03,14,475,771,1177,false,2025-11-02,false
+tomato,Nasik,2025-11-03,21,473,833,1202,false,2025-11-02,false
+tomato,Pimpalgaon,2025-11-03,0,1205,1205,1205,true,2025-11-03,false
+tomato,Pimpalgaon,2025-11-03,1,951,1205,1506,true,2025-11-03,false
+tomato,Pimpalgaon,2025-11-03,2,787,1082,1428,false,2025-11-03,false
+tomato,Pimpalgaon,2025-11-03,3,784,1082,1460,false,2025-11-03,false
+tomato,Pimpalgaon,2025-11-03,7,750,1112,1698,false,2025-11-03,false
+tomato,Pimpalgaon,2025-11-03,14,733,1176,1873,false,2025-11-03,false
+tomato,Pimpalgaon,2025-11-03,21,721,1181,1910,false,2025-11-03,false
+tomato,Pune,2025-11-03,0,1100,1100,1100,true,2025-10-27,false
+tomato,Pune,2025-11-03,1,931,1100,1301,true,2025-10-27,false
+tomato,Pune,2025-11-03,2,890,1100,1344,true,2025-10-27,false
+tomato,Pune,2025-11-03,3,639,656,1405,false,2025-10-27,false
+tomato,Pune,2025-11-03,7,807,1100,1488,true,2025-10-27,false
+tomato,Pune,2025-11-03,14,704,1100,1736,true,2025-10-27,false
+tomato,Pune,2025-11-03,21,649,739,1470,false,2025-10-27,false
+tomato,Pune (Pimpri),2025-11-03,0,1500,1500,1500,true,2025-11-01,false
+tomato,Pune (Pimpri),2025-11-03,1,1250,1500,1800,true,2025-11-01,false
+tomato,Pune (Pimpri),2025-11-03,2,1227,1500,1800,true,2025-11-01,false
+tomato,Pune (Pimpri),2025-11-03,3,1222,1500,1875,true,2025-11-01,false
+tomato,Pune (Pimpri),2025-11-03,7,1141,1500,2000,true,2025-11-01,false
+tomato,Pune (Pimpri),2025-11-03,14,1183,1592,2558,false,2025-11-01,false
+tomato,Pune (Pimpri),2025-11-03,21,1165,1595,2612,false,2025-11-01,false

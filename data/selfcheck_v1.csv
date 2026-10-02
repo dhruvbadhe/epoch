@@ -1,0 +1,103 @@
+crop,mandi,horizon_days,model_mae,same_as_today_mae,ratio,rows,passed
+onion,Lasalgaon,1,39.4,34.3,1.148,85,false
+onion,Lasalgaon,2,41.4,40.7,1.018,85,false
+onion,Lasalgaon,3,45.1,49.8,0.906,84,true
+onion,Lasalgaon,7,56.7,69.6,0.814,80,true
+onion,Lasalgaon,14,85.9,127.8,0.673,73,true
+onion,Lasalgaon,21,135.4,178.7,0.758,66,true
+onion,Lasalgaon (Niphad),1,40.0,32.0,1.25,85,false
+onion,Lasalgaon (Niphad),2,47.1,45.8,1.03,85,false
+onion,Lasalgaon (Niphad),3,55.8,57.7,0.968,84,false
+onion,Lasalgaon (Niphad),7,73.5,85.9,0.856,80,true
+onion,Lasalgaon (Niphad),14,92.8,146.2,0.635,73,true
+onion,Lasalgaon (Niphad),21,152.4,205.1,0.743,66,true
+onion,Lasalgaon (Vinchur),1,32.4,29.3,1.104,85,false
+onion,Lasalgaon (Vinchur),2,38.1,42.0,0.908,85,true
+onion,Lasalgaon (Vinchur),3,43.7,50.7,0.861,84,true
+onion,Lasalgaon (Vinchur),7,55.7,70.6,0.789,80,true
+onion,Lasalgaon (Vinchur),14,78.8,127.1,0.62,73,true
+onion,Lasalgaon (Vinchur),21,119.8,174.5,0.686,66,true
+onion,Nasik,1,106.3,113.2,0.939,83,true
+onion,Nasik,2,111.5,121.2,0.919,85,true
+onion,Nasik,3,114.9,128.0,0.898,84,true
+onion,Nasik,7,141.3,166.2,0.85,80,true
+onion,Nasik,14,150.9,184.8,0.816,73,true
+onion,Nasik,21,192.6,230.7,0.835,66,true
+onion,Pimpalgaon,1,43.1,35.4,1.219,85,false
+onion,Pimpalgaon,2,51.2,48.2,1.063,85,false
+onion,Pimpalgaon,3,55.3,55.0,1.004,84,false
+onion,Pimpalgaon,7,78.8,90.7,0.869,80,true
+onion,Pimpalgaon,14,126.2,137.5,0.918,73,true
+onion,Pimpalgaon,21,194.4,194.6,0.999,66,false
+onion,Pune,1,59.2,60.6,0.977,85,false
+onion,Pune,2,67.9,68.2,0.995,85,false
+onion,Pune,3,74.4,76.2,0.977,84,false
+onion,Pune,7,91.0,96.2,0.945,80,true
+onion,Pune,14,105.5,113.0,0.934,73,true
+onion,Pune,21,116.8,128.8,0.907,66,true
+onion,Solapur,1,70.7,64.9,1.09,84,false
+onion,Solapur,2,84.8,87.6,0.967,85,false
+onion,Solapur,3,95.4,100.6,0.948,84,true
+onion,Solapur,7,107.5,113.1,0.951,80,false
+onion,Solapur,14,147.2,126.0,1.168,73,false
+onion,Solapur,21,170.3,165.9,1.027,66,false
+tomato,Junnar (Narayangaon),1,213.6,163.5,1.306,78,false
+tomato,Junnar (Narayangaon),2,258.0,213.9,1.206,83,false
+tomato,Junnar (Narayangaon),3,281.9,228.7,1.233,82,false
+tomato,Junnar (Narayangaon),7,444.0,349.4,1.271,78,false
+tomato,Junnar (Narayangaon),14,494.4,419.1,1.18,71,false
+tomato,Junnar (Narayangaon),21,469.5,386.8,1.214,64,false
+tomato,Nasik,1,234.0,257.9,0.907,82,true
+tomato,Nasik,2,248.0,261.8,0.948,85,true
+tomato,Nasik,3,260.6,264.9,0.984,84,false
+tomato,Nasik,7,327.5,308.1,1.063,80,false
+tomato,Nasik,14,396.0,356.8,1.11,73,false
+tomato,Nasik,21,449.7,359.8,1.25,66,false
+tomato,Pimpalgaon,1,173.8,156.4,1.112,85,false
+tomato,Pimpalgaon,2,195.2,171.9,1.135,85,false
+tomato,Pimpalgaon,3,207.9,189.5,1.097,84,false
+tomato,Pimpalgaon,7,275.8,260.9,1.057,80,false
+tomato,Pimpalgaon,14,317.0,300.6,1.054,73,false
+tomato,Pimpalgaon,21,313.6,277.5,1.13,66,false
+tomato,Pune,1,222.6,195.3,1.14,85,false
+tomato,Pune,2,256.3,254.7,1.006,85,false
+tomato,Pune,3,268.9,263.7,1.02,84,false
+tomato,Pune,7,434.8,354.4,1.227,80,false
+tomato,Pune,14,668.0,480.8,1.389,73,false
+tomato,Pune,21,769.6,568.9,1.353,66,false
+tomato,Pune (Pimpri),1,174.8,160.5,1.089,86,false
+tomato,Pune (Pimpri),2,175.3,153.5,1.141,85,false
+tomato,Pune (Pimpri),3,203.7,191.1,1.066,84,false
+tomato,Pune (Pimpri),7,301.7,210.0,1.437,80,false
+tomato,Pune (Pimpri),14,417.3,280.8,1.486,73,false
+tomato,Pune (Pimpri),21,417.2,301.5,1.384,66,false
+soybean,Akola,1,70.2,68.6,1.023,83,false
+soybean,Akola,2,66.6,67.2,0.991,85,false
+soybean,Akola,3,67.1,66.5,1.008,84,false
+soybean,Akola,7,78.8,77.9,1.012,80,false
+soybean,Akola,14,84.4,70.5,1.197,73,false
+soybean,Akola,21,94.5,89.5,1.055,66,false
+soybean,Amarawati,1,110.8,109.9,1.008,83,false
+soybean,Amarawati,2,147.5,153.0,0.964,85,false
+soybean,Amarawati,3,149.0,153.2,0.972,84,false
+soybean,Amarawati,7,161.9,161.3,1.004,80,false
+soybean,Amarawati,14,183.5,186.9,0.982,73,false
+soybean,Amarawati,21,148.8,149.2,0.997,66,false
+soybean,Latur,1,43.2,36.9,1.17,71,false
+soybean,Latur,2,50.4,43.7,1.155,79,false
+soybean,Latur,3,57.8,50.1,1.152,78,false
+soybean,Latur,7,80.1,77.6,1.032,74,false
+soybean,Latur,14,92.9,89.7,1.035,67,false
+soybean,Latur,21,84.3,85.6,0.985,61,false
+soybean,Nagpur,1,73.7,76.4,0.965,78,false
+soybean,Nagpur,2,72.5,76.5,0.947,83,true
+soybean,Nagpur,3,73.2,73.3,0.999,82,false
+soybean,Nagpur,7,78.6,81.7,0.962,78,false
+soybean,Nagpur,14,108.4,90.0,1.205,71,false
+soybean,Nagpur,21,125.1,96.8,1.293,64,false
+soybean,Washim,1,160.1,192.8,0.83,68,true
+soybean,Washim,2,161.2,182.3,0.885,75,true
+soybean,Washim,3,169.2,194.3,0.871,74,true
+soybean,Washim,7,184.8,197.8,0.934,72,true
+soybean,Washim,14,212.0,236.4,0.897,66,true
+soybean,Washim,21,175.3,206.5,0.849,62,true

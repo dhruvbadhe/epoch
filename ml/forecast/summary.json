@@ -1,0 +1,56 @@
+{
+  "test_block": {
+    "start": "2025-08-01",
+    "end": "2025-11-04"
+  },
+  "metric": {
+    "model_rows": "test-block forecast rows (horizons 1-21, every 3rd day) that used the model, i.e. uses_baseline = false",
+    "ratio": "MAE of price_mid / MAE of 'same as today', on model rows only, pooled over horizons; below 1 = model beats 'price stays the same'",
+    "coverage": "share of all test-block real prices inside [price_low, price_high], pooled over horizons (model and fallback rows)"
+  },
+  "crops": {
+    "onion": {
+      "v1": {
+        "model_rows": 567,
+        "ratio": 1.251,
+        "coverage": 0.666,
+        "n": 1014
+      },
+      "v2": {
+        "model_rows": 477,
+        "ratio": 1.207,
+        "coverage": 0.715,
+        "n": 1014
+      }
+    },
+    "soybean": {
+      "v1": {
+        "model_rows": 139,
+        "ratio": 0.978,
+        "coverage": 0.736,
+        "n": 651
+      },
+      "v2": {
+        "model_rows": 130,
+        "ratio": 1.037,
+        "coverage": 0.756,
+        "n": 651
+      }
+    },
+    "tomato": {
+      "v1": {
+        "model_rows": 55,
+        "ratio": 0.907,
+        "coverage": 0.773,
+        "n": 785
+      },
+      "v2": {
+        "model_rows": 228,
+        "ratio": 1.027,
+        "coverage": 0.781,
+        "n": 785
+      }
+    }
+  },
+  "note": "Version 2's rules (monthly refit, trailing self-check, trailing widening) were chosen after seeing version 1's test-block result, so version 2's test numbers are not an untouched holdout."
+}
