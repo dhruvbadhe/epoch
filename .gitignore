@@ -1,0 +1,12 @@
+node_modules/
+.next/
+__pycache__/
+venv/
+.venv/
+.env
+*.ipynb
+.ipynb_checkpoints/
+.wwebjs_auth/
+.wwebjs_cache/
+data/raw/
+backend/queries.log

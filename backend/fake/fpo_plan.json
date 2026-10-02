@@ -1,0 +1,22 @@
+{
+  "collection_centre": "Niphad",
+  "assignments": [
+    {"member": "A", "crop": "onion", "quantity_qtl": 40, "mandi": "Pimpalgaon", "sell_day": 0,
+     "price": 1760, "first_mile": 15, "truck_share": 884, "storage": 0,
+     "net_total": 68916, "net_per_qtl": 1723,
+     "baseline_today": {"mandi": "Lasalgaon", "net": 1660},
+     "reason": "needs cash in 3 days",
+     "origin": "via Niphad, shared truck"}
+  ],
+  "trucks": [
+    {"mandi": "Pimpalgaon", "sell_day": 0, "quantity_qtl": 95, "trips": 1, "cost": 2100}
+  ],
+  "total_net": 0,
+  "baseline_total": 0,
+  "gain_vs_baseline": 0,
+  "unplaced": [
+    {"member": "D", "quantity_qtl": 20, "reason": "no mandi with room before its hold limit"}
+  ],
+  "prices_as_of": "2026-08-31",
+  "assumptions_default": true
+}

@@ -1,0 +1,46 @@
+# FALLBACK COPY of the assumptions in docs/api_contract.md.
+# Used only while the real config.yaml (repo root, owned by ML 2) doesn't exist.
+# EVERY number here is a placeholder until a mentor confirms it.
+transport:
+  rate_per_km_per_qtl: 2.0
+  loading_per_qtl: 20
+  road_factor: 1.3              # straight-line km x this = road km
+spoilage_per_day:               # share of weight lost per day held
+  onion: 0.003
+  tomato: 0.04
+  soybean: 0.0005
+storage_cost_per_qtl_per_day:
+  onion: 1.0
+  tomato: 3.0
+  soybean: 0.5
+fees_per_qtl: 0
+hold_limit_days:                # by freshness answer; "default" is used when not asked
+  tomato:  {default: 4, answers: [4, 2, 0]}      # picked today / 1-2 days ago / 3+ days ago
+  onion:   {default: 21, answers: {true: 21, false: 5}}   # cured and ventilated?
+  soybean: {default: 21, answers: {true: 21, false: 3}}   # fully dried?
+hold_rule:
+  min_gain_per_qtl: 50
+  max_downside_per_qtl: 100
+horizons: [1, 2, 3, 7, 14, 21]
+fpo:
+  collection_centre: {name: "", lat: null, lon: null}
+  first_mile_per_qtl: 15
+  truck_capacity_qtl: 100
+  truck_fixed_cost: 1500
+  truck_per_km: 30
+  mandi_cap_qtl_per_day: 200
+units:
+  bag_kg:   {onion: 50, tomato: 20, soybean: 50}
+  crate_kg: {tomato: 20}
+forecast:
+  target_match_window_days: 1
+  min_reported_days: null       # set after the first look at the data
+  selfcheck_ratio_max: 0.95
+  selfcheck_min_rows: 20
+  coverage_widen_below: 0.70
+  glut_ratio: 1.5               # last 3 reported days of arrivals / previous 30
+confidence:
+  stale_days: 3
+  narrow_range_pct: 0.15        # (high - low) / mid
+parser:
+  village_match_threshold: 0.80

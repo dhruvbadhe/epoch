@@ -1,0 +1,12 @@
+{
+  "crop": "onion",
+  "mandi": "Lasalgaon",
+  "prices_as_of": "2026-08-31",
+  "history": [
+    {"date": "2026-08-01", "price": 1650}
+  ],
+  "forecast": [
+    {"horizon_days": 7, "date": "2026-09-07", "price_low": 1600, "price_mid": 1750,
+     "price_high": 1900, "uses_baseline": false}
+  ]
+}
