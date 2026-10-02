@@ -1,0 +1,876 @@
+{
+  "backtest_sha256_before": "b3ca944625796f897730cc8dca14ab3d28af514e4e86893ed30be92e2d9cd10f",
+  "backtest_bytes_before": 19927,
+  "previous_demo": {
+    "as_of_date": "2025-09-21",
+    "onion_Niphad_20qtl": {
+      "action": "hold",
+      "days": 7,
+      "mandi": "Pimpalgaon",
+      "net_per_qtl": 1219,
+      "net_low": 1048,
+      "net_high": 1597,
+      "baseline_today": {
+        "mandi": "Lasalgaon (Niphad)",
+        "net": 1054
+      },
+      "best_today": {
+        "mandi": "Pimpalgaon",
+        "net": 1089
+      },
+      "gain_vs_baseline": 164,
+      "gain_from_mandi": 35,
+      "gain_from_waiting": 130,
+      "confidence": "medium",
+      "break_even_price": 1182,
+      "hold_limit_days": 21,
+      "hold_success_rate": 0.3225806451612903,
+      "prices_as_of": "2025-09-21",
+      "uses_baseline": false,
+      "assumptions_default": true,
+      "why": {
+        "price": 1314,
+        "spoilage_loss": 27,
+        "transport": 61,
+        "storage": 7,
+        "fees": 0
+      },
+      "options": [
+        {
+          "mandi": "Lasalgaon",
+          "distance_km": 19.533524130645375,
+          "sell_day": 21,
+          "price_low": 1025,
+          "price_mid": 1580,
+          "price_high": 2366,
+          "transport_per_qtl": 59,
+          "net_low": 882,
+          "net_per_qtl": 1403,
+          "net_high": 2141,
+          "flags": []
+        },
+        {
+          "mandi": "Lasalgaon (Niphad)",
+          "distance_km": 0.39610511419276523,
+          "sell_day": 21,
+          "price_low": 1007,
+          "price_mid": 1515,
+          "price_high": 2306,
+          "transport_per_qtl": 21,
+          "net_low": 904,
+          "net_per_qtl": 1381,
+          "net_high": 2123,
+          "flags": []
+        },
+        {
+          "mandi": "Pimpalgaon",
+          "distance_km": 20.56688060694187,
+          "sell_day": 14,
+          "price_low": 1099,
+          "price_mid": 1512,
+          "price_high": 2144,
+          "transport_per_qtl": 61,
+          "net_low": 979,
+          "net_per_qtl": 1375,
+          "net_high": 1981,
+          "flags": []
+        },
+        {
+          "mandi": "Lasalgaon (Vinchur)",
+          "distance_km": 22.308854631431224,
+          "sell_day": 21,
+          "price_low": 1015,
+          "price_mid": 1531,
+          "price_high": 2239,
+          "transport_per_qtl": 65,
+          "net_low": 867,
+          "net_per_qtl": 1352,
+          "net_high": 2016,
+          "flags": []
+        },
+        {
+          "mandi": "Lasalgaon",
+          "distance_km": 19.533524130645375,
+          "sell_day": 14,
+          "price_low": 1035,
+          "price_mid": 1480,
+          "price_high": 2137,
+          "transport_per_qtl": 59,
+          "net_low": 919,
+          "net_per_qtl": 1346,
+          "net_high": 1976,
+          "flags": []
+        },
+        {
+          "mandi": "Lasalgaon (Vinchur)",
+          "distance_km": 22.308854631431224,
+          "sell_day": 14,
+          "price_low": 1025,
+          "price_mid": 1435,
+          "price_high": 2017,
+          "transport_per_qtl": 65,
+          "net_low": 904,
+          "net_per_qtl": 1297,
+          "net_high": 1855,
+          "flags": []
+        },
+        {
+          "mandi": "Pimpalgaon",
+          "distance_km": 20.56688060694187,
+          "sell_day": 7,
+          "price_low": 1140,
+          "price_mid": 1314,
+          "price_high": 1701,
+          "transport_per_qtl": 61,
+          "net_low": 1048,
+          "net_per_qtl": 1219,
+          "net_high": 1597,
+          "flags": []
+        },
+        {
+          "mandi": "Lasalgaon",
+          "distance_km": 19.533524130645375,
+          "sell_day": 7,
+          "price_low": 1076,
+          "price_mid": 1280,
+          "price_high": 1697,
+          "transport_per_qtl": 59,
+          "net_low": 988,
+          "net_per_qtl": 1187,
+          "net_high": 1596,
+          "flags": []
+        },
+        {
+          "mandi": "Lasalgaon (Niphad)",
+          "distance_km": 0.39610511419276523,
+          "sell_day": 7,
+          "price_low": 1059,
+          "price_mid": 1233,
+          "price_high": 1640,
+          "transport_per_qtl": 21,
+          "net_low": 1009,
+          "net_per_qtl": 1180,
+          "net_high": 1578,
+          "flags": []
+        },
+        {
+          "mandi": "Lasalgaon (Niphad)",
+          "distance_km": 0.39610511419276523,
+          "sell_day": 3,
+          "price_low": 1082,
+          "price_mid": 1176,
+          "price_high": 1352,
+          "transport_per_qtl": 21,
+          "net_low": 1048,
+          "net_per_qtl": 1142,
+          "net_high": 1316,
+          "flags": []
+        },
+        {
+          "mandi": "Lasalgaon (Vinchur)",
+          "distance_km": 22.308854631431224,
+          "sell_day": 7,
+          "price_low": 1067,
+          "price_mid": 1239,
+          "price_high": 1602,
+          "transport_per_qtl": 65,
+          "net_low": 973,
+          "net_per_qtl": 1142,
+          "net_high": 1497,
+          "flags": []
+        },
+        {
+          "mandi": "Pimpalgaon",
+          "distance_km": 20.56688060694187,
+          "sell_day": 0,
+          "price_low": 1150,
+          "price_mid": 1150,
+          "price_high": 1150,
+          "transport_per_qtl": 61,
+          "net_low": 1089,
+          "net_per_qtl": 1089,
+          "net_high": 1089,
+          "flags": []
+        },
+        {
+          "mandi": "Lasalgaon (Niphad)",
+          "distance_km": 0.39610511419276523,
+          "sell_day": 0,
+          "price_low": 1075,
+          "price_mid": 1075,
+          "price_high": 1075,
+          "transport_per_qtl": 21,
+          "net_low": 1054,
+          "net_per_qtl": 1054,
+          "net_high": 1054,
+          "flags": []
+        },
+        {
+          "mandi": "Lasalgaon",
+          "distance_km": 19.533524130645375,
+          "sell_day": 0,
+          "price_low": 1100,
+          "price_mid": 1100,
+          "price_high": 1100,
+          "transport_per_qtl": 59,
+          "net_low": 1041,
+          "net_per_qtl": 1041,
+          "net_high": 1041,
+          "flags": []
+        },
+        {
+          "mandi": "Nasik",
+          "distance_km": 44.57716872849424,
+          "sell_day": 21,
+          "price_low": 762,
+          "price_mid": 1222,
+          "price_high": 1735,
+          "transport_per_qtl": 109,
+          "net_low": 585,
+          "net_per_qtl": 1017,
+          "net_high": 1499,
+          "flags": [
+            "falling"
+          ]
+        },
+        {
+          "mandi": "Lasalgaon (Vinchur)",
+          "distance_km": 22.308854631431224,
+          "sell_day": 0,
+          "price_low": 1080,
+          "price_mid": 1080,
+          "price_high": 1080,
+          "transport_per_qtl": 65,
+          "net_low": 1015,
+          "net_per_qtl": 1015,
+          "net_high": 1015,
+          "flags": []
+        },
+        {
+          "mandi": "Nasik",
+          "distance_km": 44.57716872849424,
+          "sell_day": 14,
+          "price_low": 770,
+          "price_mid": 1160,
+          "price_high": 1593,
+          "transport_per_qtl": 109,
+          "net_low": 615,
+          "net_per_qtl": 989,
+          "net_high": 1404,
+          "flags": [
+            "falling"
+          ]
+        },
+        {
+          "mandi": "Nasik",
+          "distance_km": 44.57716872849424,
+          "sell_day": 7,
+          "price_low": 799,
+          "price_mid": 993,
+          "price_high": 1276,
+          "transport_per_qtl": 109,
+          "net_low": 666,
+          "net_per_qtl": 856,
+          "net_high": 1133,
+          "flags": [
+            "falling"
+          ]
+        },
+        {
+          "mandi": "Nasik",
+          "distance_km": 44.57716872849424,
+          "sell_day": 0,
+          "price_low": 825,
+          "price_mid": 825,
+          "price_high": 825,
+          "transport_per_qtl": 109,
+          "net_low": 716,
+          "net_per_qtl": 716,
+          "net_high": 716,
+          "flags": [
+            "falling"
+          ]
+        },
+        {
+          "mandi": "Solapur",
+          "distance_km": 427.95654572990435,
+          "sell_day": 21,
+          "price_low": 984,
+          "price_mid": 1509,
+          "price_high": 2157,
+          "transport_per_qtl": 876,
+          "net_low": 27,
+          "net_per_qtl": 520,
+          "net_high": 1128,
+          "flags": []
+        },
+        {
+          "mandi": "Pune",
+          "distance_km": 232.062625978684,
+          "sell_day": 7,
+          "price_low": 869,
+          "price_mid": 1031,
+          "price_high": 1345,
+          "transport_per_qtl": 484,
+          "net_low": 360,
+          "net_per_qtl": 518,
+          "net_high": 826,
+          "flags": [
+            "falling"
+          ]
+        },
+        {
+          "mandi": "Solapur",
+          "distance_km": 427.95654572990435,
+          "sell_day": 14,
+          "price_low": 993,
+          "price_mid": 1423,
+          "price_high": 1958,
+          "transport_per_qtl": 876,
+          "net_low": 62,
+          "net_per_qtl": 474,
+          "net_high": 987,
+          "flags": []
+        },
+        {
+          "mandi": "Pune",
+          "distance_km": 232.062625978684,
+          "sell_day": 0,
+          "price_low": 900,
+          "price_mid": 900,
+          "price_high": 900,
+          "transport_per_qtl": 484,
+          "net_low": 416,
+          "net_per_qtl": 416,
+          "net_high": 416,
+          "flags": [
+            "falling"
+          ]
+        },
+        {
+          "mandi": "Solapur",
+          "distance_km": 427.95654572990435,
+          "sell_day": 7,
+          "price_low": 1028,
+          "price_mid": 1244,
+          "price_high": 1542,
+          "transport_per_qtl": 876,
+          "net_low": 124,
+          "net_per_qtl": 335,
+          "net_high": 627,
+          "flags": []
+        },
+        {
+          "mandi": "Solapur",
+          "distance_km": 427.95654572990435,
+          "sell_day": 3,
+          "price_low": 1048,
+          "price_mid": 1160,
+          "price_high": 1301,
+          "transport_per_qtl": 876,
+          "net_low": 160,
+          "net_per_qtl": 271,
+          "net_high": 410,
+          "flags": []
+        },
+        {
+          "mandi": "Solapur",
+          "distance_km": 427.95654572990435,
+          "sell_day": 2,
+          "price_low": 1049,
+          "price_mid": 1136,
+          "price_high": 1263,
+          "transport_per_qtl": 876,
+          "net_low": 165,
+          "net_per_qtl": 251,
+          "net_high": 378,
+          "flags": []
+        },
+        {
+          "mandi": "Solapur",
+          "distance_km": 427.95654572990435,
+          "sell_day": 0,
+          "price_low": 1100,
+          "price_mid": 1100,
+          "price_high": 1100,
+          "transport_per_qtl": 876,
+          "net_low": 224,
+          "net_per_qtl": 224,
+          "net_high": 224,
+          "flags": []
+        }
+      ],
+      "notes": []
+    },
+    "tomato_Manchar_20qtl": {
+      "action": "sell_now",
+      "days": 0,
+      "mandi": "Pimpalgaon",
+      "net_per_qtl": 1597,
+      "net_low": 1597,
+      "net_high": 1597,
+      "baseline_today": {
+        "mandi": "Junnar (Narayangaon)",
+        "net": 1445
+      },
+      "best_today": {
+        "mandi": "Pimpalgaon",
+        "net": 1597
+      },
+      "gain_vs_baseline": 152,
+      "gain_from_mandi": 152,
+      "gain_from_waiting": 0,
+      "confidence": "medium",
+      "break_even_price": null,
+      "hold_limit_days": 4,
+      "hold_success_rate": null,
+      "prices_as_of": "2025-09-21",
+      "uses_baseline": true,
+      "assumptions_default": true,
+      "why": {
+        "price": 1955,
+        "spoilage_loss": 0,
+        "transport": 358,
+        "storage": 0,
+        "fees": 0
+      },
+      "options": [
+        {
+          "mandi": "Pimpalgaon",
+          "distance_km": 168.77366315435708,
+          "sell_day": 0,
+          "price_low": 1955,
+          "price_mid": 1955,
+          "price_high": 1955,
+          "transport_per_qtl": 358,
+          "net_low": 1597,
+          "net_per_qtl": 1597,
+          "net_high": 1597,
+          "flags": []
+        },
+        {
+          "mandi": "Junnar (Narayangaon)",
+          "distance_km": 17.27684006401325,
+          "sell_day": 0,
+          "price_low": 1500,
+          "price_mid": 1500,
+          "price_high": 1500,
+          "transport_per_qtl": 55,
+          "net_low": 1445,
+          "net_per_qtl": 1445,
+          "net_high": 1445,
+          "flags": []
+        },
+        {
+          "mandi": "Pune (Pimpri)",
+          "distance_km": 57.385713968840896,
+          "sell_day": 1,
+          "price_low": 1325,
+          "price_mid": 1605,
+          "price_high": 1890,
+          "transport_per_qtl": 135,
+          "net_low": 1134,
+          "net_per_qtl": 1403,
+          "net_high": 1677,
+          "flags": []
+        },
+        {
+          "mandi": "Pune (Pimpri)",
+          "distance_km": 57.385713968840896,
+          "sell_day": 0,
+          "price_low": 1500,
+          "price_mid": 1500,
+          "price_high": 1500,
+          "transport_per_qtl": 135,
+          "net_low": 1365,
+          "net_per_qtl": 1365,
+          "net_high": 1365,
+          "flags": []
+        },
+        {
+          "mandi": "Pune (Pimpri)",
+          "distance_km": 57.385713968840896,
+          "sell_day": 2,
+          "price_low": 1314,
+          "price_mid": 1605,
+          "price_high": 1932,
+          "transport_per_qtl": 135,
+          "net_low": 1070,
+          "net_per_qtl": 1338,
+          "net_high": 1640,
+          "flags": []
+        },
+        {
+          "mandi": "Pune (Pimpri)",
+          "distance_km": 57.385713968840896,
+          "sell_day": 3,
+          "price_low": 1313,
+          "price_mid": 1630,
+          "price_high": 2023,
+          "transport_per_qtl": 135,
+          "net_low": 1018,
+          "net_per_qtl": 1298,
+          "net_high": 1646,
+          "flags": []
+        },
+        {
+          "mandi": "Junnar (Narayangaon)",
+          "distance_km": 17.27684006401325,
+          "sell_day": 3,
+          "price_low": 1032,
+          "price_mid": 1502,
+          "price_high": 1690,
+          "transport_per_qtl": 55,
+          "net_low": 849,
+          "net_per_qtl": 1265,
+          "net_high": 1432,
+          "flags": []
+        },
+        {
+          "mandi": "Pune",
+          "distance_km": 74.86372854351615,
+          "sell_day": 0,
+          "price_low": 950,
+          "price_mid": 950,
+          "price_high": 950,
+          "transport_per_qtl": 170,
+          "net_low": 780,
+          "net_per_qtl": 780,
+          "net_high": 780,
+          "flags": []
+        },
+        {
+          "mandi": "Nasik",
+          "distance_km": 145.57121138336936,
+          "sell_day": 0,
+          "price_low": 1000,
+          "price_mid": 1000,
+          "price_high": 1000,
+          "transport_per_qtl": 311,
+          "net_low": 689,
+          "net_per_qtl": 689,
+          "net_high": 689,
+          "flags": []
+        }
+      ],
+      "notes": []
+    },
+    "fpo": {
+      "open": {
+        "collection_centre": "Niphad",
+        "assignments": [
+          {
+            "member": "E",
+            "crop": "tomato",
+            "quantity_qtl": 50,
+            "mandi": "Pimpalgaon",
+            "sell_day": 0,
+            "price": 1955,
+            "first_mile": 15,
+            "truck_share": 1411,
+            "storage": 0,
+            "net_total": 95589,
+            "net_per_qtl": 1912,
+            "baseline_today": {
+              "mandi": "Junnar (Narayangaon)",
+              "net": 1479
+            },
+            "reason": "needs cash in 1 day",
+            "origin": "via Niphad, shared truck"
+          },
+          {
+            "member": "B",
+            "crop": "onion",
+            "quantity_qtl": 80,
+            "mandi": "Lasalgaon (Niphad)",
+            "sell_day": 3,
+            "price": 1176,
+            "first_mile": 15,
+            "truck_share": 1613,
+            "storage": 3,
+            "net_total": 90183,
+            "net_per_qtl": 1127,
+            "baseline_today": {
+              "mandi": "Nasik",
+              "net": 732
+            },
+            "reason": "needs cash in 3 days",
+            "origin": "via Niphad, shared truck"
+          },
+          {
+            "member": "F",
+            "crop": "tomato",
+            "quantity_qtl": 40,
+            "mandi": "Pimpalgaon",
+            "sell_day": 0,
+            "price": 1955,
+            "first_mile": 15,
+            "truck_share": 1129,
+            "storage": 0,
+            "net_total": 76471,
+            "net_per_qtl": 1912,
+            "baseline_today": {
+              "mandi": "Junnar (Narayangaon)",
+              "net": 1438
+            },
+            "reason": "short hold limit",
+            "origin": "via Niphad, shared truck"
+          },
+          {
+            "member": "D",
+            "crop": "tomato",
+            "quantity_qtl": 60,
+            "mandi": "Pimpalgaon",
+            "sell_day": 0,
+            "price": 1955,
+            "first_mile": 15,
+            "truck_share": 1694,
+            "storage": 0,
+            "net_total": 114706,
+            "net_per_qtl": 1912,
+            "baseline_today": {
+              "mandi": "Junnar (Narayangaon)",
+              "net": 1445
+            },
+            "reason": "short hold limit",
+            "origin": "via Niphad, shared truck"
+          },
+          {
+            "member": "C",
+            "crop": "onion",
+            "quantity_qtl": 70,
+            "mandi": "Lasalgaon (Niphad)",
+            "sell_day": 3,
+            "price": 1176,
+            "first_mile": 15,
+            "truck_share": 1411,
+            "storage": 3,
+            "net_total": 78910,
+            "net_per_qtl": 1127,
+            "baseline_today": {
+              "mandi": "Lasalgaon (Niphad)",
+              "net": 1021
+            },
+            "reason": "short hold limit",
+            "origin": "via Niphad, shared truck"
+          },
+          {
+            "member": "A",
+            "crop": "onion",
+            "quantity_qtl": 100,
+            "mandi": "Lasalgaon",
+            "sell_day": 21,
+            "price": 1580,
+            "first_mile": 15,
+            "truck_share": 2086,
+            "storage": 21,
+            "net_total": 142653,
+            "net_per_qtl": 1427,
+            "baseline_today": {
+              "mandi": "Lasalgaon (Niphad)",
+              "net": 1054
+            },
+            "reason": "best net",
+            "origin": "via Niphad, shared truck"
+          }
+        ],
+        "trucks": [
+          {
+            "mandi": "Lasalgaon",
+            "sell_day": 21,
+            "quantity_qtl": 100,
+            "trips": 1,
+            "cost": 2086
+          },
+          {
+            "mandi": "Lasalgaon (Niphad)",
+            "sell_day": 3,
+            "quantity_qtl": 150,
+            "trips": 2,
+            "cost": 3024
+          },
+          {
+            "mandi": "Pimpalgaon",
+            "sell_day": 0,
+            "quantity_qtl": 150,
+            "trips": 2,
+            "cost": 4234
+          }
+        ],
+        "total_net": 598512,
+        "baseline_total": 453600,
+        "gain_vs_baseline": 144912,
+        "placed_qtl": 400,
+        "unplaced_qtl": 0,
+        "unplaced": [],
+        "prices_as_of": "2025-09-21",
+        "assumptions_default": true
+      },
+      "Pimpalgaon_blocked": {
+        "collection_centre": "Niphad",
+        "assignments": [
+          {
+            "member": "E",
+            "crop": "tomato",
+            "quantity_qtl": 50,
+            "mandi": "Pune (Pimpri)",
+            "sell_day": 1,
+            "price": 1605,
+            "first_mile": 15,
+            "truck_share": 7192,
+            "storage": 3,
+            "net_total": 68948,
+            "net_per_qtl": 1379,
+            "baseline_today": {
+              "mandi": "Junnar (Narayangaon)",
+              "net": 1479
+            },
+            "reason": "moved: mandi unavailable",
+            "origin": "via Niphad, shared truck"
+          },
+          {
+            "member": "B",
+            "crop": "onion",
+            "quantity_qtl": 80,
+            "mandi": "Lasalgaon (Niphad)",
+            "sell_day": 3,
+            "price": 1176,
+            "first_mile": 15,
+            "truck_share": 1613,
+            "storage": 3,
+            "net_total": 90183,
+            "net_per_qtl": 1127,
+            "baseline_today": {
+              "mandi": "Nasik",
+              "net": 732
+            },
+            "reason": "needs cash in 3 days",
+            "origin": "via Niphad, shared truck"
+          },
+          {
+            "member": "F",
+            "crop": "tomato",
+            "quantity_qtl": 40,
+            "mandi": "Junnar (Narayangaon)",
+            "sell_day": 0,
+            "price": 1500,
+            "first_mile": 15,
+            "truck_share": 5699,
+            "storage": 0,
+            "net_total": 53701,
+            "net_per_qtl": 1343,
+            "baseline_today": {
+              "mandi": "Junnar (Narayangaon)",
+              "net": 1438
+            },
+            "reason": "moved: mandi unavailable",
+            "origin": "via Niphad, shared truck"
+          },
+          {
+            "member": "D",
+            "crop": "tomato",
+            "quantity_qtl": 60,
+            "mandi": "Pune (Pimpri)",
+            "sell_day": 1,
+            "price": 1605,
+            "first_mile": 15,
+            "truck_share": 8630,
+            "storage": 3,
+            "net_total": 82738,
+            "net_per_qtl": 1379,
+            "baseline_today": {
+              "mandi": "Junnar (Narayangaon)",
+              "net": 1445
+            },
+            "reason": "moved: mandi unavailable",
+            "origin": "via Niphad, shared truck"
+          },
+          {
+            "member": "C",
+            "crop": "onion",
+            "quantity_qtl": 70,
+            "mandi": "Lasalgaon (Niphad)",
+            "sell_day": 3,
+            "price": 1176,
+            "first_mile": 15,
+            "truck_share": 1411,
+            "storage": 3,
+            "net_total": 78910,
+            "net_per_qtl": 1127,
+            "baseline_today": {
+              "mandi": "Lasalgaon (Niphad)",
+              "net": 1021
+            },
+            "reason": "short hold limit",
+            "origin": "via Niphad, shared truck"
+          },
+          {
+            "member": "A",
+            "crop": "onion",
+            "quantity_qtl": 100,
+            "mandi": "Lasalgaon",
+            "sell_day": 21,
+            "price": 1580,
+            "first_mile": 15,
+            "truck_share": 2086,
+            "storage": 21,
+            "net_total": 142653,
+            "net_per_qtl": 1427,
+            "baseline_today": {
+              "mandi": "Lasalgaon (Niphad)",
+              "net": 1054
+            },
+            "reason": "best net",
+            "origin": "via Niphad, shared truck"
+          }
+        ],
+        "trucks": [
+          {
+            "mandi": "Junnar (Narayangaon)",
+            "sell_day": 0,
+            "quantity_qtl": 40,
+            "trips": 1,
+            "cost": 5699
+          },
+          {
+            "mandi": "Lasalgaon",
+            "sell_day": 21,
+            "quantity_qtl": 100,
+            "trips": 1,
+            "cost": 2086
+          },
+          {
+            "mandi": "Lasalgaon (Niphad)",
+            "sell_day": 3,
+            "quantity_qtl": 150,
+            "trips": 2,
+            "cost": 3024
+          },
+          {
+            "mandi": "Pune (Pimpri)",
+            "sell_day": 1,
+            "quantity_qtl": 110,
+            "trips": 2,
+            "cost": 15822
+          }
+        ],
+        "total_net": 517133,
+        "baseline_total": 453600,
+        "gain_vs_baseline": 63533,
+        "placed_qtl": 400,
+        "unplaced_qtl": 0,
+        "unplaced": [],
+        "prices_as_of": "2025-09-21",
+        "assumptions_default": true
+      }
+    }
+  },
+  "backtest_sha256_after": "b3ca944625796f897730cc8dca14ab3d28af514e4e86893ed30be92e2d9cd10f",
+  "backtest_unchanged": true,
+  "existing_config_unchanged": true,
+  "hold_gate": {
+    "min_scored_holds": 20,
+    "min_success_rate": 0.5
+  },
+  "all_three_tests_passed": true
+}

@@ -1,0 +1,189 @@
+{
+  "collection_centre": "Niphad",
+  "assignments": [
+    {
+      "member": "A",
+      "crop": "onion",
+      "quantity_qtl": 70,
+      "mandi": "Pimpalgaon",
+      "sell_day": 0,
+      "price": 1760,
+      "first_mile": 15,
+      "truck_share": 1336,
+      "storage": 0,
+      "net_total": 120814,
+      "net_per_qtl": 1726,
+      "baseline_today": {
+        "mandi": "Lasalgaon",
+        "net": 1680
+      },
+      "reason": "needs cash in 1 day",
+      "origin": "via Niphad, shared truck"
+    },
+    {
+      "member": "B",
+      "crop": "onion",
+      "quantity_qtl": 30,
+      "mandi": "Pimpalgaon",
+      "sell_day": 0,
+      "price": 1760,
+      "first_mile": 15,
+      "truck_share": 572,
+      "storage": 0,
+      "net_total": 51778,
+      "net_per_qtl": 1726,
+      "baseline_today": {
+        "mandi": "Lasalgaon",
+        "net": 1679
+      },
+      "reason": "needs cash in 3 days",
+      "origin": "via Niphad, shared truck"
+    },
+    {
+      "member": "B",
+      "crop": "onion",
+      "quantity_qtl": 50,
+      "mandi": "Lasalgaon",
+      "sell_day": 0,
+      "price": 1700,
+      "first_mile": 15,
+      "truck_share": 750,
+      "storage": 0,
+      "net_total": 83500,
+      "net_per_qtl": 1670,
+      "baseline_today": {
+        "mandi": "Lasalgaon",
+        "net": 1679
+      },
+      "reason": "moved: mandi cap reached",
+      "origin": "via Niphad, shared truck"
+    },
+    {
+      "member": "E",
+      "crop": "tomato",
+      "quantity_qtl": 60,
+      "mandi": "Nashik",
+      "sell_day": 0,
+      "price": 890,
+      "first_mile": 15,
+      "truck_share": 2315,
+      "storage": 0,
+      "net_total": 50185,
+      "net_per_qtl": 836,
+      "baseline_today": {
+        "mandi": "Pimpalgaon",
+        "net": 853
+      },
+      "reason": "moved: mandi cap reached",
+      "origin": "via Niphad, shared truck"
+    },
+    {
+      "member": "D",
+      "crop": "onion",
+      "quantity_qtl": 50,
+      "mandi": "Lasalgaon",
+      "sell_day": 0,
+      "price": 1700,
+      "first_mile": 15,
+      "truck_share": 750,
+      "storage": 0,
+      "net_total": 83500,
+      "net_per_qtl": 1670,
+      "baseline_today": {
+        "mandi": "Lasalgaon",
+        "net": 1679
+      },
+      "reason": "moved: mandi cap reached",
+      "origin": "via Niphad, shared truck"
+    },
+    {
+      "member": "C",
+      "crop": "onion",
+      "quantity_qtl": 100,
+      "mandi": "Pimpalgaon",
+      "sell_day": 14,
+      "price": 2000,
+      "first_mile": 15,
+      "truck_share": 1908,
+      "storage": 14,
+      "net_total": 186954,
+      "net_per_qtl": 1870,
+      "baseline_today": {
+        "mandi": "Lasalgaon",
+        "net": 1680
+      },
+      "reason": "best net",
+      "origin": "via Niphad, shared truck"
+    },
+    {
+      "member": "C",
+      "crop": "onion",
+      "quantity_qtl": 75,
+      "mandi": "Lasalgaon",
+      "sell_day": 7,
+      "price": 1840,
+      "first_mile": 15,
+      "truck_share": 1500,
+      "storage": 7,
+      "net_total": 131978,
+      "net_per_qtl": 1760,
+      "baseline_today": {
+        "mandi": "Lasalgaon",
+        "net": 1680
+      },
+      "reason": "moved: mandi cap reached",
+      "origin": "via Niphad, shared truck"
+    }
+  ],
+  "trucks": [
+    {
+      "mandi": "Lasalgaon",
+      "sell_day": 0,
+      "quantity_qtl": 100,
+      "trips": 1,
+      "cost": 1500
+    },
+    {
+      "mandi": "Lasalgaon",
+      "sell_day": 7,
+      "quantity_qtl": 75,
+      "trips": 1,
+      "cost": 1500
+    },
+    {
+      "mandi": "Nashik",
+      "sell_day": 0,
+      "quantity_qtl": 60,
+      "trips": 1,
+      "cost": 2315
+    },
+    {
+      "mandi": "Pimpalgaon",
+      "sell_day": 0,
+      "quantity_qtl": 100,
+      "trips": 1,
+      "cost": 1908
+    },
+    {
+      "mandi": "Pimpalgaon",
+      "sell_day": 14,
+      "quantity_qtl": 100,
+      "trips": 1,
+      "cost": 1908
+    }
+  ],
+  "total_net": 708709,
+  "baseline_total": 681050,
+  "gain_vs_baseline": 27659,
+  "placed_qtl": 435,
+  "unplaced_qtl": 50,
+  "unplaced": [
+    {
+      "member": "D",
+      "quantity_qtl": 50,
+      "reason": "no mandi with room before its hold limit"
+    }
+  ],
+  "prices_as_of": "2026-08-31",
+  "assumptions_default": true
+}

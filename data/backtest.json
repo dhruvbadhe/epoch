@@ -1,0 +1,990 @@
+{
+  "onion": {
+    "crop": "onion",
+    "assumptions": "default",
+    "test_period": {
+      "start": "2025-08-01",
+      "end": "2025-11-04"
+    },
+    "forecast_period": {
+      "start": "2025-08-01",
+      "end": "2025-11-02"
+    },
+    "forecast_dates": 32,
+    "villages_tested": 26,
+    "cases_attempted": 832,
+    "cases_tested": 707,
+    "cases_excluded_by_reason": {
+      "no recent price at baseline mandi": 53,
+      "no recent price at chosen mandi": 72
+    },
+    "decision_counts": {
+      "sell_now": 708,
+      "hold": 124
+    },
+    "hold_record": {
+      "won": 40,
+      "lost": 84,
+      "unscored": 0
+    },
+    "gain_split": {
+      "from_mandi_choice": 69,
+      "from_holding": -11
+    },
+    "avg_gain_per_qtl": 58,
+    "median_gain_per_qtl": 15,
+    "loss_share": 0.09618104667609619,
+    "worst_loss_per_qtl": -200,
+    "hold_cases": 124,
+    "hold_success_rate": 0.3225806451612903,
+    "ladder": [
+      {
+        "policy": "nearest_today",
+        "avg_net": 1000
+      },
+      {
+        "policy": "highest_price_today",
+        "avg_net": 1015
+      },
+      {
+        "policy": "best_net_today",
+        "avg_net": 1069
+      },
+      {
+        "policy": "full_advice",
+        "avg_net": 1058
+      }
+    ],
+    "coverage": [
+      {
+        "horizon_days": 1,
+        "coverage": 0.819,
+        "n": 166
+      },
+      {
+        "horizon_days": 2,
+        "coverage": 0.811,
+        "n": 180
+      },
+      {
+        "horizon_days": 3,
+        "coverage": 0.729,
+        "n": 188
+      },
+      {
+        "horizon_days": 7,
+        "coverage": 0.682,
+        "n": 179
+      },
+      {
+        "horizon_days": 14,
+        "coverage": 0.639,
+        "n": 155
+      },
+      {
+        "horizon_days": 21,
+        "coverage": 0.582,
+        "n": 146
+      }
+    ],
+    "selfcheck": [
+      {
+        "mandi": "Lasalgaon",
+        "horizon_days": 1,
+        "ratio": 1.026,
+        "rows": 79,
+        "passed": false
+      },
+      {
+        "mandi": "Lasalgaon",
+        "horizon_days": 2,
+        "ratio": 1.006,
+        "rows": 83,
+        "passed": false
+      },
+      {
+        "mandi": "Lasalgaon",
+        "horizon_days": 3,
+        "ratio": 0.959,
+        "rows": 82,
+        "passed": false
+      },
+      {
+        "mandi": "Lasalgaon",
+        "horizon_days": 7,
+        "ratio": 0.946,
+        "rows": 78,
+        "passed": true
+      },
+      {
+        "mandi": "Lasalgaon",
+        "horizon_days": 14,
+        "ratio": 0.95,
+        "rows": 71,
+        "passed": true
+      },
+      {
+        "mandi": "Lasalgaon",
+        "horizon_days": 21,
+        "ratio": 0.931,
+        "rows": 64,
+        "passed": true
+      },
+      {
+        "mandi": "Lasalgaon (Niphad)",
+        "horizon_days": 1,
+        "ratio": 1.027,
+        "rows": 78,
+        "passed": false
+      },
+      {
+        "mandi": "Lasalgaon (Niphad)",
+        "horizon_days": 2,
+        "ratio": 0.963,
+        "rows": 85,
+        "passed": false
+      },
+      {
+        "mandi": "Lasalgaon (Niphad)",
+        "horizon_days": 3,
+        "ratio": 0.937,
+        "rows": 84,
+        "passed": true
+      },
+      {
+        "mandi": "Lasalgaon (Niphad)",
+        "horizon_days": 7,
+        "ratio": 0.908,
+        "rows": 80,
+        "passed": true
+      },
+      {
+        "mandi": "Lasalgaon (Niphad)",
+        "horizon_days": 14,
+        "ratio": 0.952,
+        "rows": 73,
+        "passed": false
+      },
+      {
+        "mandi": "Lasalgaon (Niphad)",
+        "horizon_days": 21,
+        "ratio": 0.91,
+        "rows": 66,
+        "passed": true
+      },
+      {
+        "mandi": "Lasalgaon (Vinchur)",
+        "horizon_days": 1,
+        "ratio": 1.094,
+        "rows": 83,
+        "passed": false
+      },
+      {
+        "mandi": "Lasalgaon (Vinchur)",
+        "horizon_days": 2,
+        "ratio": 1.005,
+        "rows": 87,
+        "passed": false
+      },
+      {
+        "mandi": "Lasalgaon (Vinchur)",
+        "horizon_days": 3,
+        "ratio": 0.97,
+        "rows": 86,
+        "passed": false
+      },
+      {
+        "mandi": "Lasalgaon (Vinchur)",
+        "horizon_days": 7,
+        "ratio": 0.95,
+        "rows": 82,
+        "passed": true
+      },
+      {
+        "mandi": "Lasalgaon (Vinchur)",
+        "horizon_days": 14,
+        "ratio": 0.931,
+        "rows": 75,
+        "passed": true
+      },
+      {
+        "mandi": "Lasalgaon (Vinchur)",
+        "horizon_days": 21,
+        "ratio": 0.888,
+        "rows": 68,
+        "passed": true
+      },
+      {
+        "mandi": "Nasik",
+        "horizon_days": 1,
+        "ratio": 1.044,
+        "rows": 83,
+        "passed": false
+      },
+      {
+        "mandi": "Nasik",
+        "horizon_days": 2,
+        "ratio": 1.035,
+        "rows": 89,
+        "passed": false
+      },
+      {
+        "mandi": "Nasik",
+        "horizon_days": 3,
+        "ratio": 1.002,
+        "rows": 88,
+        "passed": false
+      },
+      {
+        "mandi": "Nasik",
+        "horizon_days": 7,
+        "ratio": 0.924,
+        "rows": 84,
+        "passed": true
+      },
+      {
+        "mandi": "Nasik",
+        "horizon_days": 14,
+        "ratio": 0.94,
+        "rows": 77,
+        "passed": true
+      },
+      {
+        "mandi": "Nasik",
+        "horizon_days": 21,
+        "ratio": 0.885,
+        "rows": 70,
+        "passed": true
+      },
+      {
+        "mandi": "Pimpalgaon",
+        "horizon_days": 1,
+        "ratio": 1.048,
+        "rows": 87,
+        "passed": false
+      },
+      {
+        "mandi": "Pimpalgaon",
+        "horizon_days": 2,
+        "ratio": 1.016,
+        "rows": 89,
+        "passed": false
+      },
+      {
+        "mandi": "Pimpalgaon",
+        "horizon_days": 3,
+        "ratio": 0.985,
+        "rows": 88,
+        "passed": false
+      },
+      {
+        "mandi": "Pimpalgaon",
+        "horizon_days": 7,
+        "ratio": 0.899,
+        "rows": 84,
+        "passed": true
+      },
+      {
+        "mandi": "Pimpalgaon",
+        "horizon_days": 14,
+        "ratio": 0.927,
+        "rows": 77,
+        "passed": true
+      },
+      {
+        "mandi": "Pimpalgaon",
+        "horizon_days": 21,
+        "ratio": 0.953,
+        "rows": 70,
+        "passed": false
+      },
+      {
+        "mandi": "Pune",
+        "horizon_days": 1,
+        "ratio": 0.958,
+        "rows": 87,
+        "passed": false
+      },
+      {
+        "mandi": "Pune",
+        "horizon_days": 2,
+        "ratio": 0.96,
+        "rows": 89,
+        "passed": false
+      },
+      {
+        "mandi": "Pune",
+        "horizon_days": 3,
+        "ratio": 0.954,
+        "rows": 88,
+        "passed": false
+      },
+      {
+        "mandi": "Pune",
+        "horizon_days": 7,
+        "ratio": 0.938,
+        "rows": 84,
+        "passed": true
+      },
+      {
+        "mandi": "Pune",
+        "horizon_days": 14,
+        "ratio": 0.953,
+        "rows": 77,
+        "passed": false
+      },
+      {
+        "mandi": "Pune",
+        "horizon_days": 21,
+        "ratio": 0.951,
+        "rows": 70,
+        "passed": false
+      },
+      {
+        "mandi": "Solapur",
+        "horizon_days": 1,
+        "ratio": 1.025,
+        "rows": 83,
+        "passed": false
+      },
+      {
+        "mandi": "Solapur",
+        "horizon_days": 2,
+        "ratio": 0.948,
+        "rows": 88,
+        "passed": true
+      },
+      {
+        "mandi": "Solapur",
+        "horizon_days": 3,
+        "ratio": 0.905,
+        "rows": 87,
+        "passed": true
+      },
+      {
+        "mandi": "Solapur",
+        "horizon_days": 7,
+        "ratio": 0.895,
+        "rows": 83,
+        "passed": true
+      },
+      {
+        "mandi": "Solapur",
+        "horizon_days": 14,
+        "ratio": 0.907,
+        "rows": 76,
+        "passed": true
+      },
+      {
+        "mandi": "Solapur",
+        "horizon_days": 21,
+        "ratio": 0.853,
+        "rows": 69,
+        "passed": true
+      }
+    ]
+  },
+  "tomato": {
+    "crop": "tomato",
+    "assumptions": "default",
+    "test_period": {
+      "start": "2025-08-01",
+      "end": "2025-11-04"
+    },
+    "forecast_period": {
+      "start": "2025-08-01",
+      "end": "2025-11-02"
+    },
+    "forecast_dates": 32,
+    "villages_tested": 26,
+    "cases_attempted": 832,
+    "cases_tested": 739,
+    "cases_excluded_by_reason": {
+      "no recent price at baseline mandi": 30,
+      "no recent price at chosen mandi": 63
+    },
+    "decision_counts": {
+      "sell_now": 832,
+      "hold": 0
+    },
+    "hold_record": {
+      "won": 0,
+      "lost": 0,
+      "unscored": 0
+    },
+    "gain_split": {
+      "from_mandi_choice": 224,
+      "from_holding": 0
+    },
+    "avg_gain_per_qtl": 224,
+    "median_gain_per_qtl": 52,
+    "loss_share": 0.0,
+    "worst_loss_per_qtl": 0,
+    "hold_cases": 0,
+    "hold_success_rate": null,
+    "ladder": [
+      {
+        "policy": "nearest_today",
+        "avg_net": 1574
+      },
+      {
+        "policy": "highest_price_today",
+        "avg_net": 1763
+      },
+      {
+        "policy": "best_net_today",
+        "avg_net": 1798
+      },
+      {
+        "policy": "full_advice",
+        "avg_net": 1798
+      }
+    ],
+    "coverage": [
+      {
+        "horizon_days": 1,
+        "coverage": 0.745,
+        "n": 137
+      },
+      {
+        "horizon_days": 2,
+        "coverage": 0.79,
+        "n": 143
+      },
+      {
+        "horizon_days": 3,
+        "coverage": 0.734,
+        "n": 139
+      },
+      {
+        "horizon_days": 7,
+        "coverage": 0.813,
+        "n": 134
+      },
+      {
+        "horizon_days": 14,
+        "coverage": 0.813,
+        "n": 123
+      },
+      {
+        "horizon_days": 21,
+        "coverage": 0.798,
+        "n": 109
+      }
+    ],
+    "selfcheck": [
+      {
+        "mandi": "Junnar (Narayangaon)",
+        "horizon_days": 1,
+        "ratio": 1.084,
+        "rows": 85,
+        "passed": false
+      },
+      {
+        "mandi": "Junnar (Narayangaon)",
+        "horizon_days": 2,
+        "ratio": 0.988,
+        "rows": 89,
+        "passed": false
+      },
+      {
+        "mandi": "Junnar (Narayangaon)",
+        "horizon_days": 3,
+        "ratio": 0.905,
+        "rows": 88,
+        "passed": true
+      },
+      {
+        "mandi": "Junnar (Narayangaon)",
+        "horizon_days": 7,
+        "ratio": 0.94,
+        "rows": 84,
+        "passed": true
+      },
+      {
+        "mandi": "Junnar (Narayangaon)",
+        "horizon_days": 14,
+        "ratio": 0.767,
+        "rows": 77,
+        "passed": true
+      },
+      {
+        "mandi": "Junnar (Narayangaon)",
+        "horizon_days": 21,
+        "ratio": 0.712,
+        "rows": 70,
+        "passed": true
+      },
+      {
+        "mandi": "Nasik",
+        "horizon_days": 1,
+        "ratio": 1.056,
+        "rows": 90,
+        "passed": false
+      },
+      {
+        "mandi": "Nasik",
+        "horizon_days": 2,
+        "ratio": 1.016,
+        "rows": 89,
+        "passed": false
+      },
+      {
+        "mandi": "Nasik",
+        "horizon_days": 3,
+        "ratio": 0.99,
+        "rows": 88,
+        "passed": false
+      },
+      {
+        "mandi": "Nasik",
+        "horizon_days": 7,
+        "ratio": 0.968,
+        "rows": 84,
+        "passed": false
+      },
+      {
+        "mandi": "Nasik",
+        "horizon_days": 14,
+        "ratio": 0.892,
+        "rows": 77,
+        "passed": true
+      },
+      {
+        "mandi": "Nasik",
+        "horizon_days": 21,
+        "ratio": 0.848,
+        "rows": 70,
+        "passed": true
+      },
+      {
+        "mandi": "Pimpalgaon",
+        "horizon_days": 1,
+        "ratio": 1.152,
+        "rows": 89,
+        "passed": false
+      },
+      {
+        "mandi": "Pimpalgaon",
+        "horizon_days": 2,
+        "ratio": 1.03,
+        "rows": 89,
+        "passed": false
+      },
+      {
+        "mandi": "Pimpalgaon",
+        "horizon_days": 3,
+        "ratio": 0.984,
+        "rows": 88,
+        "passed": false
+      },
+      {
+        "mandi": "Pimpalgaon",
+        "horizon_days": 7,
+        "ratio": 0.862,
+        "rows": 84,
+        "passed": true
+      },
+      {
+        "mandi": "Pimpalgaon",
+        "horizon_days": 14,
+        "ratio": 0.672,
+        "rows": 77,
+        "passed": true
+      },
+      {
+        "mandi": "Pimpalgaon",
+        "horizon_days": 21,
+        "ratio": 0.636,
+        "rows": 70,
+        "passed": true
+      },
+      {
+        "mandi": "Pune",
+        "horizon_days": 1,
+        "ratio": 1.109,
+        "rows": 88,
+        "passed": false
+      },
+      {
+        "mandi": "Pune",
+        "horizon_days": 2,
+        "ratio": 1.029,
+        "rows": 89,
+        "passed": false
+      },
+      {
+        "mandi": "Pune",
+        "horizon_days": 3,
+        "ratio": 0.976,
+        "rows": 88,
+        "passed": false
+      },
+      {
+        "mandi": "Pune",
+        "horizon_days": 7,
+        "ratio": 0.972,
+        "rows": 84,
+        "passed": false
+      },
+      {
+        "mandi": "Pune",
+        "horizon_days": 14,
+        "ratio": 0.858,
+        "rows": 77,
+        "passed": true
+      },
+      {
+        "mandi": "Pune",
+        "horizon_days": 21,
+        "ratio": 0.837,
+        "rows": 70,
+        "passed": true
+      },
+      {
+        "mandi": "Pune (Pimpri)",
+        "horizon_days": 1,
+        "ratio": 0.903,
+        "rows": 90,
+        "passed": true
+      },
+      {
+        "mandi": "Pune (Pimpri)",
+        "horizon_days": 2,
+        "ratio": 0.901,
+        "rows": 89,
+        "passed": true
+      },
+      {
+        "mandi": "Pune (Pimpri)",
+        "horizon_days": 3,
+        "ratio": 0.897,
+        "rows": 88,
+        "passed": true
+      },
+      {
+        "mandi": "Pune (Pimpri)",
+        "horizon_days": 7,
+        "ratio": 0.986,
+        "rows": 84,
+        "passed": false
+      },
+      {
+        "mandi": "Pune (Pimpri)",
+        "horizon_days": 14,
+        "ratio": 0.89,
+        "rows": 77,
+        "passed": true
+      },
+      {
+        "mandi": "Pune (Pimpri)",
+        "horizon_days": 21,
+        "ratio": 0.874,
+        "rows": 70,
+        "passed": true
+      }
+    ]
+  },
+  "soybean": {
+    "crop": "soybean",
+    "assumptions": "default",
+    "test_period": {
+      "start": "2025-08-01",
+      "end": "2025-11-04"
+    },
+    "forecast_period": {
+      "start": "2025-08-01",
+      "end": "2025-11-02"
+    },
+    "forecast_dates": 32,
+    "villages_tested": 26,
+    "cases_attempted": 832,
+    "cases_tested": 649,
+    "cases_excluded_by_reason": {
+      "missing real price": 13,
+      "no recent price at baseline mandi": 20,
+      "no recent price at chosen mandi": 150
+    },
+    "decision_counts": {
+      "sell_now": 811,
+      "hold": 21
+    },
+    "hold_record": {
+      "won": 7,
+      "lost": 1,
+      "unscored": 13
+    },
+    "gain_split": {
+      "from_mandi_choice": 36,
+      "from_holding": 1
+    },
+    "avg_gain_per_qtl": 37,
+    "median_gain_per_qtl": 0,
+    "loss_share": 0.0015408320493066256,
+    "worst_loss_per_qtl": -3,
+    "hold_cases": 8,
+    "hold_success_rate": 0.875,
+    "ladder": [
+      {
+        "policy": "nearest_today",
+        "avg_net": 3789
+      },
+      {
+        "policy": "highest_price_today",
+        "avg_net": 3750
+      },
+      {
+        "policy": "best_net_today",
+        "avg_net": 3825
+      },
+      {
+        "policy": "full_advice",
+        "avg_net": 3826
+      }
+    ],
+    "coverage": [
+      {
+        "horizon_days": 1,
+        "coverage": 0.687,
+        "n": 99
+      },
+      {
+        "horizon_days": 2,
+        "coverage": 0.767,
+        "n": 120
+      },
+      {
+        "horizon_days": 3,
+        "coverage": 0.732,
+        "n": 123
+      },
+      {
+        "horizon_days": 7,
+        "coverage": 0.796,
+        "n": 113
+      },
+      {
+        "horizon_days": 14,
+        "coverage": 0.792,
+        "n": 101
+      },
+      {
+        "horizon_days": 21,
+        "coverage": 0.758,
+        "n": 95
+      }
+    ],
+    "selfcheck": [
+      {
+        "mandi": "Akola",
+        "horizon_days": 1,
+        "ratio": 0.888,
+        "rows": 83,
+        "passed": true
+      },
+      {
+        "mandi": "Akola",
+        "horizon_days": 2,
+        "ratio": 1.059,
+        "rows": 88,
+        "passed": false
+      },
+      {
+        "mandi": "Akola",
+        "horizon_days": 3,
+        "ratio": 1.05,
+        "rows": 87,
+        "passed": false
+      },
+      {
+        "mandi": "Akola",
+        "horizon_days": 7,
+        "ratio": 1.12,
+        "rows": 83,
+        "passed": false
+      },
+      {
+        "mandi": "Akola",
+        "horizon_days": 14,
+        "ratio": 1.124,
+        "rows": 76,
+        "passed": false
+      },
+      {
+        "mandi": "Akola",
+        "horizon_days": 21,
+        "ratio": 1.08,
+        "rows": 69,
+        "passed": false
+      },
+      {
+        "mandi": "Amarawati",
+        "horizon_days": 1,
+        "ratio": 1.074,
+        "rows": 84,
+        "passed": false
+      },
+      {
+        "mandi": "Amarawati",
+        "horizon_days": 2,
+        "ratio": 1.157,
+        "rows": 88,
+        "passed": false
+      },
+      {
+        "mandi": "Amarawati",
+        "horizon_days": 3,
+        "ratio": 1.126,
+        "rows": 87,
+        "passed": false
+      },
+      {
+        "mandi": "Amarawati",
+        "horizon_days": 7,
+        "ratio": 1.193,
+        "rows": 83,
+        "passed": false
+      },
+      {
+        "mandi": "Amarawati",
+        "horizon_days": 14,
+        "ratio": 1.128,
+        "rows": 76,
+        "passed": false
+      },
+      {
+        "mandi": "Amarawati",
+        "horizon_days": 21,
+        "ratio": 1.037,
+        "rows": 69,
+        "passed": false
+      },
+      {
+        "mandi": "Latur",
+        "horizon_days": 1,
+        "ratio": 1.181,
+        "rows": 60,
+        "passed": false
+      },
+      {
+        "mandi": "Latur",
+        "horizon_days": 2,
+        "ratio": 1.178,
+        "rows": 71,
+        "passed": false
+      },
+      {
+        "mandi": "Latur",
+        "horizon_days": 3,
+        "ratio": 1.173,
+        "rows": 70,
+        "passed": false
+      },
+      {
+        "mandi": "Latur",
+        "horizon_days": 7,
+        "ratio": 1.141,
+        "rows": 66,
+        "passed": false
+      },
+      {
+        "mandi": "Latur",
+        "horizon_days": 14,
+        "ratio": 1.06,
+        "rows": 59,
+        "passed": false
+      },
+      {
+        "mandi": "Latur",
+        "horizon_days": 21,
+        "ratio": 1.086,
+        "rows": 52,
+        "passed": false
+      },
+      {
+        "mandi": "Nagpur",
+        "horizon_days": 1,
+        "ratio": 1.076,
+        "rows": 72,
+        "passed": false
+      },
+      {
+        "mandi": "Nagpur",
+        "horizon_days": 2,
+        "ratio": 1.053,
+        "rows": 82,
+        "passed": false
+      },
+      {
+        "mandi": "Nagpur",
+        "horizon_days": 3,
+        "ratio": 1.08,
+        "rows": 81,
+        "passed": false
+      },
+      {
+        "mandi": "Nagpur",
+        "horizon_days": 7,
+        "ratio": 1.096,
+        "rows": 77,
+        "passed": false
+      },
+      {
+        "mandi": "Nagpur",
+        "horizon_days": 14,
+        "ratio": 1.11,
+        "rows": 70,
+        "passed": false
+      },
+      {
+        "mandi": "Nagpur",
+        "horizon_days": 21,
+        "ratio": 0.987,
+        "rows": 65,
+        "passed": false
+      },
+      {
+        "mandi": "Washim",
+        "horizon_days": 1,
+        "ratio": 1.083,
+        "rows": 63,
+        "passed": false
+      },
+      {
+        "mandi": "Washim",
+        "horizon_days": 2,
+        "ratio": 1.059,
+        "rows": 75,
+        "passed": false
+      },
+      {
+        "mandi": "Washim",
+        "horizon_days": 3,
+        "ratio": 1.024,
+        "rows": 74,
+        "passed": false
+      },
+      {
+        "mandi": "Washim",
+        "horizon_days": 7,
+        "ratio": 1.123,
+        "rows": 70,
+        "passed": false
+      },
+      {
+        "mandi": "Washim",
+        "horizon_days": 14,
+        "ratio": 1.064,
+        "rows": 63,
+        "passed": false
+      },
+      {
+        "mandi": "Washim",
+        "horizon_days": 21,
+        "ratio": 0.95,
+        "rows": 58,
+        "passed": true
+      }
+    ]
+  }
+}

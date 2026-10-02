@@ -1,0 +1,12 @@
+crop,mandi,as_of_date,horizon_days,price_low,price_mid,price_high,uses_baseline,last_price_date,falling
+onion,Lasalgaon,2026-08-31,0,1700,1700,1700,false,2026-08-31,false
+onion,Pimpalgaon,2026-08-31,0,1760,1760,1760,false,2026-08-31,false
+onion,Lasalgaon,2026-08-31,7,1740,1840,1940,false,2026-08-31,false
+onion,Pimpalgaon,2026-08-31,14,1800,2000,2200,false,2026-08-31,false
+tomato,Pimpalgaon,2026-08-31,0,900,900,900,false,2026-08-31,false
+tomato,Nashik,2026-08-31,0,890,890,890,false,2026-08-31,true
+tomato,Pimpalgaon,2026-08-31,1,850,900,950,true,2026-08-31,false
+tomato,Nashik,2026-08-31,1,840,890,940,true,2026-08-31,true
+soybean,Lasalgaon,2026-08-31,0,3700,3700,3700,false,2026-08-31,false
+soybean,Pimpalgaon,2026-08-31,0,3760,3760,3760,false,2026-08-31,false
+soybean,Pimpalgaon,2026-08-31,21,3900,4100,4300,false,2026-08-31,false

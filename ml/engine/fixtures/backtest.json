@@ -1,0 +1,357 @@
+{
+  "onion": {
+    "crop": "onion",
+    "assumptions": "default",
+    "test_period": {
+      "start": "2026-07-01",
+      "end": "2026-07-19"
+    },
+    "forecast_period": {
+      "start": "2026-07-01",
+      "end": "2026-07-19"
+    },
+    "forecast_dates": 7,
+    "villages_tested": 2,
+    "cases_attempted": 14,
+    "cases_tested": 10,
+    "cases_excluded_by_reason": {
+      "missing real price": 2,
+      "no recent price at baseline mandi": 2
+    },
+    "decision_counts": {
+      "sell_now": 4,
+      "hold": 10
+    },
+    "hold_record": {
+      "won": 4,
+      "lost": 4,
+      "unscored": 2
+    },
+    "gain_split": {
+      "from_mandi_choice": 28,
+      "from_holding": -22
+    },
+    "avg_gain_per_qtl": 6,
+    "median_gain_per_qtl": 20,
+    "loss_share": 0.2,
+    "worst_loss_per_qtl": -92,
+    "hold_cases": 8,
+    "hold_success_rate": 0.5,
+    "ladder": [
+      {
+        "policy": "nearest_today",
+        "avg_net": 1706
+      },
+      {
+        "policy": "highest_price_today",
+        "avg_net": 1734
+      },
+      {
+        "policy": "best_net_today",
+        "avg_net": 1734
+      },
+      {
+        "policy": "full_advice",
+        "avg_net": 1711
+      }
+    ],
+    "coverage": [
+      {
+        "horizon_days": 1,
+        "coverage": 0.5,
+        "n": 4
+      },
+      {
+        "horizon_days": 14,
+        "coverage": 0.8,
+        "n": 10
+      }
+    ],
+    "selfcheck": [
+      {
+        "mandi": "Lasalgaon",
+        "horizon_days": 1,
+        "ratio": 1.2,
+        "rows": 20,
+        "passed": false
+      },
+      {
+        "mandi": "Lasalgaon",
+        "horizon_days": 2,
+        "ratio": 1.2,
+        "rows": 20,
+        "passed": false
+      },
+      {
+        "mandi": "Lasalgaon",
+        "horizon_days": 3,
+        "ratio": 1.2,
+        "rows": 20,
+        "passed": false
+      },
+      {
+        "mandi": "Lasalgaon",
+        "horizon_days": 7,
+        "ratio": 1.2,
+        "rows": 20,
+        "passed": false
+      },
+      {
+        "mandi": "Lasalgaon",
+        "horizon_days": 14,
+        "ratio": 1.2,
+        "rows": 20,
+        "passed": false
+      },
+      {
+        "mandi": "Lasalgaon",
+        "horizon_days": 21,
+        "ratio": 1.2,
+        "rows": 20,
+        "passed": false
+      },
+      {
+        "mandi": "Pimpalgaon",
+        "horizon_days": 1,
+        "ratio": 0.8,
+        "rows": 20,
+        "passed": true
+      },
+      {
+        "mandi": "Pimpalgaon",
+        "horizon_days": 2,
+        "ratio": 1.2,
+        "rows": 20,
+        "passed": false
+      },
+      {
+        "mandi": "Pimpalgaon",
+        "horizon_days": 3,
+        "ratio": 1.2,
+        "rows": 20,
+        "passed": false
+      },
+      {
+        "mandi": "Pimpalgaon",
+        "horizon_days": 7,
+        "ratio": 1.2,
+        "rows": 20,
+        "passed": false
+      },
+      {
+        "mandi": "Pimpalgaon",
+        "horizon_days": 14,
+        "ratio": 0.8,
+        "rows": 20,
+        "passed": true
+      },
+      {
+        "mandi": "Pimpalgaon",
+        "horizon_days": 21,
+        "ratio": 1.2,
+        "rows": 20,
+        "passed": false
+      }
+    ]
+  },
+  "tomato": {
+    "crop": "tomato",
+    "assumptions": "default",
+    "test_period": {
+      "start": "2026-07-01",
+      "end": "2026-07-19"
+    },
+    "forecast_period": {
+      "start": "2026-07-01",
+      "end": "2026-07-19"
+    },
+    "forecast_dates": 7,
+    "villages_tested": 2,
+    "cases_attempted": 14,
+    "cases_tested": 14,
+    "cases_excluded_by_reason": {},
+    "decision_counts": {
+      "sell_now": 14,
+      "hold": 0
+    },
+    "hold_record": {
+      "won": 0,
+      "lost": 0,
+      "unscored": 0
+    },
+    "gain_split": {
+      "from_mandi_choice": 0,
+      "from_holding": 0
+    },
+    "avg_gain_per_qtl": 0,
+    "median_gain_per_qtl": 0,
+    "loss_share": 0.0,
+    "worst_loss_per_qtl": 0,
+    "hold_cases": 0,
+    "hold_success_rate": null,
+    "ladder": [
+      {
+        "policy": "nearest_today",
+        "avg_net": 897
+      },
+      {
+        "policy": "highest_price_today",
+        "avg_net": 892
+      },
+      {
+        "policy": "best_net_today",
+        "avg_net": 897
+      },
+      {
+        "policy": "full_advice",
+        "avg_net": 897
+      }
+    ],
+    "coverage": [
+      {
+        "horizon_days": 1,
+        "coverage": null,
+        "n": 0
+      }
+    ],
+    "selfcheck": [
+      {
+        "mandi": "Lasalgaon",
+        "horizon_days": 1,
+        "ratio": 1.2,
+        "rows": 20,
+        "passed": false
+      },
+      {
+        "mandi": "Lasalgaon",
+        "horizon_days": 2,
+        "ratio": 1.2,
+        "rows": 20,
+        "passed": false
+      },
+      {
+        "mandi": "Lasalgaon",
+        "horizon_days": 3,
+        "ratio": 1.2,
+        "rows": 20,
+        "passed": false
+      },
+      {
+        "mandi": "Lasalgaon",
+        "horizon_days": 7,
+        "ratio": 1.2,
+        "rows": 20,
+        "passed": false
+      },
+      {
+        "mandi": "Lasalgaon",
+        "horizon_days": 14,
+        "ratio": 1.2,
+        "rows": 20,
+        "passed": false
+      },
+      {
+        "mandi": "Lasalgaon",
+        "horizon_days": 21,
+        "ratio": 1.2,
+        "rows": 20,
+        "passed": false
+      },
+      {
+        "mandi": "Pimpalgaon",
+        "horizon_days": 1,
+        "ratio": 1.2,
+        "rows": 20,
+        "passed": false
+      },
+      {
+        "mandi": "Pimpalgaon",
+        "horizon_days": 2,
+        "ratio": 1.2,
+        "rows": 20,
+        "passed": false
+      },
+      {
+        "mandi": "Pimpalgaon",
+        "horizon_days": 3,
+        "ratio": 1.2,
+        "rows": 20,
+        "passed": false
+      },
+      {
+        "mandi": "Pimpalgaon",
+        "horizon_days": 7,
+        "ratio": 1.2,
+        "rows": 20,
+        "passed": false
+      },
+      {
+        "mandi": "Pimpalgaon",
+        "horizon_days": 14,
+        "ratio": 1.2,
+        "rows": 20,
+        "passed": false
+      },
+      {
+        "mandi": "Pimpalgaon",
+        "horizon_days": 21,
+        "ratio": 1.2,
+        "rows": 20,
+        "passed": false
+      }
+    ]
+  },
+  "soybean": {
+    "crop": "soybean",
+    "assumptions": "default",
+    "test_period": {
+      "start": "2026-07-01",
+      "end": "2026-07-19"
+    },
+    "forecast_period": null,
+    "forecast_dates": 0,
+    "villages_tested": 0,
+    "cases_attempted": 0,
+    "cases_tested": 0,
+    "cases_excluded_by_reason": {},
+    "decision_counts": {
+      "sell_now": 0,
+      "hold": 0
+    },
+    "hold_record": {
+      "won": 0,
+      "lost": 0,
+      "unscored": 0
+    },
+    "gain_split": {
+      "from_mandi_choice": null,
+      "from_holding": null
+    },
+    "avg_gain_per_qtl": null,
+    "median_gain_per_qtl": null,
+    "loss_share": null,
+    "worst_loss_per_qtl": null,
+    "hold_cases": 0,
+    "hold_success_rate": null,
+    "ladder": [
+      {
+        "policy": "nearest_today",
+        "avg_net": null
+      },
+      {
+        "policy": "highest_price_today",
+        "avg_net": null
+      },
+      {
+        "policy": "best_net_today",
+        "avg_net": null
+      },
+      {
+        "policy": "full_advice",
+        "avg_net": null
+      }
+    ],
+    "coverage": [],
+    "selfcheck": []
+  }
+}

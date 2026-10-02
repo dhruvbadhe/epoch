@@ -1,0 +1,49 @@
+{
+  "as_of_date": "2025-09-21",
+  "collection_centre": "Niphad",
+  "lots": [
+    {
+      "member": "A",
+      "crop": "onion",
+      "quantity_qtl": 100,
+      "village": "Niphad"
+    },
+    {
+      "member": "B",
+      "crop": "onion",
+      "quantity_qtl": 80,
+      "village": "Sinnar",
+      "cash_needed_in_days": 3
+    },
+    {
+      "member": "C",
+      "crop": "onion",
+      "quantity_qtl": 70,
+      "village": "Chandori",
+      "lot_condition": false
+    },
+    {
+      "member": "D",
+      "crop": "tomato",
+      "quantity_qtl": 60,
+      "village": "Dindori",
+      "lot_condition": 1
+    },
+    {
+      "member": "E",
+      "crop": "tomato",
+      "quantity_qtl": 50,
+      "village": "Yeola",
+      "lot_condition": 0,
+      "cash_needed_in_days": 1
+    },
+    {
+      "member": "F",
+      "crop": "tomato",
+      "quantity_qtl": 40,
+      "village": "Lasalgaon",
+      "lot_condition": 2
+    }
+  ],
+  "blocked_mandi": "Pimpalgaon"
+}

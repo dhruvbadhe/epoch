@@ -1,0 +1,13 @@
+{
+  "lots": [
+    {"member": "C", "crop": "onion", "quantity_qtl": 175, "village": "Niphad"},
+    {"member": "D", "crop": "onion", "quantity_qtl": 100, "village": "Chandori", "lot_condition": false},
+    {"member": "B", "crop": "onion", "quantity_qtl": 80, "village": "Chandori", "cash_needed_in_days": 3},
+    {"member": "A", "crop": "onion", "quantity_qtl": 70, "village": "Niphad", "cash_needed_in_days": 1},
+    {"member": "E", "crop": "tomato", "quantity_qtl": 60, "village": "Niphad"}
+  ],
+  "blocked_mandis": [],
+  "mandi_cap_qtl_per_day": 100,
+  "collection_centre": {"name": "Niphad", "lat": 20, "lon": 74},
+  "overrides": null
+}
