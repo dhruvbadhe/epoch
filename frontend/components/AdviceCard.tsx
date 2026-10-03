@@ -9,8 +9,6 @@ import {
   ShieldCheck,
 } from "lucide-react";
 import type { Advice, Lang } from "@/lib/types";
-import { getWeather } from "@/lib/api";
-import { useResource } from "@/lib/useResource";
 import { percentage, rupees, signedRupees } from "@/lib/format";
 const labels = {
   en: {
@@ -95,12 +93,6 @@ export function AdviceCard({
   village?: string;
 }) {
   const t = labels[lang];
-  // Weather is fetched separately and shown only as context; it never changes a number or delays the advice.
-  const weather = useResource(
-    `weather:${village ?? ""}`,
-    () => getWeather(village!),
-    Boolean(village),
-  ).result?.data;
   const hold = advice.action === "hold";
   const confidence =
     lang === "en"
@@ -198,13 +190,6 @@ export function AdviceCard({
               <p className="tiny">
                 {t.reading}: {advice.freshness.references.join(" · ")}
               </p>
-              {village && (
-                <p className="tiny">
-                  {weather?.available
-                    ? `${village}: ${weather.temperature_c}°C, ${weather.relative_humidity_pct}% humidity (${weather.label}). ${weather.attribution}`
-                    : "weather unavailable"}
-                </p>
-              )}
             </details>
           </>
         )}

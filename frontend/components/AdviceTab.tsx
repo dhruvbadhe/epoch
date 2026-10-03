@@ -19,6 +19,7 @@ import type {
   Village,
 } from "@/lib/types";
 import { AdviceCard } from "./AdviceCard";
+import { WeatherPanel } from "./WeatherPanel";
 import { WhyBreakdown } from "./WhyBreakdown";
 import { ForecastChart } from "./ForecastChart";
 import { MandiTable } from "./MandiTable";
@@ -235,6 +236,13 @@ export function AdviceTab({
               />
               <WhyBreakdown advice={result.data} />
             </ScrollReveal>
+            <WeatherPanel
+              village={request.village}
+              crop={input.crop}
+              condition={input.lot_condition}
+              lang={lang}
+              pricesAsOf={result.data.prices_as_of}
+            />
             <ScrollReveal className="outlook-grid">
               {active && (
                 <ForecastChart crop={input.crop} mandi={result.data.mandi} />

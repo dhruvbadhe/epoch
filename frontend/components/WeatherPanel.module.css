@@ -1,0 +1,155 @@
+.panel {
+  margin: 0;
+}
+.panel h2 {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.location {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  max-width: 45%;
+  overflow-wrap: anywhere;
+}
+.content {
+  display: grid;
+  grid-template-columns: minmax(0, 0.9fr) minmax(0, 1.1fr);
+  gap: 24px;
+}
+.conditions {
+  min-width: 0;
+}
+.readings {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+}
+.readings > div {
+  border: 1px solid var(--border);
+  border-radius: 9px;
+  background: var(--canvas);
+  padding: 15px;
+}
+.readings span {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  color: var(--muted);
+  font-size: 11px;
+}
+.readings strong {
+  display: block;
+  margin-top: 8px;
+  color: var(--green-dark);
+  font-size: 28px;
+  font-weight: 600;
+}
+.timestamp {
+  color: var(--muted);
+  font-size: 10px;
+  margin: 12px 0 7px;
+}
+.guidance {
+  padding: 17px 19px;
+  background: var(--green-light);
+  border: 1px solid var(--border);
+  border-radius: 9px;
+}
+.guidance > span {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+.guidance p {
+  font-size: 12px;
+  line-height: 1.65;
+  color: var(--ink);
+}
+.guidance .answer {
+  font-weight: 600;
+  margin: 10px 0 7px;
+}
+.unavailable {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 10px;
+  padding: 13px 0;
+  color: var(--muted);
+}
+.unavailable strong {
+  font-size: 13px;
+}
+.unavailable p {
+  width: 100%;
+  font-size: 12px;
+  line-height: 1.65;
+}
+.footer {
+  border-top: 1px solid var(--border);
+  margin-top: 19px;
+  padding-top: 13px;
+  color: var(--muted);
+  font-size: 10px;
+  line-height: 1.7;
+}
+.footer p + p {
+  margin-top: 4px;
+}
+.footer details {
+  margin-top: 9px;
+}
+.footer summary {
+  cursor: pointer;
+  color: var(--green);
+  width: fit-content;
+}
+.footer details p {
+  margin-top: 7px;
+}
+.sources {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 14px;
+  margin-top: 6px;
+}
+.sources a,
+.attribution {
+  color: var(--green);
+  text-decoration: underline;
+  text-underline-offset: 2px;
+}
+.attribution {
+  display: inline-block;
+  margin-top: 9px;
+}
+.spinner {
+  animation: spin 1s linear infinite;
+}
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+@media (max-width: 700px) {
+  .content {
+    grid-template-columns: 1fr;
+    gap: 15px;
+  }
+  .readings > div {
+    padding: 13px;
+  }
+  .readings span {
+    font-size: 10px;
+  }
+  .guidance {
+    padding: 14px;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .spinner {
+    animation: none;
+  }
+}
