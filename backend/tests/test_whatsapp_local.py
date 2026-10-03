@@ -101,7 +101,7 @@ try:
 
     r = text("919800000005", "wamid.5", "10 qtl mango, Niphad")
     case("5. unsupported crop -> says which crops are covered",
-         len(r) == 1 and "सोयाबीन" in r[0] and wa.MSG_ERROR not in r[0], r)
+         len(r) == 1 and "soybean" in r[0] and wa.MSG_ERROR not in r[0], r)  # Latin text: English reply
 
     r = text("919800000006", "wamid.6", "zzqx blorp 42 !!")
     case("6. nonsense -> help or a question, not an error", len(r) == 1 and wa.MSG_ERROR not in r[0], r)

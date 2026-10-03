@@ -376,6 +376,109 @@ def error(lang: str) -> str:
     return _T[_lang(lang)]["error"]
 
 
+# ---------- the guided flow (greeting or an unparsed message) ---------------
+
+LANG_MENU = ("भाषा निवडा / भाषा चुनें / Choose language:\n1) मराठी\n2) हिंदी\n3) English\n"
+             "(0 = पुन्हा सुरू / फिर से / restart)")
+_G = {
+    "mr": {
+        "crop_q": "कोणते पीक?",
+        "qty_q": "किती माल आहे? उदा. 20 क्विंटल, 500 किलो किंवा 40 पोती",
+        "qty_bad": "माल शून्यापेक्षा जास्त हवा.",
+        "unit_bad": "हे माप या पिकासाठी चालत नाही. क्विंटल, किलो किंवा पोती वापरा.",
+        "unit_q": "{value} किलो की क्विंटल?\n1) किलो\n2) क्विंटल",
+        "village_q": "गाव कोणते? क्रमांक पाठवा किंवा गावाचे नाव टाइप करा:",
+        "village_other": "दुसरे गाव (नाव टाइप करा)",
+        "village_type": "गावाचे नाव टाइप करा:",
+        "village_unknown": "हे गाव आमच्या यादीत नाही. यादीतील सर्वात जवळचे गाव निवडा:",
+        "summary": "तपासा:\nपीक: {crop}\nमाल: {qty}\nगाव: {village}{fresh}{cash}\n1) बरोबर, सल्ला द्या\n2) बदला",
+        "fresh": "ताजेपणा", "cash": "पैसे",
+        "used_same": "ℹ️ ताजेपणा आणि पैशाची उत्तरे विचारात घेतली; त्यांनी सल्ला बदलला नाही.",
+        "used_changed": "ℹ️ ताजेपणा आणि पैशाच्या उत्तरांमुळे सल्ला बदलला (थांबण्याची मर्यादा {limit} दिवस{cash}).",
+        "used_cash": ", पैसे {days} दिवसांत",
+    },
+    "hi": {
+        "crop_q": "कौन सी फसल?",
+        "qty_q": "कितना माल है? जैसे: 20 क्विंटल, 500 किलो या 40 बोरी",
+        "qty_bad": "माल शून्य से ज़्यादा होना चाहिए.",
+        "unit_bad": "यह माप इस फसल के लिए नहीं चलता. क्विंटल, किलो या बोरी लिखें.",
+        "unit_q": "{value} किलो या क्विंटल?\n1) किलो\n2) क्विंटल",
+        "village_q": "गाँव कौन सा? नंबर भेजें या गाँव का नाम लिखें:",
+        "village_other": "दूसरा गाँव (नाम लिखें)",
+        "village_type": "गाँव का नाम लिखें:",
+        "village_unknown": "यह गाँव हमारी सूची में नहीं है. सूची में से सबसे पास का गाँव चुनें:",
+        "summary": "जाँचें:\nफसल: {crop}\nमाल: {qty}\nगाँव: {village}{fresh}{cash}\n1) सही है, सलाह दें\n2) बदलें",
+        "fresh": "ताज़गी", "cash": "पैसे",
+        "used_same": "ℹ️ ताज़गी और पैसे के जवाब देखे गए; उनसे सलाह नहीं बदली.",
+        "used_changed": "ℹ️ ताज़गी और पैसे के जवाबों से सलाह बदली (रुकने की सीमा {limit} दिन{cash}).",
+        "used_cash": ", पैसे {days} दिन में",
+    },
+    "en": {
+        "crop_q": "Which crop?",
+        "qty_q": "How much do you have? e.g. 20 quintal, 500 kg or 40 bags",
+        "qty_bad": "The quantity must be more than zero.",
+        "unit_bad": "That unit doesn't work for this crop. Use quintal, kg or bags.",
+        "unit_q": "{value} kg or quintal?\n1) kg\n2) quintal",
+        "village_q": "Which village? Send a number or type your village:",
+        "village_other": "another village (type its name)",
+        "village_type": "Type your village name:",
+        "village_unknown": "That village isn't in our list. Pick the nearest village from the list:",
+        "summary": "Please check:\nCrop: {crop}\nQuantity: {qty}\nVillage: {village}{fresh}{cash}\n1) Correct, give advice\n2) Edit",
+        "fresh": "Freshness", "cash": "Cash needed",
+        "used_same": "ℹ️ Your freshness and cash answers were checked; they did not change this advice.",
+        "used_changed": "ℹ️ Your freshness and cash answers changed this advice (hold limit {limit} days{cash}).",
+        "used_cash": ", cash needed in {days} days",
+    },
+}
+
+
+def guided(key: str, lang: str, **values) -> str:
+    return _G[_lang(lang)][key].format(**values)
+
+
+def crop_menu(lang: str) -> str:
+    lang = _lang(lang)
+    return _G[lang]["crop_q"] + "".join(f"\n{i}) {CROP[c][lang]}" for i, c in
+                                        enumerate(("onion", "tomato", "soybean"), 1))
+
+
+def village_menu(villages: list[dict], lang: str, head: str = "village_q") -> str:
+    lang = _lang(lang)
+    lines = [_G[lang][head]] + [f"{i}) {village_name(v, lang)}" for i, v in enumerate(villages, 1)]
+    return "\n".join(lines + [f"{len(villages) + 1}) {_G[lang]['village_other']}"])
+
+
+def _option_text(question: str, number: int) -> str:
+    """'2) 1–2 दिवसांपूर्वी' -> '1–2 दिवसांपूर्वी' from a numbered question."""
+    line = next(l for l in question.splitlines() if l.startswith(f"{number})"))
+    return line.split(")", 1)[1].strip()
+
+
+def summary(crop: str, qty_value, qty_unit, quantity_qtl, village: dict, lot_condition,
+            cash_days, lang: str) -> str:
+    lang = _lang(lang)
+    g = _G[lang]
+    fresh = cash = ""
+    if crop in ("onion", "tomato"):
+        number = (lot_condition + 1) if crop == "tomato" else (1 if lot_condition else 2)
+        fresh = f"\n{g['fresh']}: {_option_text(FRESHNESS[crop][lang], number)}"
+    number = {3: 1, 7: 2, None: 3}.get(cash_days)
+    cash = f"\n{g['cash']}: " + (_option_text(_T[lang]["cash"], number) if number else str(cash_days))
+    amount = f"{qty(qty_value)} {UNIT[qty_unit or 'quintal'][lang]}"
+    if qty_unit not in (None, "quintal"):
+        amount += f" (= {qty(quantity_qtl)} {UNIT['quintal'][lang]})"
+    return g["summary"].format(crop=CROP[crop][lang], qty=amount, village=village_name(village, lang),
+                               fresh=fresh, cash=cash)
+
+
+def answers_used(changed: bool, hold_limit_days, cash_days, lang: str) -> str:
+    g = _G[_lang(lang)]
+    if not changed:
+        return g["used_same"]
+    return g["used_changed"].format(limit=hold_limit_days,
+                                    cash=g["used_cash"].format(days=cash_days) if cash_days is not None else "")
+
+
 def _selftest():
     from . import data_loader, tips
 

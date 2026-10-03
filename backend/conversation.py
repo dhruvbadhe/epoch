@@ -5,17 +5,31 @@ At most three questions, each asked only when it can change the answer:
   awaiting_freshness  only if the advice with the default hold limit is a hold
   awaiting_cash       only if a 3-day deadline would change the action, mandi or day
 then the advice (state "done") and the conversation resets.
+
+A greeting, or a message with nothing we can parse, starts the guided flow instead: language, crop,
+quantity (unit if missing), village, freshness, cash, summary, advice. "0" / "restart" / "पुन्हा" /
+"फिर से" restarts it at any step. A message with crop, quantity and village always takes the path above.
 """
 from __future__ import annotations
 
 import logging
+import re
 import threading
+
+from haversine import haversine
 
 from . import advice, data_loader, parser, querylog, replies, state
 
 log = logging.getLogger("sellsmart.conversation")
 
 CONFIRM, FRESHNESS, CASH, DONE = "awaiting_confirm", "awaiting_freshness", "awaiting_cash", "done"
+G_LANG, G_CROP, G_QTY, G_UNIT, G_VILLAGE, G_FRESH, G_CASH, G_SUMMARY = (
+    "guided_lang", "guided_crop", "guided_qty", "guided_unit", "guided_village", "guided_fresh",
+    "guided_cash", "guided_summary")
+GREETINGS = {"hi", "hello", "hey", "menu", "नमस्ते", "नमस्कार", "namaste", "namaskar", "मेनू"}
+RESTART = {"0", "restart", "पुन्हा", "फिर से", "punha", "phir se"}
+CROPS = ("onion", "tomato", "soybean")
+VILLAGE_LIST_MAX = 8
 
 _lock = threading.Lock()       # one message at a time; conversation memory is a plain dict
 _chosen_lang: dict[str, str] = {}   # a language the sender picked explicitly; kept until they restart
@@ -41,8 +55,17 @@ def handle_message(sender: str, text: str, is_voice: bool = False) -> dict:
 # ---------- routing -------------------------------------------------------
 
 def _route(sender: str, text: str, is_voice: bool) -> dict:
+    key = " ".join(parser.tokenize(text))
+    if key in RESTART:
+        choose_lang(sender, None)
+        return _guided_start(sender)
+    if key in GREETINGS:
+        return _guided_start(sender)
     p = parser.parse(text)
     s = state.get(sender)
+    complete = p.crop is not None and p.village is not None and p.qty_value is not None
+    if s is not None and s["state"].startswith("guided_") and not complete:
+        return _guided(sender, s, text, p)
     if s is None or parser.is_new_request(p):           # nothing open, timed out, or a new crop message
         return _start(sender, p, is_voice, text)
     if s["state"] == CONFIRM:
@@ -65,8 +88,8 @@ def _start(sender: str, p: parser.Parsed, is_voice: bool, text: str = "") -> dic
     detected = p.lang if any(c.isalpha() for c in text) else _last_lang.get(sender, p.lang)  # "1" has no language
     lang = _last_lang[sender] = _chosen_lang.get(sender, detected)   # an explicit choice beats detection
     has_quantity = p.qty_value is not None and p.qty_unit is not None    # a bare number isn't a request
-    if p.crop is None and p.village is None and not has_quantity:
-        return _reply(replies.help_message(lang, _example_village()), DONE, None)
+    if p.crop is None and p.village is None and not has_quantity:        # nothing parsed: guide them
+        return _guided_start(sender)
     s = {"state": None, "pending": None, "question": None, "lang": lang,
          "crop": p.crop, "qty_value": p.qty_value, "qty_unit": p.qty_unit,
          "village": p.village, "village_guessed": bool(p.village) and not p.village_exact,
@@ -186,6 +209,149 @@ def _advance(sender: str, s: dict) -> dict:
         return _reply(replies.error(lang), DONE, s)
     state.clear(sender)
     return _reply(final["message"], DONE, s)
+
+
+# ---------- the guided flow -------------------------------------------------
+
+def _guided_start(sender: str) -> dict:
+    state.clear(sender)
+    s = {"state": None, "pending": None, "question": None, "lang": _chosen_lang.get(sender, "mr"),
+         "crop": None, "qty_value": None, "qty_unit": None, "village": None, "options": [],
+         "lot_condition": None, "cash_days": None}
+    return _gask(sender, s, G_LANG, replies.LANG_MENU)
+
+
+def _gask(sender: str, s: dict, step: str, question: str) -> dict:
+    """Save the step and ask; the API state stays one of the contract's four values."""
+    s.update(state=step, question=question)
+    state.save(sender, s)
+    shown = FRESHNESS if step == G_FRESH else CASH if step == G_CASH else CONFIRM
+    return _reply(question, shown, s)
+
+
+def _villages_near(crop: str) -> list[dict]:
+    """villages.csv rows nearest to any mandi that trades this crop (coordinates from the data files)."""
+    points = [(m["lat"], m["lon"]) for m in data_loader.mandis()
+              if crop in m["crops"] and m["lat"] is not None and m["lon"] is not None]
+    ranked = sorted(data_loader.villages(),
+                    key=lambda v: min(haversine((v["lat"], v["lon"]), pt) for pt in points))
+    return ranked[:VILLAGE_LIST_MAX]
+
+
+def _lang_answer(text: str) -> str | None:
+    picked = parser.choice(text, 3)
+    if picked:
+        return replies.LANGS[picked - 1]
+    words = {"mr": {"मराठी", "marathi"}, "hi": {"हिंदी", "हिन्दी", "hindi"},
+             "en": {"english", "इंग्रजी", "अंग्रेजी"}}
+    tokens = set(parser.tokenize(text))
+    return next((lang for lang, names in words.items() if tokens & names), None)
+
+
+def _guided(sender: str, s: dict, text: str, p: parser.Parsed) -> dict:
+    step, lang = s["state"], s["lang"]
+    if step == G_LANG:
+        chosen = _lang_answer(text)
+        if chosen is None:
+            return _gask(sender, s, G_LANG, replies.LANG_MENU)
+        choose_lang(sender, chosen)
+        s["lang"] = _last_lang[sender] = chosen
+        return _gask(sender, s, G_CROP, replies.crop_menu(chosen))
+
+    if step == G_CROP:
+        picked = parser.choice(text, 3)
+        crop = CROPS[picked - 1] if picked else p.crop
+        if crop is None:                                  # another crop, or not understood
+            return _gask(sender, s, G_CROP,
+                         replies.ask_missing(["crop"], lang) + "\n\n" + replies.crop_menu(lang))
+        s["crop"] = crop
+        return _gask(sender, s, G_QTY, replies.guided("qty_q", lang))
+
+    if step == G_QTY:
+        if re.search(r"-\s*\d", text) or any(t.isdigit() and float(t) == 0 for t in parser.tokenize(text)):
+            return _gask(sender, s, G_QTY, replies.guided("qty_bad", lang) + "\n" + replies.guided("qty_q", lang))
+        if p.qty_value is None:
+            return _gask(sender, s, G_QTY, replies.guided("qty_q", lang))
+        s["qty_value"] = p.qty_value
+        if p.qty_unit is None:
+            return _gask(sender, s, G_UNIT, replies.guided("unit_q", lang, value=replies.qty(p.qty_value)))
+        return _guided_unit(sender, s, p.qty_unit)
+
+    if step == G_UNIT:
+        picked = parser.choice(text, 2)
+        unit = ("kg", "quintal")[picked - 1] if picked else parser.parse(f"{s['qty_value']} {text}").qty_unit
+        if unit is None:
+            return _gask(sender, s, G_UNIT, s["question"])
+        return _guided_unit(sender, s, unit)
+
+    if step == G_VILLAGE:
+        options = [data_loader.find_village(name) for name in s["options"]]
+        picked = parser.choice(text, len(options) + 1)
+        if picked and picked <= len(options):
+            village = options[picked - 1]
+        elif picked:                                      # "type your village"
+            return _gask(sender, s, G_VILLAGE, replies.guided("village_type", lang))
+        else:
+            village = p.village
+        if village is None:
+            return _gask(sender, s, G_VILLAGE, replies.village_menu(options, lang, head="village_unknown"))
+        s["village"] = village
+        if s["crop"] == "soybean":
+            return _gask(sender, s, G_CASH, replies.cash_question(lang))
+        return _gask(sender, s, G_FRESH, replies.freshness_question(s["crop"], lang))
+
+    if step == G_FRESH:
+        understood, value = parser.freshness_answer(s["crop"], text)
+        if not understood:
+            return _gask(sender, s, G_FRESH,
+                         replies.pick_number(replies.freshness_question(s["crop"], lang), lang))
+        s["lot_condition"] = value
+        return _gask(sender, s, G_CASH, replies.cash_question(lang))
+
+    if step == G_CASH:
+        understood, days = parser.cash_answer(text)
+        if not understood:
+            return _gask(sender, s, G_CASH, replies.pick_number(replies.cash_question(lang), lang))
+        s["cash_days"] = days
+        return _gask(sender, s, G_SUMMARY, replies.summary(
+            s["crop"], s["qty_value"], s["qty_unit"], _quantity(s), s["village"], s["lot_condition"],
+            s["cash_days"], lang))
+
+    # G_SUMMARY: 1 confirm, 2 edit
+    picked = parser.choice(text, 2)
+    answer = (picked == 1) if picked else parser.yes_no(text)
+    if answer is False:                                   # edit: back to the crop, same language
+        s.update(crop=None, qty_value=None, qty_unit=None, village=None, options=[], lot_condition=None,
+                 cash_days=None)
+        return _gask(sender, s, G_CROP, replies.crop_menu(lang))
+    if answer is not True:
+        return _gask(sender, s, G_SUMMARY, replies.pick_number(s["question"], lang))
+    try:
+        qtl, village = _quantity(s), s["village"]["village"]
+        final = advice.get_advice(s["crop"], qtl, village, lot_condition=s["lot_condition"],
+                                  cash_needed_in_days=s["cash_days"], lang=lang)
+        plain = advice.get_advice(s["crop"], qtl, village, lang=lang)     # without the two answers
+    except Exception as exc:        # the farmer still gets a reply
+        log.exception("guided advice failed for %s: %s", _parsed(s), exc)
+        state.clear(sender)
+        return _reply(replies.error(lang), DONE, s)
+    keys = ("action", "mandi", "days", "net_per_qtl", "net_low", "net_high", "gain_vs_baseline")
+    changed = any(final.get(k) != plain.get(k) for k in keys)
+    state.clear(sender)
+    used = replies.answers_used(changed, final.get("hold_limit_days"), s["cash_days"], lang)
+    return _reply(final["message"] + "\n" + used, DONE, s)
+
+
+def _guided_unit(sender: str, s: dict, unit: str) -> dict:
+    qtl = parser.to_quintals(s["crop"], s["qty_value"], unit)
+    if qtl is None or qtl <= 0:                           # e.g. crates for onion
+        s["qty_value"] = None
+        lang = s["lang"]
+        return _gask(sender, s, G_QTY, replies.guided("unit_bad", lang) + "\n" + replies.guided("qty_q", lang))
+    s["qty_unit"] = unit
+    options = _villages_near(s["crop"])
+    s["options"] = [v["village"] for v in options]
+    return _gask(sender, s, G_VILLAGE, replies.village_menu(options, s["lang"]))
 
 
 # ---------- helpers -------------------------------------------------------
@@ -311,15 +477,15 @@ def _selftest():
         assert r[1]["state"] == CONFIRM and r[1]["reply"].endswith(r[0]["reply"]) and r[1]["reply"] != r[0]["reply"]
         assert r[3]["state"] == FRESHNESS and r[3]["reply"].endswith(r[2]["reply"]) and r[4]["state"] == DONE
 
-        # greetings get help; a new crop message restarts; an open question times out after 30 minutes
-        assert chat("hello")[0] == {"reply": replies.help_message("en", _example_village()), "state": DONE,
+        # greetings start the guided flow; a new crop message restarts; an open question times out
+        assert chat("hello")[0] == {"reply": replies.LANG_MENU, "state": CONFIRM,
                                     "parsed": {"crop": None, "quantity_qtl": None, "village": None}}
         r = chat("20 poti kanda Niphad", "5 ton soyabean Ausa")
         assert r[1]["parsed"] == {"crop": "soybean", "quantity_qtl": 50, "village": "Ausa"}
         chat("20 poti kanda Niphad", sender="timeout-test")
         state._sessions["timeout-test"]["updated_at"] -= state.TIMEOUT_SECONDS + 1
         late = chat("1", sender="timeout-test")[0]                       # the "1" is no longer an answer
-        assert late["state"] == DONE and late["reply"] == replies.help_message("mr", _example_village())
+        assert late["state"] == CONFIRM and late["reply"] == replies.LANG_MENU
 
         log_lines = querylog.recent()
         assert log_lines[0]["sender"].startswith("…") and len(log_lines) == querylog.KEEP

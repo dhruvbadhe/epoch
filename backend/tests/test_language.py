@@ -30,7 +30,7 @@ r = reply("lang-hi", "10 quintal pyaz Yeola")
 check("'10 quintal pyaz Yeola' -> Hindi", parser.detect_lang("10 quintal pyaz Yeola") == "hi" and "हाथ में" in r,
       r.splitlines()[0])
 check("'20 poti kanda Niphad' (romanised Marathi) -> Marathi", parser.detect_lang("20 poti kanda Niphad") == "mr")
-check("'hello' -> English help", reply("lang-hello", "hello").startswith("Hi! This is SellSmart"))
+check("'hello' -> guided language menu", reply("lang-hello", "hello").startswith("भाषा निवडा / भाषा चुनें / Choose"))
 
 # a bare "1" answering an English question stays English
 first = reply("lang-1", "30 crate tomato Narayangaon")
