@@ -272,3 +272,12 @@ export interface Snapshot {
     assumptions: string;
   } | null;
 }
+export interface Weather {
+  village: string;
+  available: boolean;
+  label: string;
+  attribution: string;
+  time?: string;
+  temperature_c?: number;
+  relative_humidity_pct?: number;
+}

@@ -20,6 +20,7 @@ import type {
   Query,
   Snapshot,
   Village,
+  Weather,
 } from "./types";
 const baseUrl = (
   process.env.NEXT_PUBLIC_API_URL ?? "http://localhost:8000"
@@ -84,6 +85,7 @@ function validResponse(path: string, value: unknown): boolean {
       Array.isArray(record.series_7d) &&
       typeof record.prices_as_of === "string"
     );
+  if (endpoint === "/weather") return typeof record.available === "boolean";
   if (endpoint === "/forecast")
     return (
       Array.isArray(record.history) &&
@@ -171,6 +173,14 @@ export const getSnapshot = (crop: Crop, village: string) =>
     `/market/snapshot?crop=${crop}&village=${encodeURIComponent(village)}`,
     () => ({ ...(structuredClone(snapshot) as unknown as Snapshot), crop }),
   );
+// Display only: never used in any number. On any failure the card says "weather unavailable".
+export const getWeather = (village: string) =>
+  call<Weather>(`/weather?village=${encodeURIComponent(village)}`, () => ({
+    village,
+    available: false,
+    label: "context only; it does not change the estimate",
+    attribution: "Weather data by Open-Meteo.com",
+  }));
 export const getMandis = () =>
   call<Mandi[]>("/mandis", () => structuredClone(mandis) as Mandi[]);
 export const getVillages = () =>

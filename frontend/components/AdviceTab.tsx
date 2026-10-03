@@ -218,6 +218,7 @@ export function AdviceTab({
                 advice={result.data}
                 quantity={request.quantity_qtl}
                 lang={lang}
+                village={request.village}
               />
               <WhyBreakdown advice={result.data} />
             </ScrollReveal>
