@@ -128,7 +128,8 @@ def test_message_and_queries():
 
     # the same inputs give the same message on WhatsApp and on the Advice tab
     whatsapp = [send(t, "919800000001") for t in ("10 quintal kanda Niphad", "ho", "3")][-1]["reply"]
-    assert whatsapp == client.post("/advise", json={**EXAMPLE, "lot_condition": True}).json()["message"]
+    advise_message = client.post("/advise", json={**EXAMPLE, "lot_condition": True}).json()["message"]
+    assert whatsapp == advise_message + "\n" + replies.offer_prompt("mr")   # WhatsApp adds the offer prompt
 
     bad(client.post("/message", json={"text": "hi"}), "sender")
     bad(client.post("/message", json={"sender": "91", "text": "  "}), "text")

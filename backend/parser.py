@@ -438,6 +438,22 @@ def freshness_answer(crop: str, text: str) -> tuple[bool, object]:
     return answer is not None, answer
 
 
+_PRICE_WORDS = _n("per", "प्रति", "rs", "रु", "रुपये", "रुपए", "rupees", "rupaye", "bhav", "भाव", "दर",
+                  "rate", "price", "offer", "ऑफर")
+
+
+def offer_per_quintal(text: str) -> float | None:
+    """A quoted price such as '23 per kg', '2300 per quintal' or '₹2300/क्विंटल', in ₹ per quintal.
+    None unless the message has one number, a kg or quintal unit, and a price word, ₹ or '/'."""
+    tokens = tokenize(text.replace(",", ""))
+    marked = "₹" in text or "/" in text or any(t in _PRICE_WORDS for t in tokens)
+    units = {_UNIT_OF[t] for t in tokens if t in _UNIT_OF}
+    numbers = [float(t) for t in tokens if re.fullmatch(r"\d+(?:\.\d+)?", t)]
+    if not marked or len(numbers) != 1 or numbers[0] <= 0 or units not in ({"kg"}, {"quintal"}):
+        return None
+    return numbers[0] * 100 if units == {"kg"} else numbers[0]     # 1 quintal = 100 kg
+
+
 def cash_answer(text: str) -> tuple[bool, int | None]:
     """(understood?, cash_needed_in_days) for 'by when do you need the money?'."""
     items = _items(text)

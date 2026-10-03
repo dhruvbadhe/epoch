@@ -471,6 +471,52 @@ def summary(crop: str, qty_value, qty_unit, quantity_qtl, village: dict, lot_con
                                fresh=fresh, cash=cash)
 
 
+# ---------- offer check (after advice) --------------------------------------
+
+_OFFER = {
+    "mr": {
+        "prompt": "💬 व्यापाऱ्याकडून भाव मिळाला? पाठवा, उदा. 23 प्रति किलो किंवा 2300 प्रति क्विंटल",
+        "head": "💬 तुम्ही सांगितलेल्या भावावर आधारित: {mandi} येथे ₹{offer}/क्विंटल",
+        "net": "हातात: ₹{net}/क्विंटल · जवळचा बाजार ({base_mandi}): ₹{base}/क्विंटल",
+        "diff": "पूर्ण मालावर ({qty} क्विंटल) फरक: {diff}",
+        "better": "✅ या भावाला {mandi} अजूनही जवळच्या बाजारापेक्षा चांगला आहे.",
+        "worse": "❌ या भावाला जवळचा बाजार ({base_mandi}) चांगला आहे.",
+    },
+    "hi": {
+        "prompt": "💬 व्यापारी से भाव मिला? भेजें, जैसे 23 प्रति किलो या 2300 प्रति क्विंटल",
+        "head": "💬 आपके बताए भाव पर आधारित: {mandi} में ₹{offer}/क्विंटल",
+        "net": "हाथ में: ₹{net}/क्विंटल · पास की मंडी ({base_mandi}): ₹{base}/क्विंटल",
+        "diff": "पूरे माल पर ({qty} क्विंटल) फ़र्क: {diff}",
+        "better": "✅ इस भाव पर {mandi} अब भी पास की मंडी से बेहतर है.",
+        "worse": "❌ इस भाव पर पास की मंडी ({base_mandi}) बेहतर है.",
+    },
+    "en": {
+        "prompt": "💬 Got a price offer? Send it, for example 23 per kg or 2300 per quintal.",
+        "head": "💬 Based on your quoted price: ₹{offer}/quintal at {mandi}",
+        "net": "In hand: ₹{net}/quintal · nearest mandi ({base_mandi}): ₹{base}/quintal",
+        "diff": "Difference on the whole lot ({qty} quintal): {diff}",
+        "better": "✅ At this price {mandi} still beats the nearest mandi.",
+        "worse": "❌ At this price the nearest mandi ({base_mandi}) is better.",
+    },
+}
+
+
+def offer_prompt(lang: str) -> str:
+    return _OFFER[_lang(lang)]["prompt"]
+
+
+def offer_check(mandi: str, offer_per_qtl, net, base_mandi: str, base_net, quantity_qtl, lang: str) -> str:
+    lang = _lang(lang)
+    o = _OFFER[lang]
+    diff = round((net - base_net) * quantity_qtl)
+    signed = ("+" if diff >= 0 else "−") + "₹" + money(abs(diff))
+    names = {"mandi": mandi_name(mandi, lang), "base_mandi": mandi_name(base_mandi, lang)}
+    return "\n".join([o["head"].format(offer=money(offer_per_qtl), **names),
+                      o["net"].format(net=money(net), base=money(base_net), **names),
+                      o["diff"].format(qty=qty(quantity_qtl), diff=signed),
+                      o["better" if net > base_net else "worse"].format(**names)])
+
+
 def answers_used(changed: bool, hold_limit_days, cash_days, lang: str) -> str:
     g = _G[_lang(lang)]
     if not changed:

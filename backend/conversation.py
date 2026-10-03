@@ -34,6 +34,7 @@ VILLAGE_LIST_MAX = 8
 _lock = threading.Lock()       # one message at a time; conversation memory is a plain dict
 _chosen_lang: dict[str, str] = {}   # a language the sender picked explicitly; kept until they restart
 _last_lang: dict[str, str] = {}     # the sender's last conversation language, for replies like "1"
+_last_advice: dict[str, tuple[dict, float, str]] = {}   # (advice, quintals, lang) for the offer check
 
 
 def choose_lang(sender: str, lang: str | None) -> None:
@@ -61,8 +62,12 @@ def _route(sender: str, text: str, is_voice: bool) -> dict:
         return _guided_start(sender)
     if key in GREETINGS:
         return _guided_start(sender)
-    p = parser.parse(text)
     s = state.get(sender)
+    if s is None and sender in _last_advice:            # after advice: a quoted price is an offer check
+        offer = parser.offer_per_quintal(text)
+        if offer is not None:
+            return _offer_reply(sender, offer)
+    p = parser.parse(text)
     complete = p.crop is not None and p.village is not None and p.qty_value is not None
     if s is not None and s["state"].startswith("guided_") and not complete:
         return _guided(sender, s, text, p)
@@ -208,7 +213,8 @@ def _advance(sender: str, s: dict) -> dict:
         state.clear(sender)
         return _reply(replies.error(lang), DONE, s)
     state.clear(sender)
-    return _reply(final["message"], DONE, s)
+    _last_advice[sender] = (final, _quantity(s), lang)
+    return _reply(final["message"] + "\n" + replies.offer_prompt(lang), DONE, s)
 
 
 # ---------- the guided flow -------------------------------------------------
@@ -339,7 +345,19 @@ def _guided(sender: str, s: dict, text: str, p: parser.Parsed) -> dict:
     changed = any(final.get(k) != plain.get(k) for k in keys)
     state.clear(sender)
     used = replies.answers_used(changed, final.get("hold_limit_days"), s["cash_days"], lang)
-    return _reply(final["message"] + "\n" + used, DONE, s)
+    _last_advice[sender] = (final, qtl, lang)
+    return _reply(final["message"] + "\n" + used + "\n" + replies.offer_prompt(lang), DONE, s)
+
+
+def _offer_reply(sender: str, offer: float) -> dict:
+    """Net per quintal at the advised mandi if it pays the farmer's quoted price, from the engine's own
+    sellable share and costs for that option (its `why`), against the same response's nearest mandi."""
+    a, qtl, lang = _last_advice[sender]
+    why = a["why"]
+    sellable = (why["price"] - why["spoilage_loss"]) / why["price"] if why["price"] else 1.0
+    net = round(offer * sellable - why["transport"] - why["storage"] - why["fees"])
+    base = a["baseline_today"]
+    return _reply(replies.offer_check(a["mandi"], offer, net, base["mandi"], base["net"], qtl, lang), DONE, None)
 
 
 def _guided_unit(sender: str, s: dict, unit: str) -> dict:
@@ -419,7 +437,8 @@ def _selftest():
         assert r[1]["state"] == FRESHNESS and r[1]["reply"] == replies.freshness_question("onion", "mr")
         assert r[2]["state"] == CASH and r[2]["reply"] == replies.cash_question("mr")
         assert r[3]["state"] == DONE and r[3]["reply"].startswith("🟢 *14 दिवस थांबा → पिंपळगाव*")
-        assert r[3]["reply"] == advice.get_advice("onion", 10, "Niphad", lot_condition=True)["message"]
+        assert r[3]["reply"] == (advice.get_advice("onion", 10, "Niphad", lot_condition=True)["message"]
+                                 + "\n" + replies.offer_prompt("mr"))
 
         # nothing guessed: no echo-back; needing cash in 2-3 days flips the advice to sell now
         r = chat("२० क्विंटल कांदा निफाड", "१", "१")
