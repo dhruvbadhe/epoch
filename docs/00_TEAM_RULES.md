@@ -1,6 +1,6 @@
-# SellSmart — team rules and workspace
+# SahiDaam — team rules and workspace
 
-**Team Byte Me · EPOCH 1.0 · PS1 "Sell Smart" · coding ends 10:00 AM, 3 October**
+**Team Byte Me · EPOCH 1.0 · PS1 "Where and When to Sell" · coding ends 10:00 AM, 3 October**
 
 **The product in two lines:** a farmer sends crop, quantity and village on WhatsApp (text or voice, Marathi or Hindi) and gets one answer: where and when to sell for the most money in hand. FPO operators use a web dashboard (Advice, FPO Plan, Evidence) built on the same engine.
 
@@ -98,7 +98,7 @@ data/raw/
 
 ## `CLAUDE.md` and `AGENTS.md` (same text in both, at the repo root)
 ```
-Project: SellSmart. Full spec: docs/SellSmart_FINAL_v2.md. API: docs/api_contract.md.
+Project: SahiDaam. Full spec: docs/SellSmart_FINAL_v2.md. API: docs/api_contract.md.
 You work in ONE folder only, named in the first prompt. Never create or edit files outside it.
 Read-only inputs: everything under data/ that you don't own, and config.yaml.
 Use the exact names from the spec: baseline_today, best_today, uses_baseline.

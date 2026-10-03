@@ -1,4 +1,4 @@
-# SellSmart — API contract
+# SahiDaam — API contract
 
 Owner: Backend. Save as `docs/api_contract.md`. Don't change a shape without telling Frontend and ML 2.
 

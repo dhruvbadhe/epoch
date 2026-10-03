@@ -1,10 +1,10 @@
-# SellSmart — FINAL build spec (rev 2)
+# SahiDaam — FINAL build spec (rev 2)
 
 **Team Byte Me · EPOCH 1.0 · PS1 · locked 12:15 AM, 3 October · rev 2**
 
-This file replaces rev 1, the earlier context file and the blueprint wherever they disagree. Formulas, data sources and git rules not repeated here stay as in `SellSmart_Project_Context.md`. **No more scope changes after this.** Rev 2 only tightens definitions and rules; it adds no features. Coding ends 10:00 AM.
+This file replaces rev 1, the earlier context file and the blueprint wherever they disagree. Formulas, data sources and git rules not repeated here stay as in `SahiDaam_Project_Context.md`. **No more scope changes after this.** Rev 2 only tightens definitions and rules; it adds no features. Coding ends 10:00 AM.
 
-**Pitch:** SellSmart tells a farmer where and when to sell for the most money in hand, how sure we are, and what to check before the crop leaves, on WhatsApp, in Marathi or Hindi. FPOs get a dashboard that plans the whole group's produce.
+**Pitch:** SahiDaam tells a farmer where and when to sell for the most money in hand, how sure we are, and what to check before the crop leaves, on WhatsApp, in Marathi or Hindi. FPOs get a dashboard that plans the whole group's produce.
 
 ---
 
@@ -398,7 +398,7 @@ Naps in pairs between 4:30 and 6:30 AM, 45–60 minutes each.
 | 2:10 – 2:50 | Evidence (at default assumptions): rupee gain, how often the advice lost, the ladder, the self-check table by horizon. |
 | 2:50 – 3:00 | Limits and closing line. |
 
-**Closing line:** "SellSmart turns a price forecast into a next step: where to sell, when to sell, and what to check before the crop leaves."
+**Closing line:** "SahiDaam turns a price forecast into a next step: where to sell, when to sell, and what to check before the crop leaves."
 
 ---
 

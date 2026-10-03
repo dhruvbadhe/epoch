@@ -1,4 +1,4 @@
-# SellSmart: pitch numbers
+# SahiDaam: pitch numbers
 
 Every number below is read from a file; the source file and key are given beside it. Percentages are
 computed from two file values, and the two keys are named. Nothing here is estimated.

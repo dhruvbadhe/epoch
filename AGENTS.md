@@ -1,4 +1,4 @@
-Project: SellSmart. Full spec: docs/SellSmart_FINAL_v2.md. API: docs/api_contract.md.
+Project: SahiDaam. Full spec: docs/SellSmart_FINAL_v2.md. API: docs/api_contract.md.
 You work in ONE folder only, named in the first prompt. Never create or edit files outside it.
 Read-only inputs: everything under data/ that you don't own, and config.yaml.
 Use the exact names from the spec: baseline_today, best_today, uses_baseline.

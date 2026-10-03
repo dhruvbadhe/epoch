@@ -1,6 +1,6 @@
 # ML 1 — data and price forecast (rev 2)
 
-**Team Byte Me · EPOCH 1.0 · PS1 "Sell Smart" · coding ends 10:00 AM, 3 October**
+**Team Byte Me · EPOCH 1.0 · PS1 "Where and When to Sell" · coding ends 10:00 AM, 3 October**
 
 **The product in two lines:** a farmer sends crop, quantity and village on WhatsApp (text or voice, Marathi or Hindi) and gets one answer: where and when to sell for the most money in hand. FPO operators use a web dashboard (Advice, FPO Plan, Evidence) built on the same engine.
 
