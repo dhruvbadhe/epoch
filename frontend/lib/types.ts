@@ -116,7 +116,7 @@ export interface Lot {
   quantity_qtl: number;
   village: string;
   lot_condition: LotCondition;
-  cash_needed_in_days: 3 | 7 | null;
+  cash_needed_in_days: 1 | 3 | 7 | null;
 }
 export interface PlanRequest {
   lots: Lot[];

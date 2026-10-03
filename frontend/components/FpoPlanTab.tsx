@@ -268,7 +268,7 @@ export function FpoPlanTab({
                       onChange={(e) =>
                         patchLot(i, {
                           cash_needed_in_days: e.target.value
-                            ? (Number(e.target.value) as 3 | 7)
+                            ? (Number(e.target.value) as 1 | 3 | 7)
                             : null,
                         })
                       }
@@ -276,6 +276,7 @@ export function FpoPlanTab({
                       <option value="">No hurry</option>
                       <option value="7">This week</option>
                       <option value="3">In 2–3 days</option>
+                      <option value="1">Within 1 day</option>
                     </select>
                   </td>
                   <td>
