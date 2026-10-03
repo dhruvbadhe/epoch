@@ -147,11 +147,17 @@ async def download_voice_note(media: dict) -> bytes:
     media_id = media["id"]
     async with httpx.AsyncClient(timeout=30) as client:
         if media.get("url"):
-            direct = await client.get(media["url"], headers=AUTH)
-            log.info("voice note download from webhook url (%s): HTTP %s", httpx.URL(media["url"]).host,
-                     direct.status_code)
-            if direct.status_code == 200:
-                return direct.content
+            url = httpx.URL(media["url"])
+            tries = [url]
+            if PROVIDER == "360dialog" and url.host == "lookaside.fbsbx.com":
+                # 360dialog proxies Meta's media CDN: same path and query on its own host, with the D360 key
+                tries.insert(0, url.copy_with(host=httpx.URL(D360_BASE).host))
+            for attempt in tries:
+                direct = await client.get(attempt, headers=AUTH)
+                log.info("voice note download via %s: HTTP %s, %s bytes", attempt.host, direct.status_code,
+                         len(direct.content))
+                if direct.status_code == 200 and direct.content:
+                    return direct.content
         first = await client.get(f"{D360_BASE}/media/{media_id}" if PROVIDER == "360dialog" else f"{GRAPH}/{media_id}",
                                  headers=AUTH)
         first.raise_for_status()
