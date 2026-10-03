@@ -50,6 +50,7 @@ export interface AdviceRequest {
   blocked_mandis: string[];
   overrides: Overrides;
   lang: Lang;
+  as_of_date?: string | null;
 }
 export interface Baseline {
   mandi: string;

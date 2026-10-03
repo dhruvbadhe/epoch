@@ -38,7 +38,9 @@ export function AdviceTab({
   onAssumptions,
   onStatus,
   active = true,
+  asOfDate = null,
 }: {
+  asOfDate?: string | null;
   villages: Village[];
   lang: Lang;
   overrides: Overrides;
@@ -59,7 +61,13 @@ export function AdviceTab({
   const [quantity, setQuantity] = useState("20");
   const [copied, setCopied] = useState(false);
   const [copyError, setCopyError] = useState("");
-  const request = { ...input, quantity_qtl: Number(quantity), overrides, lang };
+  const request = {
+    ...input,
+    quantity_qtl: Number(quantity),
+    overrides,
+    lang,
+    as_of_date: asOfDate,
+  };
   const valid =
     Number.isFinite(request.quantity_qtl) && request.quantity_qtl > 0;
   const { result, loading, error, reload } = useResource(

@@ -15,6 +15,7 @@ import {
   UsersRound,
 } from "lucide-react";
 import {
+  getAsOfDates,
   getBacktest,
   getConfig,
   getMandis,
@@ -78,6 +79,16 @@ export default function Home() {
   const villageResource = useResource("villages", getVillages);
   const mandiResource = useResource("mandis", getMandis);
   const configResource = useResource("config", getConfig);
+  // Advice tab: any past date with a leak-checked forecast (GET /as-of-dates); null = the demo date
+  const asOfDates = useResource("as-of-dates", getAsOfDates).result?.data;
+  const [adviceAsOf, setAdviceAsOf] = useState<string | null>(null);
+  const randomDate = () => {
+    const pool = (asOfDates?.dates ?? []).filter(
+      (d) => d !== adviceAsOf && d !== asOfDates?.default,
+    );
+    if (pool.length)
+      setAdviceAsOf(pool[Math.floor(Math.random() * pool.length)]);
+  };
   // "Prices as of" for every tab, from the backend (data/splits.json), before any tab has loaded
   const asOfResource = useResource("prices-as-of", () => getBacktest("onion"));
   const pricesAsOf = asOf ?? asOfResource.result?.data.prices_as_of ?? null;
@@ -275,6 +286,25 @@ export default function Home() {
                   ? `Prices as of ${dateLabel(pricesAsOf)}`
                   : "Prices as of — awaiting data"}
               </span>
+              {tab === "advice" && (asOfDates?.dates.length ?? 0) > 1 && (
+                <span className="as-of-controls">
+                  <button
+                    className="button subtle"
+                    onClick={randomDate}
+                    title="Run the advice for a random past date, using only the forecast made that day"
+                  >
+                    🎲 Random date
+                  </button>
+                  {adviceAsOf && adviceAsOf !== asOfDates?.default && (
+                    <button
+                      className="button subtle"
+                      onClick={() => setAdviceAsOf(null)}
+                    >
+                      Back to {dateLabel(asOfDates!.default!)}
+                    </button>
+                  )}
+                </span>
+              )}
               <div>
                 <SourceBadge mock={source} />
                 <span className="tiny">
@@ -304,6 +334,7 @@ export default function Home() {
               {tab === "info" && <InfoTab onStatus={onStatus} />}
               <div hidden={tab !== "advice"}>
                 <AdviceTab
+                  asOfDate={adviceAsOf}
                   active={tab === "advice"}
                   villages={villages}
                   lang={lang}

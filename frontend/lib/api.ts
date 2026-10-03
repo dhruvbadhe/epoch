@@ -86,6 +86,7 @@ function validResponse(path: string, value: unknown): boolean {
       typeof record.prices_as_of === "string"
     );
   if (endpoint === "/weather") return typeof record.available === "boolean";
+  if (endpoint === "/as-of-dates") return Array.isArray(record.dates);
   if (endpoint === "/forecast")
     return (
       Array.isArray(record.history) &&
@@ -180,6 +181,11 @@ export const getWeather = (village: string) =>
     available: false,
     label: "context only; it does not change the estimate",
     attribution: "Weather data by Open-Meteo.com",
+  }));
+export const getAsOfDates = () =>
+  call<{ default: string | null; dates: string[] }>("/as-of-dates", () => ({
+    default: null,
+    dates: [],
   }));
 export const getMandis = () =>
   call<Mandi[]>("/mandis", () => structuredClone(mandis) as Mandi[]);
