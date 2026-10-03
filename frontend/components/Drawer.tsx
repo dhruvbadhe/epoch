@@ -56,7 +56,7 @@ export function Drawer({
       >
         <header className="drawer-heading">
           <div>
-            <span className="eyebrow">SELLSMART WORKSPACE</span>
+            <span className="eyebrow">SAHIDAAM WORKSPACE</span>
             <h2 id="drawer-title">{title}</h2>
             <p>{subtitle}</p>
           </div>

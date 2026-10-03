@@ -1,4 +1,4 @@
-# SellSmart frontend
+# SahiDaam frontend
 
 A responsive FPO operator dashboard for Maharashtra: **Advice**, **FPO Plan**, and **Evidence**. Built with Next.js App Router, TypeScript, Tailwind CSS, Recharts, and Lucide icons. All business API calls originate in client components. No server actions or database.
 

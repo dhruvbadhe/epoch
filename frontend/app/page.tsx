@@ -122,12 +122,12 @@ export default function Home() {
         />
       )}
       <aside className={`sidebar ${mobileNav ? "open" : ""}`}>
-        <a className="brand" href="/" aria-label="SellSmart home">
+        <a className="brand" href="/" aria-label="SahiDaam home">
           <span className="brand-icon">
             <Leaf size={25} />
           </span>
           <span>
-            SellSmart<span className="brand-sub">A BETTER WAY TO MARKET</span>
+            SahiDaam<span className="brand-sub">A BETTER WAY TO MARKET</span>
           </span>
         </a>
         <div className="workspace-card">
@@ -198,7 +198,7 @@ export default function Home() {
             onClick={() => setDrawer("help")}
           >
             <CircleHelp size={17} />
-            How SellSmart works
+            How SahiDaam works
           </button>
           <div className="operator">
             <span className="operator-avatar">FO</span>
@@ -335,7 +335,7 @@ export default function Home() {
           <footer className="page-footer">
             <span>
               <Leaf size={13} />
-              SellSmart <span className="footer-dot">·</span> From forecast to a
+              SahiDaam <span className="footer-dot">·</span> From forecast to a
               next step.
             </span>
             <button

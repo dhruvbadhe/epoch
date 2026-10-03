@@ -258,7 +258,7 @@ export function AdviceTab({
                       </p>
                     ))}
                     <span className="chat-stamp">
-                      SellSmart <Check size={11} />
+                      SahiDaam <Check size={11} />
                       <Check size={11} />
                     </span>
                   </div>

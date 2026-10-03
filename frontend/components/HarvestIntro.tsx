@@ -313,7 +313,7 @@ export function HarvestIntro({
               <span>
                 Grown with care.
                 <br />
-                <strong>Planned with SellSmart.</strong>
+                <strong>Planned with SahiDaam.</strong>
               </span>
             </div>
           </div>
