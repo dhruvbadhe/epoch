@@ -71,3 +71,15 @@ The four-policy ladder per crop:
 
     sqlite3 -header -column data/sellsmart.db "SELECT crop, policy, avg_net FROM backtest_results
       ORDER BY crop, position;"
+
+## Supabase copy (browse the data in Supabase's Table Editor)
+
+`SUPABASE_DB_URL` in `backend/.env` is the project's **Connect → Connection String → URI → Session pooler**
+link with the database password in place of `[YOUR-PASSWORD]` (no brackets). Then, from the repo root:
+
+    .venv/bin/python -m backend.supabase_load
+
+It drops and reloads 14 tables (prices, mandis, villages, forecasts, forecast_history, selfcheck,
+selfcheck_history, coverage, selfcheck_v1, coverage_v1, splits, backtest_summary, backtest_results, queries),
+turns on row-level security, and prints each table's row count next to its source file. It is a snapshot:
+re-run it to copy new farmer queries from `data/sellsmart.db`. The engine never reads Supabase.
