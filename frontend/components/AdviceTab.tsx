@@ -189,6 +189,11 @@ export function AdviceTab({
             </select>
           </div>
         </div>
+        {result?.data.answers_effect?.message && (
+          <p className="tiny answers-effect" role="note">
+            {result.data.answers_effect.message}
+          </p>
+        )}
         <div className="input-panel-footer">
           <span>
             <span className="status-dot" />

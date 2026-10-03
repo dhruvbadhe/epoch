@@ -51,6 +51,9 @@ export function FpoPlanTab({
 }) {
   const [lots, setLots] = useState<Lot[]>(structuredClone(engineDemoLots));
   const [blocked, setBlocked] = useState<string[]>([]);
+  const [centreName, setCentreName] = useState<string>(
+    config.fpo.collection_centre.name || sampleCentre,
+  );
   const [planned, setPlanned] = useState<PlanRequest | null>(null);
   const [dirty, setDirty] = useState(true);
   const [moved, setMoved] = useState<string[]>([]);
@@ -109,7 +112,7 @@ export function FpoPlanTab({
       lots: structuredClone(lots),
       blocked_mandis: newBlocked,
       mandi_cap_qtl_per_day: null,
-      collection_centre: config.fpo.collection_centre.name || sampleCentre,
+      collection_centre: centreName,
       overrides,
     });
     setDirty(false);
@@ -125,7 +128,7 @@ export function FpoPlanTab({
     openRequest !== null,
   );
   const openTotal = openResource.result?.data.total_net;
-  const centre = config.fpo.collection_centre.name || sampleCentre;
+  const centre = centreName;
   const data = result?.data;
   return (
     <div className="tab-content">
@@ -144,7 +147,21 @@ export function FpoPlanTab({
         </div>
         <span className="centre-pill">
           <MapPin size={15} />
-          Collection centre <b>{data?.collection_centre ?? centre}</b>
+          Collection centre{" "}
+          <select
+            aria-label="Collection centre"
+            value={centre}
+            onChange={(e) => {
+              setCentreName(e.target.value);
+              setDirty(true);
+            }}
+          >
+            {villages.map((v) => (
+              <option key={v.village} value={v.village}>
+                {v.village}
+              </option>
+            ))}
+          </select>
         </span>
       </div>
       <section className="panel">

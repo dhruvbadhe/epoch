@@ -1,14 +1,12 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { getSnapshot } from "@/lib/api";
+import { getSnapshot, getVillages } from "@/lib/api";
 import { useResource } from "@/lib/useResource";
 import { NOT_ENOUGH, dateLabel, rupees, signedRupees } from "@/lib/format";
 import type { ApiResult, Crop } from "@/lib/types";
 import { HarvestIntro } from "./HarvestIntro";
 import { ErrorState, Loading, SourceBadge, SourceNote } from "./ui";
-
-const VILLAGE = "Niphad";
 
 export function InfoTab({
   onStatus,
@@ -16,7 +14,11 @@ export function InfoTab({
   onStatus: (result: ApiResult<unknown>) => void;
 }) {
   const [crop, setCrop] = useState<Crop>("onion");
-  const resource = useResource(crop, () => getSnapshot(crop, VILLAGE));
+  const [VILLAGE, setVillage] = useState("Niphad");
+  const villages = useResource("villages", getVillages).result?.data ?? [];
+  const resource = useResource(`${crop}:${VILLAGE}`, () =>
+    getSnapshot(crop, VILLAGE),
+  );
   useEffect(() => {
     if (resource.result) onStatus(resource.result);
   }, [resource.result, onStatus]);
@@ -61,6 +63,17 @@ export function InfoTab({
           <option value="onion">Onion</option>
           <option value="tomato">Tomato</option>
           <option value="soybean">Soybean</option>
+        </select>
+        <select
+          aria-label="Info village"
+          value={VILLAGE}
+          onChange={(e) => setVillage(e.target.value)}
+        >
+          {(villages.length ? villages : [{ village: VILLAGE }]).map((v) => (
+            <option key={v.village} value={v.village}>
+              {v.village}
+            </option>
+          ))}
         </select>
       </div>
       <SourceNote result={resource.result} />
