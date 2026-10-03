@@ -12,8 +12,8 @@ export function WhyBreakdown({ advice }: { advice: Advice }) {
     <section className="panel breakdown">
       <div className="section-heading">
         <div>
-          <span className="eyebrow">THE MATH BEHIND THE ADVICE</span>
-          <h2>Price isn’t your profit.</h2>
+          <span className="eyebrow">Cost breakdown</span>
+          <h2>Price isn't your profit</h2>
         </div>
         <ReceiptText size={22} />
       </div>

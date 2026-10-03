@@ -41,7 +41,7 @@ export function MandiTable({ advice }: { advice: Advice }) {
     <section className="panel mandi-panel">
       <div className="section-heading">
         <div>
-          <span className="eyebrow">SEE THE ALTERNATIVES</span>
+          <span className="eyebrow">All options</span>
           <h2>A better market, with the costs included.</h2>
         </div>
         <button
@@ -147,17 +147,25 @@ export function MandiTable({ advice }: { advice: Advice }) {
                       </div>
                       {o.flags.length > 0 && (
                         <div className="flags">
-                          {o.flags.map((flag) => (
-                            <span className="flag" key={flag}>
-                              {flag === "stale"
-                                ? "Old price"
-                                : "Heavy arrivals"}
-                            </span>
-                          ))}
+                          {o.flags
+                            .filter(
+                              (flag) => flag === "stale" || flag === "falling",
+                            )
+                            .map((flag) => (
+                              <span className="flag" key={flag}>
+                                {flag === "stale"
+                                  ? "Old price"
+                                  : "Falling price"}
+                              </span>
+                            ))}
                         </div>
                       )}
                     </td>
-                    <td>{o.distance_km} km</td>
+                    <td>
+                      {o.distance_km == null
+                        ? "not enough data"
+                        : o.distance_km.toFixed(1) + " km"}
+                    </td>
                     <td>
                       <span className={o.sell_day ? "day-pill" : ""}>
                         {sellDay(o.sell_day)}

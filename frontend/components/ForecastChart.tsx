@@ -24,9 +24,10 @@ export function ForecastChart({ crop, mandi }: { crop: Crop; mandi: string }) {
     <section className="panel forecast-panel">
       <div className="section-heading">
         <div>
-          <span className="eyebrow">A RANGE, NOT A PROMISE</span>
+          <span className="eyebrow">Price forecast</span>
           <h2>
-            Price outlook <span className="heading-detail">/ {mandi}</span>
+            A range, not a promise{" "}
+            <span className="heading-detail">/ {mandi}</span>
           </h2>
         </div>
         {result && <SourceBadge mock={result.mock} />}

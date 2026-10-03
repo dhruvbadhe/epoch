@@ -1,5 +1,5 @@
-export const rupees = (n: number) =>
-  `₹${Math.round(n).toLocaleString("en-IN")}`;
+export const rupees = (n: number | null | undefined) =>
+  n == null ? "not enough data" : `₹${Math.round(n).toLocaleString("en-IN")}`;
 export const signedRupees = (n: number) =>
   `${n < 0 ? "−" : "+"}${rupees(Math.abs(n))}`;
 export const NOT_ENOUGH = "not enough data";

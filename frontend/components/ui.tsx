@@ -20,7 +20,7 @@ export function SourceBadge({ mock }: { mock: boolean }) {
   return (
     <span className={`badge ${mock ? "mock" : "green"}`}>
       <span className="status-dot" />
-      {mock ? "Demo data" : "Live engine"}
+      {mock ? "Mock data" : "Live engine"}
     </span>
   );
 }

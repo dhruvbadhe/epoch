@@ -22,6 +22,7 @@ import { AdviceCard } from "./AdviceCard";
 import { WhyBreakdown } from "./WhyBreakdown";
 import { ForecastChart } from "./ForecastChart";
 import { MandiTable } from "./MandiTable";
+import { ScrollReveal } from "./ScrollReveal";
 import {
   Empty,
   ErrorState,
@@ -47,7 +48,7 @@ export function AdviceTab({
 }) {
   const [input, setInput] = useState<AdviceRequest>({
     crop: "onion",
-    quantity_qtl: 10,
+    quantity_qtl: 20,
     village: "Niphad",
     lot_condition: null,
     cash_needed_in_days: null,
@@ -55,7 +56,7 @@ export function AdviceTab({
     overrides: null,
     lang: "en",
   });
-  const [quantity, setQuantity] = useState("10");
+  const [quantity, setQuantity] = useState("20");
   const [copied, setCopied] = useState(false);
   const [copyError, setCopyError] = useState("");
   const request = { ...input, quantity_qtl: Number(quantity), overrides, lang };
@@ -212,22 +213,22 @@ export function AdviceTab({
         result && (
           <>
             <SourceNote result={result} />
-            <div className="advice-grid">
+            <ScrollReveal className="advice-grid">
               <AdviceCard
                 advice={result.data}
                 quantity={request.quantity_qtl}
                 lang={lang}
               />
               <WhyBreakdown advice={result.data} />
-            </div>
-            <div className="outlook-grid">
+            </ScrollReveal>
+            <ScrollReveal className="outlook-grid">
               {active && (
                 <ForecastChart crop={input.crop} mandi={result.data.mandi} />
               )}
               <section className="panel whatsapp-panel">
                 <div className="section-heading">
                   <div>
-                    <span className="eyebrow">FROM DASHBOARD TO PHONE</span>
+                    <span className="eyebrow">WhatsApp reply</span>
                     <h2>
                       <MessageCircle size={20} />
                       The farmer’s reply
@@ -292,8 +293,10 @@ export function AdviceTab({
                   </p>
                 )}
               </section>
-            </div>
-            <MandiTable advice={result.data} />
+            </ScrollReveal>
+            <ScrollReveal>
+              <MandiTable advice={result.data} />
+            </ScrollReveal>
             <div className="advice-notes">
               <div>
                 <SourceBadge mock={result.mock} />

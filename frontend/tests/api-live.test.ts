@@ -43,18 +43,16 @@ test("live API preserves validation errors and visibly falls back only on unavai
         error.message === "Village not covered",
     );
     globalThis.fetch = async () => new Response("unavailable", { status: 503 });
-    const fallback = await getAdvice(request);
-    assert.equal(fallback.mock, true);
-    assert.match(fallback.fallback!, /Backend unavailable/);
+    await assert.rejects(getAdvice(request), /API returned 503/);
     globalThis.fetch = async () => {
       throw new TypeError("Failed to fetch");
     };
     assert.equal((await getAdvice(request)).mock, true);
     globalThis.fetch = async () => new Response("not json", { status: 200 });
-    assert.equal((await getAdvice(request)).mock, true);
+    await assert.rejects(getAdvice(request), /invalid JSON/);
     globalThis.fetch = async () =>
       new Response(JSON.stringify({ action: "hold" }), { status: 200 });
-    assert.equal((await getAdvice(request)).mock, true);
+    await assert.rejects(getAdvice(request), /expected contract/);
   } finally {
     globalThis.fetch = original;
   }

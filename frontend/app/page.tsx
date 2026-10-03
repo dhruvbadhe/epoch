@@ -32,14 +32,16 @@ import { AssumptionsDrawer } from "@/components/AssumptionsDrawer";
 import { QueriesDrawer } from "@/components/QueriesDrawer";
 import { Drawer } from "@/components/Drawer";
 import { Empty, ErrorState, Loading, SourceBadge } from "@/components/ui";
-type Tab = "advice" | "fpo" | "evidence";
+import { openWorkspace } from "@/components/HarvestIntro";
+import { InfoTab } from "@/components/InfoTab";
+type Tab = "advice" | "fpo" | "evidence" | "info";
 const tabs = [
   {
     id: "advice" as Tab,
     label: "Advice",
     icon: Sprout,
-    description: "One harvest. A clearer next step.",
-    title: "Make the most of your harvest.",
+    description: "Advice workspace",
+    title: "Advice for one lot",
   },
   {
     id: "fpo" as Tab,
@@ -54,6 +56,13 @@ const tabs = [
     icon: BarChart3,
     description: "Transparent numbers. Informed decisions.",
     title: "Good advice should show its work.",
+  },
+  {
+    id: "info" as Tab,
+    label: "Info",
+    icon: Leaf,
+    description: "Market context",
+    title: "Seven days in the market",
   },
 ];
 export default function Home() {
@@ -82,6 +91,11 @@ export default function Home() {
     if (data.prices_as_of) setAsOf(data.prices_as_of);
   }, []);
   const ignoreStatus = useCallback((_result: ApiResult<unknown>) => {}, []);
+  const navigate = useCallback((next: Tab) => {
+    setTab(next);
+    setMobileNav(false);
+    requestAnimationFrame(openWorkspace);
+  }, []);
   useEffect(() => {
     if (!mobileNav) return;
     const closeOnEscape = (event: KeyboardEvent) => {
@@ -134,10 +148,7 @@ export default function Home() {
               key={item.id}
               className={`nav-item ${tab === item.id ? "active" : ""}`}
               aria-current={tab === item.id ? "page" : undefined}
-              onClick={() => {
-                setTab(item.id);
-                setMobileNav(false);
-              }}
+              onClick={() => navigate(item.id)}
             >
               <item.icon size={19} />
               {item.label}
@@ -170,20 +181,17 @@ export default function Home() {
         </button>
         <div className="sidebar-bottom">
           <div className="field-note">
-            <span className="eyebrow">ROOTED IN YOUR REGION</span>
+            <span className="eyebrow">Market coverage</span>
             <h3>
-              Local harvests.
-              <br />
-              Better decisions.
+              {pricesAsOf
+                ? "Prices as of " + dateLabel(pricesAsOf)
+                : "Awaiting API data"}
             </h3>
-            <svg viewBox="0 0 200 85" fill="none" aria-hidden="true">
-              <path
-                d="M-20 85C0 30 40 40 70 59s69 6 145-59M-20 98C4 41 47 53 76 66s75 1 137-38M-20 111C4 57 47 66 85 74s69 0 130-23M-20 124C10 69 55 79 93 82s74-4 121-12M125 7v44m0-26c-17 0-19-16-19-16 17 0 19 16 19 16Zm0 12c17 0 19-16 19-16-17 0-19 16-19 16Z"
-                stroke="#779679"
-                strokeWidth="1.2"
-              />
-            </svg>
-            <span>Maharashtra · Onion, tomato & soybean</span>
+            <p>
+              {mandis.length} mandis ·{" "}
+              {new Set(mandis.flatMap((m) => m.crops)).size} crops ·{" "}
+              {villages.length} villages
+            </p>
           </div>
           <button
             className="nav-item help-button"
@@ -242,7 +250,8 @@ export default function Home() {
           </div>
         </header>
         <main id="main-content">
-          <div className="page-heading">
+          <div id="workspace-start" tabIndex={-1} />
+          <div className="page-heading workspace-heading" key={tab}>
             <div>
               <div className="page-eyebrow">
                 <span className="status-dot" />
@@ -254,7 +263,9 @@ export default function Home() {
                   ? "Where to sell. When to sell. What’s left in hand."
                   : tab === "fpo"
                     ? "Put cash needs, freshness, and shared trucks into one practical plan."
-                    : "Understand the backtest, the uncertainty, and the limits."}
+                    : tab === "info"
+                      ? "Reported prices and today’s net options, with their limits made clear."
+                      : "Understand the backtest, the uncertainty, and the limits."}
               </p>
             </div>
             <div className="heading-status">
@@ -290,6 +301,7 @@ export default function Home() {
             />
           ) : (
             <>
+              {tab === "info" && <InfoTab onStatus={onStatus} />}
               <div hidden={tab !== "advice"}>
                 <AdviceTab
                   active={tab === "advice"}
@@ -309,13 +321,15 @@ export default function Home() {
                   onStatus={tab === "fpo" ? onStatus : ignoreStatus}
                 />
               </div>
-              <div hidden={tab !== "evidence"}>
-                <EvidenceTab
-                  config={config}
-                  overrides={overrides}
-                  onStatus={tab === "evidence" ? onStatus : ignoreStatus}
-                />
-              </div>
+              {tab === "evidence" && (
+                <div>
+                  <EvidenceTab
+                    config={config}
+                    overrides={overrides}
+                    onStatus={onStatus}
+                  />
+                </div>
+              )}
             </>
           )}
           <footer className="page-footer">
@@ -324,7 +338,24 @@ export default function Home() {
               SellSmart <span className="footer-dot">·</span> From forecast to a
               next step.
             </span>
-            <span>Built for the people behind the harvest.</span>
+            <button
+              className="back-to-story"
+              onClick={() => {
+                setTab("info");
+                requestAnimationFrame(() =>
+                  window.scrollTo({
+                    top: 0,
+                    behavior: window.matchMedia(
+                      "(prefers-reduced-motion: reduce)",
+                    ).matches
+                      ? "instant"
+                      : "smooth",
+                  }),
+                );
+              }}
+            >
+              Back to the growth story <Sprout size={14} />
+            </button>
           </footer>
         </main>
       </div>

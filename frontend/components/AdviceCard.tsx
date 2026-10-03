@@ -12,7 +12,7 @@ import type { Advice, Lang } from "@/lib/types";
 import { percentage, rupees, signedRupees } from "@/lib/format";
 const labels = {
   en: {
-    recommendation: "YOUR RECOMMENDATION",
+    recommendation: "Recommendation",
     hold: "Hold",
     days: "days",
     sell: "Sell today",
@@ -181,7 +181,11 @@ export function AdviceCard({
       {advice.hold_suppressed && (
         <p className="advice-footnote hold-suppressed" role="note">
           <Info size={14} />
-          <strong>{t.suppressed}</strong>
+          <strong>
+            {lang === "en"
+              ? `Waiting not recommended. ${advice.notes.find((note) => /hold suppressed/i.test(note)) ?? t.suppressed}`
+              : t.suppressed}
+          </strong>
         </p>
       )}
       {advice.notes.length > 0 && (
@@ -195,7 +199,7 @@ export function AdviceCard({
       {advice.uses_baseline && (
         <p className="advice-footnote">
           <Info size={14} />
-          Forecast self-check failed. Only today’s options are recommended.
+          The selected option uses a baseline price from the API.
         </p>
       )}
     </section>

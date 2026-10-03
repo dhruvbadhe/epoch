@@ -119,11 +119,21 @@ async function call<T>(
         error.field,
       );
     }
-    if (!response.ok) throw new Error(`API returned ${response.status}`);
-    const data: unknown = await response.json();
+    if (!response.ok)
+      throw new ApiError(
+        `API returned ${response.status}. Please check the backend.`,
+      );
+    const data: unknown = await response.json().catch(() => {
+      throw new ApiError("The API returned invalid JSON.");
+    });
     if (!validResponse(path, data))
-      throw new Error("The API response does not match the expected contract.");
-    return { data: data as T, mock: false };
+      throw new ApiError(
+        "The API response does not match the expected contract.",
+      );
+    return {
+      data: data as T,
+      mock: response.headers.get("X-SellSmart-Engine") === "fake",
+    };
   } catch (error) {
     if (error instanceof ApiError) throw error;
     return {

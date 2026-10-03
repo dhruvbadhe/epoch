@@ -406,7 +406,7 @@ export function FpoPlanTab({
               <small>
                 {data.unplaced.length
                   ? "Includes unplaced lots with zero sale proceeds"
-                  : "After transport, spoilage, storage, and fees"}
+                  : "After assumed transport, spoilage, storage, and fees"}
               </small>
             </div>
           </div>
@@ -485,7 +485,7 @@ export function FpoPlanTab({
                       <th>Quantity</th>
                       <th>Destination / day</th>
                       <th>Reason</th>
-                      <th>Truck share</th>
+                      <th>Truck share (assumption)</th>
                       <th>Nearest today</th>
                       <th className="numeric">Money in hand</th>
                     </tr>

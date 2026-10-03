@@ -66,7 +66,7 @@ export interface MandiOption {
   net_low: number;
   net_per_qtl: number;
   net_high: number;
-  flags: ("stale" | "glut")[];
+  flags: ("stale" | "glut" | "falling")[];
 }
 export interface Advice {
   action: "hold" | "sell_now";
