@@ -285,15 +285,15 @@ def _village_scores(candidates: list[str]) -> list[tuple[float, bool, dict]]:
 
 
 def detect_lang(text: str) -> str:
+    """Hindi or Marathi by marker words (Devanagari or romanised). Otherwise: Latin script is English,
+    Devanagari is Marathi."""
     tokens = tokenize(text)
     count = {lang: sum(t in words for t in tokens) for lang, words in _LANG_MARKERS.items()}
     if count["hi"] > count["mr"]:
         return "hi"
     if count["mr"]:
         return "mr"
-    if count["en"] and not _is_devanagari(text):
-        return "en"
-    return "mr"
+    return "mr" if _is_devanagari(text) else "en"
 
 
 # ---------- the parse -----------------------------------------------------

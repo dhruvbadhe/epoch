@@ -18,6 +18,16 @@ log = logging.getLogger("sellsmart.conversation")
 CONFIRM, FRESHNESS, CASH, DONE = "awaiting_confirm", "awaiting_freshness", "awaiting_cash", "done"
 
 _lock = threading.Lock()       # one message at a time; conversation memory is a plain dict
+_chosen_lang: dict[str, str] = {}   # a language the sender picked explicitly; kept until they restart
+_last_lang: dict[str, str] = {}     # the sender's last conversation language, for replies like "1"
+
+
+def choose_lang(sender: str, lang: str | None) -> None:
+    """Remember (or with None, forget) the sender's explicit language choice."""
+    if lang is None:
+        _chosen_lang.pop(sender, None)
+    else:
+        _chosen_lang[sender] = lang
 
 
 def handle_message(sender: str, text: str, is_voice: bool = False) -> dict:
@@ -34,7 +44,7 @@ def _route(sender: str, text: str, is_voice: bool) -> dict:
     p = parser.parse(text)
     s = state.get(sender)
     if s is None or parser.is_new_request(p):           # nothing open, timed out, or a new crop message
-        return _start(sender, p, is_voice)
+        return _start(sender, p, is_voice, text)
     if s["state"] == CONFIRM:
         return _on_confirm(sender, s, text, p, is_voice)
     if s["state"] == FRESHNESS:
@@ -50,12 +60,14 @@ def _route(sender: str, text: str, is_voice: bool) -> dict:
     return _advance(sender, s)
 
 
-def _start(sender: str, p: parser.Parsed, is_voice: bool) -> dict:
+def _start(sender: str, p: parser.Parsed, is_voice: bool, text: str = "") -> dict:
     state.clear(sender)
+    detected = p.lang if any(c.isalpha() for c in text) else _last_lang.get(sender, p.lang)  # "1" has no language
+    lang = _last_lang[sender] = _chosen_lang.get(sender, detected)   # an explicit choice beats detection
     has_quantity = p.qty_value is not None and p.qty_unit is not None    # a bare number isn't a request
     if p.crop is None and p.village is None and not has_quantity:
-        return _reply(replies.help_message(p.lang, _example_village()), DONE, None)
-    s = {"state": None, "pending": None, "question": None, "lang": p.lang,
+        return _reply(replies.help_message(lang, _example_village()), DONE, None)
+    s = {"state": None, "pending": None, "question": None, "lang": lang,
          "crop": p.crop, "qty_value": p.qty_value, "qty_unit": p.qty_unit,
          "village": p.village, "village_guessed": bool(p.village) and not p.village_exact,
          "candidates": p.village_candidates, "voice": is_voice, "confirmed": False,
@@ -258,7 +270,7 @@ def _selftest():
 
         # tomato in crates: echo-back only (default limit rules out the hold, so nothing else to ask)
         r = chat("30 crate tomato Narayangaon", "ho")
-        assert r[0]["reply"] == "30 क्रेट टोमॅटो (≈ 6 क्विंटल), नारायणगाव. बरोबर? 1) हो 2) नाही"
+        assert r[0]["reply"] == "30 crates tomato (≈ 6 quintal), Narayangaon. Correct? 1) yes 2) no"  # Latin, no markers: English
         assert r[1]["state"] == DONE and r[1]["parsed"]["quantity_qtl"] == 6
 
         # voice notes always get the echo-back, even when nothing was guessed
@@ -286,7 +298,7 @@ def _selftest():
         assert r[0]["state"] == CONFIRM and r[0]["reply"] == replies.ask_missing(["quantity"], "mr")
         assert r[1]["reply"] == "20 क्विंटल कांदा, निफाड. बरोबर? 1) हो 2) नाही" and r[2]["state"] == FRESHNESS
         r = chat("20 quintal gahu Niphad", "kanda")              # a crop outside our three
-        assert "कांदा, टोमॅटो आणि सोयाबीन" in r[0]["reply"] and r[1]["state"] == FRESHNESS
+        assert "onion, tomato and soybean" in r[0]["reply"] and r[1]["state"] == FRESHNESS  # Latin, no markers: English
         r = chat("30 crate kanda Niphad", "15 quintal")          # no crate weight for onion
         assert r[0]["reply"] == replies.ask_missing(["quantity"], "mr") and r[1]["state"] == FRESHNESS
 
