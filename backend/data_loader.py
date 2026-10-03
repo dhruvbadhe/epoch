@@ -253,6 +253,17 @@ def as_of_date() -> str | None:
     return splits.get("as_of_date") if isinstance(splits, dict) else None
 
 
+def history_rows() -> list[dict]:
+    """data/forecast_history.csv: one leak-checked forecast per past as_of_date (every 3rd day of the test block)."""
+    return _load(DATA / "forecast_history.csv", _read_csv) or []
+
+
+def advice_dates() -> list[str]:
+    """Dates /advise can answer for: the demo date plus every date in forecast_history.csv."""
+    dates = {r["as_of_date"][:10] for r in history_rows()}
+    return sorted(dates | ({as_of_date()} if as_of_date() else set()))
+
+
 def backtest() -> object | None:
     return _load(DATA / "backtest.json", _read_json)
 

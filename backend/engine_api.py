@@ -105,18 +105,22 @@ def _call(fn, kwargs: dict):
 
 def advise(crop: str, quantity_qtl: float, village: str, lot_condition=None,
            cash_needed_in_days: int | None = None, blocked_mandis: list[str] | None = None,
-           overrides: dict | None = None) -> dict:
-    """The engine's answer in the /advise response shape, without storage_tip and message."""
+           overrides: dict | None = None, as_of_date: str | None = None) -> dict:
+    """The engine's answer in the /advise response shape, without storage_tip and message.
+
+    as_of_date other than the demo date: the engine answers from that day's row in forecast_history.csv."""
     kwargs = {"crop": crop, "quantity_qtl": quantity_qtl, "village": village,
               "lot_condition": lot_condition, "cash_needed_in_days": cash_needed_in_days,
               "blocked_mandis": list(blocked_mandis or []), "overrides": overrides or None,
               "as_of_date": data_loader.as_of_date()}
+    if as_of_date and as_of_date != data_loader.as_of_date():
+        kwargs.update(as_of_date=as_of_date, forecast=data_loader.history_rows())
     fn = _real("advise")
     return _call(fn, kwargs) if fn else _fake_advise(**kwargs)
 
 
 def _fake_advise(crop, quantity_qtl, village, lot_condition, cash_needed_in_days,
-                 blocked_mandis, overrides, as_of_date=None) -> dict:
+                 blocked_mandis, overrides, as_of_date=None, forecast=None) -> dict:
     result = data_loader.fake("advise.json")
     blocked = {m.lower() for m in blocked_mandis}
     limit = data_loader.hold_limit_days(crop, lot_condition)

@@ -53,11 +53,12 @@ def _backtest_hold_rate(crop: str):
 
 def get_advice(crop: str, quantity_qtl: float, village: str, lot_condition=None,
                cash_needed_in_days: int | None = None, blocked_mandis: list[str] | None = None,
-               overrides: dict | None = None, lang: str = "mr") -> dict:
+               overrides: dict | None = None, lang: str = "mr", as_of_date: str | None = None) -> dict:
     """The engine's advice plus storage_tip (hold only) and the formatted message."""
     result = dict(engine_api.advise(
         crop=crop, quantity_qtl=quantity_qtl, village=village, lot_condition=lot_condition,
-        cash_needed_in_days=cash_needed_in_days, blocked_mandis=blocked_mandis, overrides=overrides))
+        cash_needed_in_days=cash_needed_in_days, blocked_mandis=blocked_mandis, overrides=overrides,
+        as_of_date=as_of_date))
     if result.get("hold_success_rate") is None:
         result["hold_success_rate"] = _backtest_hold_rate(crop)
     result["storage_tip"] = tips.storage_tip(crop, lang) if result.get("action") == "hold" else None

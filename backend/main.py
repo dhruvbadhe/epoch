@@ -104,6 +104,7 @@ class AdviseRequest(BaseModel):
     blocked_mandis: list[str] = []
     overrides: dict | None = None
     lang: Literal["mr", "hi", "en"] = "mr"
+    as_of_date: str | None = None                # a past date from GET /as-of-dates; null = the demo date
 
 
 class Lot(BaseModel):
@@ -145,10 +146,12 @@ def advise(req: AdviseRequest, response: Response):
     village = advice.resolve_village(req.village)
     advice.check_lot_condition(req.crop, req.lot_condition)
     blocked = advice.check_blocked(req.blocked_mandis)
+    if req.as_of_date and req.as_of_date not in data_loader.advice_dates():
+        raise ApiError("as_of_date must be one of GET /as-of-dates", "as_of_date")
     result = _engine(lambda: advice.get_advice(
         req.crop, req.quantity_qtl, village["village"], lot_condition=req.lot_condition,
         cash_needed_in_days=req.cash_needed_in_days, blocked_mandis=blocked,
-        overrides=req.overrides, lang=req.lang))
+        overrides=req.overrides, lang=req.lang, as_of_date=req.as_of_date))
     response.headers[ENGINE_HEADER] = "fake" if engine_api.using_fake("advise") else "real"
     db.log_query("api", None, req.lang, req.crop, req.quantity_qtl, village["village"], result)
     result["answers_effect"] = _answers_effect(req, village["village"], blocked, result)
@@ -170,7 +173,7 @@ def _answers_effect(req, village: str, blocked: list[str], result: dict) -> dict
         return None
     try:
         plain = engine_api.advise(crop=req.crop, quantity_qtl=req.quantity_qtl, village=village,
-                                  blocked_mandis=blocked, overrides=req.overrides)
+                                  blocked_mandis=blocked, overrides=req.overrides, as_of_date=req.as_of_date)
     except Exception:
         log.exception("answers effect unavailable")
         return None
@@ -256,6 +259,12 @@ def queries():
 @app.get("/backtest")
 def backtest(crop: str = Query(...)):
     return lookups.backtest_view(crop)
+
+
+@app.get("/as-of-dates")
+def as_of_dates():
+    """Dates the Advice tab can be run for: the demo date and every past forecast date (leak-checked)."""
+    return {"default": data_loader.as_of_date(), "dates": data_loader.advice_dates()}
 
 
 @app.get("/market/snapshot")
