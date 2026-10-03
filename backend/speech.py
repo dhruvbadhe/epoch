@@ -48,8 +48,12 @@ def _vocabulary(language: str) -> str:
 
 
 def transcribe(audio: bytes, filename: str = "voice.ogg", content_type: str = "audio/ogg",
-               client: httpx.Client | None = None) -> str:
-    """The spoken text. Raises SpeechError if no provider is configured or the service fails."""
+               client: httpx.Client | None = None, *, auto_language: bool = False,
+               prompt: str | None = None) -> str:
+    """The spoken text. Raises SpeechError if no provider is configured or the service fails.
+
+    auto_language: let Whisper detect the language instead of sending STT_LANGUAGE.
+    prompt: replaces the default vocabulary hint sent to Whisper."""
     name = provider()
     if name is None:
         raise SpeechError("no speech-to-text key in .env (SARVAM_API_KEY, GROQ_API_KEY or OPENAI_API_KEY)")
@@ -69,8 +73,10 @@ def transcribe(audio: bytes, filename: str = "voice.ogg", content_type: str = "a
     else:
         base, default_model = _WHISPER[name]
         url, headers = f"{base}/audio/transcriptions", {"Authorization": f"Bearer {key}"}
-        data = {"model": model or default_model, "language": language, "response_format": "json",
-                "temperature": "0", "prompt": _vocabulary(language)}
+        data = {"model": model or default_model, "response_format": "json",
+                "temperature": "0", "prompt": prompt or _vocabulary(language)}
+        if not auto_language:
+            data["language"] = language
         field = "text"
 
     own_client = client is None

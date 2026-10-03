@@ -23,7 +23,8 @@ load_dotenv(data_loader.ROOT / ".env")
 
 from . import advice, conversation, engine_api, lookups, querylog, replies, speech, state  # noqa: E402
 from .errors import ApiError  # noqa: E402
-from .whatsapp import cloud_api  # noqa: E402
+from . import whatsapp_adapter  # noqa: E402  (reads WA_PROVIDER / D360_API_KEY at import)
+from .whatsapp import cloud_api  # noqa: E402  (Meta Cloud API at /whatsapp/webhook; unused without its keys)
 
 logging.basicConfig(level=logging.INFO, format="%(asctime)s %(levelname)s %(name)s: %(message)s")
 log = logging.getLogger("sellsmart.api")
@@ -255,7 +256,8 @@ def health():
             "speech_to_text": speech.provider()}
 
 
-app.include_router(cloud_api.router)
+app.include_router(whatsapp_adapter.router)            # GET/POST /webhook, POST /wa-bridge
+app.include_router(cloud_api.router)                   # /whatsapp/webhook (no clash with /webhook)
 
 log.info("engine: %s", engine_api.status())
 log.info("data: %s", data_loader.sources())
