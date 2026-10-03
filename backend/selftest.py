@@ -41,7 +41,7 @@ def test_advise():
     r = client.post("/advise", json=EXAMPLE)
     body = r.json()
     assert r.status_code == 200 and r.headers[ENGINE_HEADER] == "fake"
-    engine_part = {k: v for k, v in body.items() if k not in ("storage_tip", "message", "notes", "freshness")}
+    engine_part = {k: v for k, v in body.items() if k not in ("storage_tip", "message", "notes", "freshness", "answers_effect")}
     assert body["freshness"]["estimated_window_days"] == body["hold_limit_days"]   # added by the response layer
     assert engine_part == {k: v for k, v in data_loader.fake("advise.json").items() if k != "notes"}
     assert body["storage_tip"] == tips.storage_tip("onion", "mr")
@@ -273,7 +273,9 @@ def test_real_engine():
                                          "cash_needed_in_days": 7, "blocked_mandis": ["lasalgaon"],
                                          "overrides": {"fees_per_qtl": 5}})
         assert r.status_code == 200 and r.headers[ENGINE_HEADER] == "real"
-        assert calls[-1] == {"crop": "onion", "quantity_qtl": 10, "village": "Niphad", "lot_condition": True,
+        # last call: answers_effect's comparison without the freshness / cash answers; the farmer's call before it
+        assert calls[-1]["lot_condition"] is None and calls[-1]["cash_needed_in_days"] is None
+        assert calls[-2] == {"crop": "onion", "quantity_qtl": 10, "village": "Niphad", "lot_condition": True,
                              "cash_needed_in_days": 7, "blocked_mandis": ["Lasalgaon"],
                              "overrides": {"fees_per_qtl": 5}}
         body = r.json()

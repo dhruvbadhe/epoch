@@ -36,10 +36,18 @@ for crop, village, lot in [("onion", "Niphad", None), ("onion", "Niphad", False)
     body = {"crop": crop, "quantity_qtl": 20, "village": village, "lot_condition": lot, "lang": "en"}
     got = client.post("/advise", json=body).json()
     fresh = got.pop("freshness")
+    effect = got.pop("answers_effect")
+    assert (effect is None) == (lot is None), effect                     # only when an answer was given
+    if effect and not effect["changed"]:
+        assert effect["message"].startswith("This answer limits how long the lot could be held."), effect
     same = advice.get_advice(crop, 20, village, lot_condition=lot, lang="en")      # the path without the field
     assert got == same, (crop, lot)
     assert fresh["estimated_window_days"] == got["hold_limit_days"], (fresh, got["hold_limit_days"])
 a = client.post("/advise", json={"crop": "onion", "quantity_qtl": 20, "village": "Niphad"}).json()
 assert (a["action"], a["mandi"], a["net_per_qtl"], a["gain_vs_baseline"]) == ("sell_now", "Pimpalgaon", 1089, 35)
-print("ok  /advise is unchanged apart from the new 'freshness' field (onion 1089 / +35)")
+for crop, village, lot in [("onion", "Niphad", True), ("tomato", "Manchar", 2)]:
+    e = client.post("/advise", json={"crop": crop, "quantity_qtl": 20, "village": village, "lot_condition": lot}).json()
+    assert e["answers_effect"] == {"changed": False, "message": "This answer limits how long the lot could be held. "
+        "It did not change the advice, because waiting is not recommended for this crop right now."}, e["answers_effect"]
+print("ok  /advise is unchanged apart from the new 'freshness' and 'answers_effect' fields (onion 1089 / +35)")
 print("all freshness checks passed")

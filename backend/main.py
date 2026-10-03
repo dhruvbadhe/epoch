@@ -151,12 +151,35 @@ def advise(req: AdviseRequest, response: Response):
         overrides=req.overrides, lang=req.lang))
     response.headers[ENGINE_HEADER] = "fake" if engine_api.using_fake("advise") else "real"
     db.log_query("api", None, req.lang, req.crop, req.quantity_qtl, village["village"], result)
+    result["answers_effect"] = _answers_effect(req, village["village"], blocked, result)
     try:                                             # response layer only; never breaks the advice
         result["freshness"] = freshness.estimate(req.crop, req.lot_condition, req.lang)
     except Exception:
         log.exception("freshness estimate failed")
         result["freshness"] = None
     return result
+
+
+ANSWERS_UNCHANGED = "This answer limits how long the lot could be held. It did not change the advice"
+WAITING_NOT_RECOMMENDED = ", because waiting is not recommended for this crop right now."
+
+
+def _answers_effect(req, village: str, blocked: list[str], result: dict) -> dict | None:
+    """Did the freshness / cash answers change the advice? Compares with the engine's answer without them."""
+    if req.lot_condition is None and req.cash_needed_in_days is None:
+        return None
+    try:
+        plain = engine_api.advise(crop=req.crop, quantity_qtl=req.quantity_qtl, village=village,
+                                  blocked_mandis=blocked, overrides=req.overrides)
+    except Exception:
+        log.exception("answers effect unavailable")
+        return None
+    keys = ("action", "mandi", "days", "net_per_qtl", "net_low", "net_high", "gain_vs_baseline")
+    changed = any(plain.get(k) != result.get(k) for k in keys)
+    waiting_off = result.get("action") == "sell_now" and (
+        result.get("hold_suppressed") or bool(result.get("notes")) or plain.get("action") == "sell_now")
+    message = None if changed else ANSWERS_UNCHANGED + (WAITING_NOT_RECOMMENDED if waiting_off else ".")
+    return {"changed": changed, "message": message}
 
 
 @app.post("/fpo/plan")
