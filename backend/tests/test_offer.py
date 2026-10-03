@@ -2,10 +2,13 @@
 Run from the repo root: .venv/bin/python backend/tests/test_offer.py
 """
 import math
+import os
 import sys
+import tempfile
 from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).resolve().parents[2]))
+os.environ["SELLSMART_DB"] = str(Path(tempfile.mkdtemp()) / "test.db")   # not the demo database
 
 from backend import advice, conversation, replies  # noqa: E402
 

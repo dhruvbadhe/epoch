@@ -15,6 +15,7 @@ from pathlib import Path
 for stream in (sys.stdout, sys.stderr):
     stream.reconfigure(encoding="utf-8")        # Devanagari and emoji on a Windows console
 os.environ["ENGINE_MODE"] = "fake"
+os.environ["SELLSMART_DB"] = str(Path(tempfile.mkdtemp()) / "selftest.db")   # not the demo database
 
 from fastapi.testclient import TestClient  # noqa: E402
 

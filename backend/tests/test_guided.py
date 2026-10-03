@@ -1,10 +1,13 @@
 """Guided WhatsApp flow, through handle_message directly (no WhatsApp).
 Run from the repo root: .venv/bin/python backend/tests/test_guided.py
 """
+import os
 import sys
+import tempfile
 from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).resolve().parents[2]))
+os.environ["SELLSMART_DB"] = str(Path(tempfile.mkdtemp()) / "test.db")   # not the demo database
 
 from backend import conversation, replies  # noqa: E402
 

@@ -18,7 +18,7 @@ import threading
 
 from haversine import haversine
 
-from . import advice, data_loader, parser, querylog, replies, state
+from . import advice, data_loader, db, parser, querylog, replies, state
 
 log = logging.getLogger("sellsmart.conversation")
 
@@ -214,6 +214,7 @@ def _advance(sender: str, s: dict) -> dict:
         return _reply(replies.error(lang), DONE, s)
     state.clear(sender)
     _last_advice[sender] = (final, _quantity(s), lang)
+    db.log_query("whatsapp", sender, lang, s["crop"], _quantity(s), s["village"]["village"], final)
     return _reply(final["message"] + "\n" + replies.offer_prompt(lang), DONE, s)
 
 
@@ -346,6 +347,7 @@ def _guided(sender: str, s: dict, text: str, p: parser.Parsed) -> dict:
     state.clear(sender)
     used = replies.answers_used(changed, final.get("hold_limit_days"), s["cash_days"], lang)
     _last_advice[sender] = (final, qtl, lang)
+    db.log_query("whatsapp", sender, lang, s["crop"], qtl, village, final)
     return _reply(final["message"] + "\n" + used + "\n" + replies.offer_prompt(lang), DONE, s)
 
 

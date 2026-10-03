@@ -6,11 +6,13 @@ Run from the repo root: .venv/bin/python backend/tests/test_whatsapp_local.py
 """
 import os
 import sys
+import tempfile
 import threading
 import time
 from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).resolve().parents[2]))
+os.environ["SELLSMART_DB"] = str(Path(tempfile.mkdtemp()) / "test.db")   # not the demo database
 os.environ["WA_DRY_RUN"] = "1"  # second guard: even unmocked, the adapter would only log replies
 
 import httpx  # noqa: E402

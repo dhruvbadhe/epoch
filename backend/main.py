@@ -21,7 +21,7 @@ from . import data_loader
 load_dotenv(data_loader.ROOT / "backend" / ".env")   # keys live here; before anything reads a key
 load_dotenv(data_loader.ROOT / ".env")
 
-from . import advice, conversation, engine_api, lookups, querylog, replies, speech, state  # noqa: E402
+from . import advice, conversation, db, engine_api, lookups, querylog, replies, speech, state  # noqa: E402
 from .errors import ApiError  # noqa: E402
 from . import whatsapp_adapter  # noqa: E402  (reads WA_PROVIDER / D360_API_KEY at import)
 from .whatsapp import cloud_api  # noqa: E402  (Meta Cloud API at /whatsapp/webhook; unused without its keys)
@@ -149,6 +149,7 @@ def advise(req: AdviseRequest, response: Response):
         cash_needed_in_days=req.cash_needed_in_days, blocked_mandis=blocked,
         overrides=req.overrides, lang=req.lang))
     response.headers[ENGINE_HEADER] = "fake" if engine_api.using_fake("advise") else "real"
+    db.log_query("api", None, req.lang, req.crop, req.quantity_qtl, village["village"], result)
     return result
 
 
@@ -269,3 +270,5 @@ _not_real = [k for k in ("advise", "fpo_plan") if _engine_status[k] != "real"] +
     [k for k, v in data_loader.sources().items() if v != "real"]
 if _not_real and _engine_status["mode"] != "fake":
     raise RuntimeError(f"not real, refusing to start: {_not_real} (engine: {_engine_status})")
+
+db.ensure()                                          # data/sellsmart.db for inspection, if missing

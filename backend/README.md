@@ -38,3 +38,36 @@ Stop the server on port 8000 first; the test starts its own and sends nothing:
     .venv/bin/python backend/tests/test_whatsapp_local.py
 
 The sandbox replies only to the phone that sent START and has a cap of about 200 messages.
+
+## SQLite store (inspection and query log)
+
+`data/sellsmart.db` (git-ignored) holds copies of `prices_mh.csv`, `mandis.csv`, `villages.csv`,
+`forecast_table.csv` (tables `prices`, `mandis`, `villages`, `forecasts`), the backtest ladder
+(`backtest_results`), and one `queries` row per `/advise` call and per completed WhatsApp conversation
+(sender masked to its last four digits). The engine never reads it. It is built at startup if missing;
+rebuild with `.venv/bin/python -m backend.db` (the queries log is kept).
+
+Row counts per table:
+
+    sqlite3 -header -column data/sellsmart.db "SELECT 'prices' AS tbl, COUNT(*) AS n FROM prices
+      UNION ALL SELECT 'mandis', COUNT(*) FROM mandis UNION ALL SELECT 'villages', COUNT(*) FROM villages
+      UNION ALL SELECT 'forecasts', COUNT(*) FROM forecasts
+      UNION ALL SELECT 'backtest_results', COUNT(*) FROM backtest_results
+      UNION ALL SELECT 'queries', COUNT(*) FROM queries;"
+
+Onion prices by mandi on the day before the as-of date:
+
+    sqlite3 -header -column data/sellsmart.db "SELECT mandi, modal_price, min_price, max_price FROM prices
+      WHERE crop = 'onion' AND date = date((SELECT MAX(as_of_date) FROM forecasts), '-1 day')
+      ORDER BY modal_price DESC;"
+
+The last five farmer queries:
+
+    sqlite3 -header -column data/sellsmart.db "SELECT timestamp, channel, sender, language, crop, quantity_qtl,
+      village, action, mandi, net_per_qtl, gain_vs_baseline, hold_suppressed
+      FROM queries ORDER BY id DESC LIMIT 5;"
+
+The four-policy ladder per crop:
+
+    sqlite3 -header -column data/sellsmart.db "SELECT crop, policy, avg_net FROM backtest_results
+      ORDER BY crop, position;"

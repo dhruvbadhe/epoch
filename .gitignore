@@ -11,3 +11,4 @@ venv/
 data/raw/
 backend/queries.log
 backend/.env
+data/sellsmart.db
