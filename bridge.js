@@ -1,4 +1,4 @@
-// SellSmart WhatsApp bridge (whatsapp-web.js) -> FastAPI /wa-bridge
+// SahiDaam WhatsApp bridge (whatsapp-web.js) -> FastAPI /wa-bridge
 // Free, handles text + voice notes, any phone can message the linked number.
 // UNOFFICIAL: WhatsApp doesn't allow unofficial clients. Link a SPARE SIM only, never a personal number.
 //

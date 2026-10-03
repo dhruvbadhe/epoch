@@ -32,7 +32,8 @@ log = logging.getLogger("sellsmart.api")
 MAX_AUDIO_BYTES = 25 * 1024 * 1024               # upload limit of the speech-to-text services
 ENGINE_HEADER = "X-SellSmart-Engine"             # "real" or "fake": where the numbers came from
 
-app = FastAPI(title="SellSmart API", version="1.0")
+app = FastAPI(title="SahiDaam API", version="1.0",
+              description="SahiDaam (सही दाम): where and when to sell onion, tomato and soybean in Maharashtra for the most money in hand.")
 
 
 # ---------- errors: always {"error": "...", "field": "..."}, never a stack trace ----------
@@ -150,7 +151,11 @@ def advise(req: AdviseRequest, response: Response):
         overrides=req.overrides, lang=req.lang))
     response.headers[ENGINE_HEADER] = "fake" if engine_api.using_fake("advise") else "real"
     db.log_query("api", None, req.lang, req.crop, req.quantity_qtl, village["village"], result)
-    result["freshness"] = freshness.estimate(req.crop, req.lot_condition, req.lang)   # response layer only
+    try:                                             # response layer only; never breaks the advice
+        result["freshness"] = freshness.estimate(req.crop, req.lot_condition, req.lang)
+    except Exception:
+        log.exception("freshness estimate failed")
+        result["freshness"] = None
     return result
 
 

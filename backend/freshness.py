@@ -7,7 +7,7 @@ the /advise response in the backend response layer; never passed into the engine
 """
 from __future__ import annotations
 
-from . import engine_api
+from . import data_loader, engine_api
 
 BASIS = "Based on general post-harvest guidance; local accuracy not evaluated"
 REFERENCES = ["NHRDF post-harvest guidance", "ICAR-DOGR onion storage", "UC Davis Postharvest tomato facts",
@@ -54,7 +54,10 @@ _MISSING = {
 def estimate(crop: str, lot_condition=None, lang: str = "en") -> dict:
     lang = lang if lang in ("en", "mr", "hi") else "en"
     engine = engine_api._load_module()
-    window = engine._hold_limit(crop, lot_condition, engine._config(None))
+    if hasattr(engine, "_hold_limit") and hasattr(engine, "_config"):
+        window = engine._hold_limit(crop, lot_condition, engine._config(None))
+    else:                                    # same config.yaml hold_limit_days, read by the backend
+        window = data_loader.hold_limit_days(crop, lot_condition)
     first = _NOT_ASKED if lot_condition is None else _REASON[(crop, lot_condition)]
     return {"estimated_window_days": window, "answer": lot_condition, "basis": BASIS,
             "reasons": [first[lang], _WINDOW[lang].format(n=window)],

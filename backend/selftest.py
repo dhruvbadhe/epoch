@@ -41,7 +41,8 @@ def test_advise():
     r = client.post("/advise", json=EXAMPLE)
     body = r.json()
     assert r.status_code == 200 and r.headers[ENGINE_HEADER] == "fake"
-    engine_part = {k: v for k, v in body.items() if k not in ("storage_tip", "message", "notes")}
+    engine_part = {k: v for k, v in body.items() if k not in ("storage_tip", "message", "notes", "freshness")}
+    assert body["freshness"]["estimated_window_days"] == body["hold_limit_days"]   # added by the response layer
     assert engine_part == {k: v for k, v in data_loader.fake("advise.json").items() if k != "notes"}
     assert body["storage_tip"] == tips.storage_tip("onion", "mr")
     assert body["message"].splitlines()[0] == "🟢 *14 दिवस थांबा → पिंपळगाव*"

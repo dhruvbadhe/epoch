@@ -85,7 +85,7 @@ _T = {
         "other": "इतर",
         "not_covered": "माफ करा, हे गाव अजून आमच्या यादीत नाही.",
         "resend": "ठीक आहे. कृपया पुन्हा पाठवा: पीक, किती माल आणि गाव.\nउदा. {example}",
-        "help": "नमस्कार! हे SellSmart आहे. पीक, किती माल आणि गाव पाठवा; "
+        "help": "नमस्कार! हे सही दाम आहे. पीक, किती माल आणि गाव पाठवा; "
                 "कुठे आणि कधी विकावे ते आम्ही सांगू.\nउदा. {example}\nपिके: {crops}",
         "ask_crop": "कोणते पीक? सध्या {crops} एवढीच पिके आहेत.",
         "ask_quantity": "किती माल आहे? उदा. 20 क्विंटल किंवा 40 पोती",
@@ -115,7 +115,7 @@ _T = {
         "other": "कोई और",
         "not_covered": "माफ़ कीजिए, यह गाँव अभी हमारी सूची में नहीं है.",
         "resend": "ठीक है. कृपया दोबारा भेजें: फसल, मात्रा और गाँव.\nजैसे: {example}",
-        "help": "नमस्ते! यह SellSmart है. फसल, मात्रा और गाँव भेजें; "
+        "help": "नमस्ते! यह सही दाम है. फसल, मात्रा और गाँव भेजें; "
                 "कहाँ और कब बेचें यह हम बताएँगे.\nजैसे: {example}\nफसलें: {crops}",
         "ask_crop": "कौन सी फसल? अभी सिर्फ़ {crops} उपलब्ध हैं.",
         "ask_quantity": "कितना माल है? जैसे: 20 क्विंटल या 40 बोरी",
@@ -145,7 +145,7 @@ _T = {
         "other": "other",
         "not_covered": "Sorry, this village isn't covered yet.",
         "resend": "OK. Please send it again: crop, quantity and village.\nExample: {example}",
-        "help": "Hi! This is SellSmart. Send your crop, quantity and village and we'll tell "
+        "help": "Hi! This is SahiDaam. Send your crop, quantity and village and we'll tell "
                 "you where and when to sell.\nExample: {example}\nCrops: {crops}",
         "ask_crop": "Which crop? We currently cover only {crops}.",
         "ask_quantity": "How much do you have? e.g. 20 quintal or 40 bags",

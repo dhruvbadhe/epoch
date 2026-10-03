@@ -1,5 +1,5 @@
 """
-SellSmart WhatsApp adapter. All three options are free:
+SahiDaam WhatsApp adapter. All three options are free:
 
   WA_PROVIDER=webjs      (default) Node bridge in whatsapp-bridge/ posts to /wa-bridge.
                          Text + voice, any phone can message. Unofficial: use a spare SIM.
