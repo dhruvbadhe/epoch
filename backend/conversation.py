@@ -49,6 +49,11 @@ def handle_message(sender: str, text: str, is_voice: bool = False) -> dict:
     text = (text or "").strip()
     with _lock:
         result = _route(sender, text, is_voice)
+        if is_voice and text and any(v is None for v in result["parsed"].values()):
+            # not fully understood: show what was heard so the farmer can correct it
+            result = {**result, "reply": replies.heard(text, _last_lang.get(sender, "mr")) + "\n" + result["reply"]}
+    if is_voice:
+        log.info("voice transcript from %s: %r", querylog.mask(sender), text)
     querylog.append(sender, ("🎤 " if is_voice else "") + text, result["reply"])
     return result
 

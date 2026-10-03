@@ -127,7 +127,9 @@ async def process_message(msg: dict) -> None:
         if kind == "text":
             reply = await asyncio.to_thread(handle_message, user, msg["text"]["body"])
         elif kind in ("audio", "voice"):  # WhatsApp voice notes arrive as type "audio" (OGG/Opus)
-            audio = await download_voice_note(msg[kind]["id"])
+            media = msg[kind]
+            log.info("voice note %s: fields %s", msg.get("id"), sorted(media))
+            audio = await download_voice_note(media)
             reply = await asyncio.to_thread(handle_voice, user, audio)
         else:
             reply = MSG_UNSUPPORTED
@@ -137,12 +139,19 @@ async def process_message(msg: dict) -> None:
         await send_text(user, MSG_ERROR, by_user_id)
 
 
-async def download_voice_note(media_id: str) -> bytes:
-    """media id -> the voice note's bytes (Ogg/Opus, sent to speech-to-text as it is).
+async def download_voice_note(media: dict) -> bytes:
+    """The voice note's bytes (Ogg/Opus, sent to speech-to-text as it is).
 
-    360dialog sandbox: GET /v1/media/{id} (bytes, or JSON with a download url).
-    Meta: GET /{id} -> short-lived URL (5 min) -> bytes."""
+    A direct "url" in the webhook is used first. Otherwise 360dialog: GET /v1/media/{id} (bytes, or JSON with
+    a download url); Meta: GET /{id} -> short-lived URL (5 min) -> bytes."""
+    media_id = media["id"]
     async with httpx.AsyncClient(timeout=30) as client:
+        if media.get("url"):
+            direct = await client.get(media["url"], headers=AUTH)
+            log.info("voice note download from webhook url (%s): HTTP %s", httpx.URL(media["url"]).host,
+                     direct.status_code)
+            if direct.status_code == 200:
+                return direct.content
         first = await client.get(f"{D360_BASE}/media/{media_id}" if PROVIDER == "360dialog" else f"{GRAPH}/{media_id}",
                                  headers=AUTH)
         first.raise_for_status()

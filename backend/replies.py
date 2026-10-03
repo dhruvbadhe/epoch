@@ -501,6 +501,13 @@ _OFFER = {
 }
 
 
+_HEARD = {"mr": "🎤 ऐकले: «{text}»", "hi": "🎤 सुना: «{text}»", "en": "🎤 Heard: «{text}»"}
+
+
+def heard(text: str, lang: str) -> str:
+    return _HEARD[_lang(lang)].format(text=text)
+
+
 def offer_prompt(lang: str) -> str:
     return _OFFER[_lang(lang)]["prompt"]
 

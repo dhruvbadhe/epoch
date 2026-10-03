@@ -193,7 +193,8 @@ async def message(request: Request):
         if len(data) > MAX_AUDIO_BYTES:
             raise ApiError("audio file is too large", "audio")
         try:
-            text = await run_in_threadpool(speech.transcribe, data, audio.filename, audio.content_type)
+            text = await run_in_threadpool(lambda: speech.transcribe(        # as on WhatsApp: no forced language
+                data, audio.filename, audio.content_type, auto_language=True, prompt=whatsapp_adapter.VOICE_HINT))
         except speech.SpeechError as exc:
             log.error("voice note from %s not transcribed: %s", querylog.mask(sender), exc)
             querylog.append(sender, "🎤 (not understood)", replies.VOICE_FAILED)
