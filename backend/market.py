@@ -6,16 +6,33 @@ the engine's own functions (ml/engine/api.py), selling on the day of the snapsho
 """
 from __future__ import annotations
 
+import logging
 from datetime import date, timedelta
+from pathlib import Path
 
 from . import data_loader, engine_api
 
+log = logging.getLogger("sellsmart.market")
 SERIES_DAYS = 7
+_rows: dict[Path, tuple[float, list[dict]]] = {}
+
+
+def _csv(name: str) -> list[dict]:
+    """CSV rows with a cache of our own: data_loader's cache is keyed by path only, and other callers
+    store a differently parsed copy of the same files there."""
+    path = data_loader.DATA / name
+    try:
+        mtime = path.stat().st_mtime
+    except OSError:
+        return []
+    hit = _rows.get(path)
+    if hit is None or hit[0] != mtime:
+        hit = _rows[path] = (mtime, data_loader._read_csv(path))
+    return hit[1]
 
 
 def _prices(crop: str) -> list[dict]:
-    rows = data_loader._load(data_loader.DATA / "prices_mh.csv", data_loader._read_csv) or []
-    return [r for r in rows if r.get("crop", "").lower() == crop]
+    return [r for r in _csv("prices_mh.csv") if r.get("crop", "").lower() == crop]
 
 
 def _num(value):
@@ -27,8 +44,7 @@ def snapshot(crop: str, village: dict | None = None) -> dict:
     as_of = data_loader.as_of_date()
     rows = [r for r in _prices(crop) if r["date"][:10] < as_of]            # nothing on or after the as-of date
     mandis = [m for m in data_loader.mandis() if crop in m["crops"]]
-    districts = {m["mandi"]: m.get("district") for m in data_loader._load(
-        data_loader.DATA / "mandis.csv", data_loader._read_csv) or []}
+    districts = {m.get("mandi"): m.get("district") for m in _csv("mandis.csv")}
     by_mandi: dict[str, dict[str, dict]] = {}
     for r in rows:
         by_mandi.setdefault(r["mandi"], {})[r["date"][:10]] = r
@@ -68,11 +84,18 @@ def snapshot(crop: str, village: dict | None = None) -> dict:
         "lowest_price": {"mandi": lowest["mandi"], "modal_price": lowest["modal_price"]} if lowest else None,
         "spread": highest["modal_price"] - lowest["modal_price"] if highest else None,
         "not_reporting": not_reporting, "series_dates": dates, "series_7d": series,
-        "village": None, "money_in_hand": None,
+        "village": None, "money_in_hand": None, "message": None,
     }
-    if village and reporting:
+    if not reporting:
+        result["message"] = "No mandi reported a price for this crop on the snapshot date."
+    if village:
         result["village"] = village["village"]
-        result["money_in_hand"] = _money_in_hand(crop, village["village"], reporting)
+        if reporting:
+            try:
+                result["money_in_hand"] = _money_in_hand(crop, village["village"], reporting)
+            except Exception as exc:          # no coordinates, a mandi missing from mandis.csv, ...
+                log.warning("money in hand unavailable for %s from %s: %s", crop, village["village"], exc)
+                result["message"] = f"Money in hand from {village['village']} is not available: {exc}"
     return result
 
 

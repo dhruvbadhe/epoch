@@ -237,7 +237,16 @@ def backtest(crop: str = Query(...)):
 @app.get("/market/snapshot")
 def market_snapshot(crop: str = Query(...), village: str | None = None):
     """Yesterday's reported prices for the Info tab; with a village, money in hand from there."""
-    return market.snapshot(lookups.check_crop(crop), advice.resolve_village(village) if village else None)
+    crop = lookups.check_crop(crop)
+    place = advice.resolve_village(village) if village else None
+    try:
+        return market.snapshot(crop, place)
+    except Exception:                                # never a 500 for the Info tab
+        log.exception("market snapshot failed for %s", crop)
+        return {"crop": crop, "prices_as_of": data_loader.as_of_date(), "snapshot_date": None, "basis": "",
+                "reporting": [], "highest_price": None, "lowest_price": None, "spread": None,
+                "not_reporting": [], "series_dates": [], "series_7d": [], "village": village,
+                "money_in_hand": None, "message": "The market snapshot is not available right now."}
 
 
 @app.get("/weather")

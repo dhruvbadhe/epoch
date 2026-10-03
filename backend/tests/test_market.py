@@ -52,5 +52,46 @@ assert mih["label"] == "highest money in hand from Niphad" and "profitable" not 
 assert client.get("/market/snapshot", params={"crop": "wheat"}).status_code == 400
 assert client.get("/market/snapshot", params={"crop": "onion", "village": "Atlantis"}).status_code == 400
 assert client.get("/market/snapshot", params={"crop": "tomato"}).json()["money_in_hand"] is None
+# regression: /forecast fills data_loader's cache for prices_mh.csv first (the dashboard order) -> still 200
+from backend import data_loader, engine_api, market  # noqa: E402
+for crop in ("onion", "tomato", "soybean"):
+    client.get("/forecast", params={"crop": crop, "mandi": "Pimpalgaon" if crop != "soybean" else "Akola"})
+    for params in ({"crop": crop, "village": "Niphad"}, {"crop": crop}):
+        r = client.get("/market/snapshot", params=params)
+        assert r.status_code == 200 and r.json()["reporting"], (params, r.status_code)
+
+# a village without coordinates -> snapshot without money in hand, plus a message
+nowhere = {**data_loader.find_village("Niphad"), "lat": None, "lon": None, "village": "Nowhere"}
+r = market.snapshot("onion", nowhere)
+assert r["reporting"] and r["money_in_hand"] is None and r["message"], r["message"]
+
+# no reports on the snapshot date -> empty snapshot with a message, never an error
+real_as_of = data_loader.as_of_date
+data_loader.as_of_date = lambda: "2000-01-01"
+try:
+    r = market.snapshot("onion", data_loader.find_village("Niphad"))
+    assert r["reporting"] == [] and r["money_in_hand"] is None and r["message"], r
+finally:
+    data_loader.as_of_date = real_as_of
+
+# a reporting mandi missing from data/mandis.csv -> the engine's distance lookup fails -> no money in hand
+engine = engine_api._load_module()
+real_distance = engine.road_distance_km
+engine.road_distance_km = lambda *a, **k: (_ for _ in ()).throw(ValueError("unknown mandi: Ghost"))
+try:
+    r = market.snapshot("onion", data_loader.find_village("Niphad"))
+    assert r["reporting"] and r["money_in_hand"] is None and "unknown mandi" in r["message"], r["message"]
+finally:
+    engine.road_distance_km = real_distance
+
+# even an unexpected failure in the snapshot returns 200 with a message
+real_snapshot = market.snapshot
+market.snapshot = lambda *a, **k: 1 / 0
+try:
+    r = client.get("/market/snapshot", params={"crop": "onion"})
+    assert r.status_code == 200 and r.json()["message"], r.status_code
+finally:
+    market.snapshot = real_snapshot
+print("ok  never 500: after /forecast, no coordinates, no reports, missing mandi, unexpected error")
 print(f"market snapshot ok: {yesterday}, {len(s['reporting'])} mandis reported, highest {s['highest_price']}, "
       f"{checked} nets equal to /advise, best from Niphad {mih['highest']}")
