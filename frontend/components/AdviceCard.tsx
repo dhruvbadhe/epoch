@@ -25,7 +25,10 @@ const labels = {
     condition: "Before you dispatch",
     check: "Go only if the reported price is above",
     verify: "Check with the mandi before sending the crop.",
-    limit: "This lot can be held up to",
+    limit: "Estimated selling window: up to",
+    why: "Why this estimate?",
+    refine: "Would refine it",
+    reading: "Further reading (no figures taken from these)",
     storage: "Storage guidance",
     suppressed:
       "Holding was switched off: past hold advice for this crop did not pay off often enough, so sell today.",
@@ -45,7 +48,10 @@ const labels = {
     condition: "माल पाठवण्यापूर्वी",
     check: "बाजारभाव यापेक्षा जास्त असेल तरच जा",
     verify: "माल पाठवण्यापूर्वी बाजारात खात्री करा.",
-    limit: "हा माल इतके दिवस ठेवता येईल",
+    limit: "अंदाजे विक्री कालावधी: जास्तीत जास्त",
+    why: "हा अंदाज का?",
+    refine: "अधिक अचूकतेसाठी",
+    reading: "अधिक वाचन (यातील आकडे वापरलेले नाहीत)",
     storage: "साठवण मार्गदर्शन",
     suppressed:
       "थांबण्याचा सल्ला बंद केला: या पिकासाठी मागील थांबण्याचे सल्ले पुरेसे वेळा फायद्याचे ठरले नाहीत, म्हणून आजच विका.",
@@ -65,7 +71,10 @@ const labels = {
     condition: "माल भेजने से पहले",
     check: "बाजार भाव इससे ऊपर हो तभी जाएं",
     verify: "माल भेजने से पहले मंडी से जांचें।",
-    limit: "यह माल इतने दिन रखा जा सकता है",
+    limit: "अनुमानित बिक्री समय: अधिकतम",
+    why: "यह अनुमान क्यों?",
+    refine: "और सटीकता के लिए",
+    reading: "और पढ़ें (इनसे कोई आंकड़ा नहीं लिया गया)",
     storage: "भंडारण मार्गदर्शन",
     suppressed:
       "रुकने की सलाह बंद की गई: इस फसल के लिए पिछली रुकने की सलाह पर्याप्त बार फ़ायदेमंद नहीं रही, इसलिए आज ही बेचें।",
@@ -161,7 +170,27 @@ export function AdviceCard({
       )}
       <div className="advice-footnote">
         <CalendarDays size={14} />
-        {t.limit} {advice.hold_limit_days} {t.days}.
+        {t.limit}{" "}
+        {advice.freshness?.estimated_window_days ?? advice.hold_limit_days}{" "}
+        {t.days}.
+        {advice.freshness && (
+          <>
+            <br />
+            <span className="tiny">{advice.freshness.basis}</span>
+            <details className="freshness-why">
+              <summary>{t.why}</summary>
+              {advice.freshness.reasons.map((r, i) => (
+                <p key={i}>{r}</p>
+              ))}
+              <p>
+                {t.refine}: {advice.freshness.missing.join(", ")}
+              </p>
+              <p className="tiny">
+                {t.reading}: {advice.freshness.references.join(" · ")}
+              </p>
+            </details>
+          </>
+        )}
         {hold && advice.storage_tip && (
           <>
             <br />

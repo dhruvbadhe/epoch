@@ -97,6 +97,14 @@ export interface Advice {
   options: MandiOption[];
   notes: string[];
   hold_suppressed?: boolean;
+  freshness?: {
+    estimated_window_days: number;
+    answer: LotCondition;
+    basis: string;
+    reasons: string[];
+    missing: string[];
+    references: string[];
+  };
   storage_tip: string | null;
   message: string;
 }
