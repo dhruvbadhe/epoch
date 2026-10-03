@@ -83,3 +83,15 @@ It drops and reloads 14 tables (prices, mandis, villages, forecasts, forecast_hi
 selfcheck_history, coverage, selfcheck_v1, coverage_v1, splits, backtest_summary, backtest_results, queries),
 turns on row-level security, and prints each table's row count next to its source file. It is a snapshot:
 re-run it to copy new farmer queries from `data/sellsmart.db`. The engine never reads Supabase.
+
+## Fallback: WhatsApp through the QR bridge (text and voice notes)
+
+The 360dialog sandbox does not deliver voice-note audio (its media link returns 401/404), so voice notes
+need the QR bridge. Link a **spare** WhatsApp number, never a personal one. Backend running on :8000, repo root:
+
+    npm install                  # once (PUPPETEER_SKIP_DOWNLOAD=true is fine: the installed Chrome is used)
+    node bridge.js               # scan the QR on the spare phone: Settings > Linked devices > Link a device
+
+Wait for "Bridge ready". Text goes to POST /message as JSON; a voice note is sent as a multipart upload
+(voice.ogg), transcribed by Groq, and the reply starts with "Heard: ..." when it wasn't fully understood.
+The login is remembered in .wwebjs_auth (git-ignored), so later restarts don't need a new QR.
