@@ -19,6 +19,7 @@ import type {
   Village,
 } from "@/lib/types";
 import { AdviceCard } from "./AdviceCard";
+import { Influences } from "./Influences";
 import { WeatherPanel } from "./WeatherPanel";
 import { WhyBreakdown } from "./WhyBreakdown";
 import { ForecastChart } from "./ForecastChart";
@@ -236,6 +237,7 @@ export function AdviceTab({
               />
               <WhyBreakdown advice={result.data} />
             </ScrollReveal>
+            <Influences advice={result.data} village={request.village} />
             <WeatherPanel
               village={request.village}
               crop={input.crop}
