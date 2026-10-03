@@ -122,6 +122,7 @@ class FpoPlanRequest(BaseModel):
     mandi_cap_qtl_per_day: Annotated[float, Field(gt=0, allow_inf_nan=False)] | None = None
     collection_centre: Any = None                # null | village name | {name, lat, lon}
     overrides: dict | None = None
+    as_of_date: str | None = None                # a past date from GET /as-of-dates; null = the demo date
 
 
 def _collection_centre(value) -> dict | None:
@@ -196,9 +197,11 @@ def fpo_plan(req: FpoPlanRequest, response: Response):
                      "cash_needed_in_days": lot.cash_needed_in_days})
     blocked = advice.check_blocked(req.blocked_mandis)
     centre = _collection_centre(req.collection_centre)
+    if req.as_of_date and req.as_of_date not in data_loader.advice_dates():
+        raise ApiError("as_of_date must be one of GET /as-of-dates", "as_of_date")
     result = _engine(lambda: engine_api.fpo_plan(
         lots, blocked_mandis=blocked, mandi_cap_qtl_per_day=req.mandi_cap_qtl_per_day,
-        collection_centre=centre, overrides=req.overrides))
+        collection_centre=centre, overrides=req.overrides, as_of_date=req.as_of_date))
     response.headers[ENGINE_HEADER] = "fake" if engine_api.using_fake("fpo_plan") else "real"
     return result
 

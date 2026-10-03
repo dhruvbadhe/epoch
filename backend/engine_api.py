@@ -154,11 +154,13 @@ def _fake_advise(crop, quantity_qtl, village, lot_condition, cash_needed_in_days
 
 def fpo_plan(lots: list[dict], blocked_mandis: list[str] | None = None,
              mandi_cap_qtl_per_day: float | None = None, collection_centre: dict | None = None,
-             overrides: dict | None = None) -> dict:
+             overrides: dict | None = None, as_of_date: str | None = None) -> dict:
     kwargs = {"lots": lots, "blocked_mandis": list(blocked_mandis or []),
               "mandi_cap_qtl_per_day": mandi_cap_qtl_per_day,
               "collection_centre": collection_centre, "overrides": overrides or None,
               "as_of_date": data_loader.as_of_date()}
+    if as_of_date and as_of_date != data_loader.as_of_date():   # a past date: that day's forecast_history rows
+        kwargs.update(as_of_date=as_of_date, forecast=data_loader.history_rows())
     fn = _real("fpo_plan")
     if fn:
         return _call(fn, kwargs)
