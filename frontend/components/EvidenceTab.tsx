@@ -5,6 +5,7 @@ import {
   Bar,
   BarChart,
   CartesianGrid,
+  LabelList,
   ResponsiveContainer,
   Tooltip,
   XAxis,
@@ -12,14 +13,20 @@ import {
 } from "recharts";
 import { getBacktest } from "@/lib/api";
 import { useResource } from "@/lib/useResource";
-import { dateLabel, metric, percentage, rupees } from "@/lib/format";
+import {
+  NOT_ENOUGH,
+  dateLabel,
+  metric,
+  percentage,
+  rupees,
+} from "@/lib/format";
 import type { ApiResult, Config, Crop, Overrides } from "@/lib/types";
 import { Empty, ErrorState, Loading, SourceBadge, SourceNote } from "./ui";
 const policies: Record<string, string> = {
   nearest_today: "Nearest today",
   highest_price_today: "Highest price today",
   best_net_today: "Best net today",
-  full_advice: "Full advice",
+  full_advice: "With hold rule (before the gate)",
 };
 export function EvidenceTab({
   overrides,
@@ -79,7 +86,7 @@ export function EvidenceTab({
               <div className="notice">
                 <Info size={17} />
                 The backtest hasn’t been measured in this demo. Metrics remain
-                “Not evaluated” until the backend provides results.
+                “Not enough data” until the backend provides results.
               </div>
             )}
             <div className="stat-grid">
@@ -172,7 +179,14 @@ export function EvidenceTab({
                           fill="#24734f"
                           radius={[5, 5, 0, 0]}
                           isAnimationActive={false}
-                        />
+                        >
+                          <LabelList
+                            dataKey="avg_net"
+                            position="top"
+                            formatter={(v) => rupees(Number(v))}
+                            style={{ fontSize: 11 }}
+                          />
+                        </Bar>
                       </BarChart>
                     </ResponsiveContainer>
                   </div>
@@ -183,7 +197,7 @@ export function EvidenceTab({
                         <span className="step-number">0{i + 1}</span>
                         <strong>{policies[l.policy] ?? l.policy}</strong>
                         <span className="ladder-placeholder" />
-                        <span className="tiny">Not evaluated</span>
+                        <span className="tiny">Not enough data</span>
                       </div>
                     ))}
                   </div>
@@ -225,9 +239,25 @@ export function EvidenceTab({
                     {percentage(data.hold_success_rate)}
                   </strong>
                 </div>
+                <div className="validation-row">
+                  <span>Holds won / lost / unscored</span>
+                  <strong>
+                    {data.hold_record
+                      ? `${data.hold_record.won} / ${data.hold_record.lost} / ${data.hold_record.unscored}`
+                      : NOT_ENOUGH}
+                  </strong>
+                </div>
+                <div className="validation-row">
+                  <span>Gain from mandi choice</span>
+                  <strong>{metric(data.gain_split?.from_mandi_choice)}</strong>
+                </div>
+                <div className="validation-row">
+                  <span>Gain from holding</span>
+                  <strong>{metric(data.gain_split?.from_holding)}</strong>
+                </div>
                 <p className="tiny">
                   Hold success compares against the best sell-today option,
-                  including transport.
+                  including transport. Losses count the same as wins.
                 </p>
                 <div className="test-period">
                   <span>Test period</span>
@@ -352,7 +382,7 @@ export function EvidenceTab({
                           <td>Day {s.horizon_days}</td>
                           <td>
                             {s.ratio === null
-                              ? "Not evaluated"
+                              ? "Not enough data"
                               : s.ratio.toFixed(3)}
                           </td>
                           <td>{s.rows}</td>
@@ -361,7 +391,7 @@ export function EvidenceTab({
                               className={`badge ${s.ratio === null ? "" : s.passed ? "green" : "red"}`}
                             >
                               {s.ratio === null
-                                ? "Not evaluated"
+                                ? "Not enough data"
                                 : s.passed
                                   ? "Passed"
                                   : "Failed"}
@@ -380,7 +410,12 @@ export function EvidenceTab({
               )}
               <div className="table-footer">
                 <span>Default assumptions · {data.assumptions}</span>
-                <span>Prices as of {data.test_period.end}</span>
+                <span>
+                  Prices as of{" "}
+                  {data.prices_as_of
+                    ? dateLabel(data.prices_as_of)
+                    : NOT_ENOUGH}
+                </span>
               </div>
             </section>
           </>

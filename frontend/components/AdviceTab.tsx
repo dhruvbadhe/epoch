@@ -295,9 +295,6 @@ export function AdviceTab({
             </div>
             <MandiTable advice={result.data} />
             <div className="advice-notes">
-              {result.data.notes.map((note, i) => (
-                <p key={i}>{note}</p>
-              ))}
               <div>
                 <SourceBadge mock={result.mock} />
                 <button className="button subtle" onClick={reload}>

@@ -109,5 +109,56 @@
     "tomato": "टमाटर छाया में, साफ हवादार क्रेट में रखें; खराब फल हटाएं।",
     "onion": "प्याज को सूखी, हवादार जगह पर जमीन से ऊपर रखें; सड़े या अंकुरित प्याज हटाएं।",
     "soybean": "पूरी तरह सूखे सोयाबीन को सूखी जगह पर नमी से दूर रखें।"
-  }
+  },
+  "engine_demo_lots": [
+    {
+      "member": "A",
+      "crop": "onion",
+      "quantity_qtl": 100,
+      "village": "Niphad",
+      "lot_condition": null,
+      "cash_needed_in_days": null
+    },
+    {
+      "member": "B",
+      "crop": "onion",
+      "quantity_qtl": 80,
+      "village": "Sinnar",
+      "lot_condition": null,
+      "cash_needed_in_days": 3
+    },
+    {
+      "member": "C",
+      "crop": "onion",
+      "quantity_qtl": 70,
+      "village": "Chandori",
+      "lot_condition": false,
+      "cash_needed_in_days": null
+    },
+    {
+      "member": "D",
+      "crop": "tomato",
+      "quantity_qtl": 60,
+      "village": "Dindori",
+      "lot_condition": 1,
+      "cash_needed_in_days": null
+    },
+    {
+      "member": "E",
+      "crop": "tomato",
+      "quantity_qtl": 50,
+      "village": "Yeola",
+      "lot_condition": 0,
+      "cash_needed_in_days": 1
+    },
+    {
+      "member": "F",
+      "crop": "tomato",
+      "quantity_qtl": 40,
+      "village": "Lasalgaon",
+      "lot_condition": 2,
+      "cash_needed_in_days": null
+    }
+  ],
+  "collection_centre": "Niphad"
 }

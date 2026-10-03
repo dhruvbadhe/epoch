@@ -12,7 +12,8 @@ import {
   UsersRound,
 } from "lucide-react";
 import { getPlan } from "@/lib/api";
-import { sampleLots } from "@/lib/demo";
+import { NOT_ENOUGH } from "@/lib/format";
+import { engineDemoLots, sampleCentre } from "@/lib/demo";
 import { useResource } from "@/lib/useResource";
 import { cropLabel, rupees, sellDay, signedRupees } from "@/lib/format";
 import type {
@@ -48,7 +49,7 @@ export function FpoPlanTab({
   overrides: Overrides;
   onStatus: (result: ApiResult<unknown>) => void;
 }) {
-  const [lots, setLots] = useState<Lot[]>(structuredClone(sampleLots));
+  const [lots, setLots] = useState<Lot[]>(structuredClone(engineDemoLots));
   const [blocked, setBlocked] = useState<string[]>([]);
   const [planned, setPlanned] = useState<PlanRequest | null>(null);
   const [dirty, setDirty] = useState(true);
@@ -108,12 +109,23 @@ export function FpoPlanTab({
       lots: structuredClone(lots),
       blocked_mandis: newBlocked,
       mandi_cap_qtl_per_day: null,
-      collection_centre: null,
+      collection_centre: config.fpo.collection_centre.name || sampleCentre,
       overrides,
     });
     setDirty(false);
   };
-  const centre = config.fpo.collection_centre.name || "Not configured";
+  // The same lots with nothing blocked, to headline what a closure costs.
+  const openRequest =
+    planned && planned.blocked_mandis.length
+      ? { ...planned, blocked_mandis: [] }
+      : null;
+  const openResource = useResource(
+    JSON.stringify(openRequest),
+    () => getPlan(openRequest!),
+    openRequest !== null,
+  );
+  const openTotal = openResource.result?.data.total_net;
+  const centre = config.fpo.collection_centre.name || sampleCentre;
   const data = result?.data;
   return (
     <div className="tab-content">
@@ -147,7 +159,7 @@ export function FpoPlanTab({
             className="button secondary"
             onClick={() => {
               setLots(
-                structuredClone(sampleLots).map((l) => ({
+                structuredClone(engineDemoLots).map((l) => ({
                   ...l,
                   village: villages.some((v) => v.village === l.village)
                     ? l.village
@@ -363,6 +375,20 @@ export function FpoPlanTab({
       {data && !loading && (
         <>
           <SourceNote result={result} />
+          {planned?.blocked_mandis.length && openTotal !== undefined ? (
+            <div className="notice warning" role="status">
+              <strong>
+                Blocking {planned.blocked_mandis.join(", ")} changes FPO money
+                in hand by {signedRupees(data.total_net - openTotal)} against
+                the open plan ({rupees(openTotal)} → {rupees(data.total_net)}).
+              </strong>
+            </div>
+          ) : null}
+          <p className="tiny">
+            Placed {data.placed_qtl ?? NOT_ENOUGH} qtl · Unplaced{" "}
+            {data.unplaced_qtl ?? NOT_ENOUGH} qtl · Moved lots show their reason
+            in the table below.
+          </p>
           <div className="stat-grid three">
             <div className="stat-card">
               <span>FPO money in hand</span>

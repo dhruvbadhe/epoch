@@ -22,7 +22,7 @@ import type {
 const baseUrl = (
   process.env.NEXT_PUBLIC_API_URL ?? "http://localhost:8000"
 ).replace(/\/$/, "");
-export const mockEnabled = process.env.NEXT_PUBLIC_USE_MOCK !== "false";
+export const mockEnabled = process.env.NEXT_PUBLIC_USE_MOCK === "true";
 export class ApiError extends Error {
   constructor(
     message: string,
@@ -129,7 +129,7 @@ async function call<T>(
     return {
       data: fallback(),
       mock: true,
-      fallback: "Backend unavailable. Showing illustrative demo data.",
+      fallback: "Backend unavailable. Showing demo data, not engine results.",
     };
   }
 }

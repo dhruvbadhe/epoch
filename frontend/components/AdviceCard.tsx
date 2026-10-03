@@ -27,6 +27,9 @@ const labels = {
     verify: "Check with the mandi before sending the crop.",
     limit: "This lot can be held up to",
     storage: "Storage guidance",
+    suppressed:
+      "Holding was switched off: past hold advice for this crop did not pay off often enough, so sell today.",
+    notes: "Notes from the engine",
   },
   mr: {
     recommendation: "तुमच्यासाठी सल्ला",
@@ -44,6 +47,9 @@ const labels = {
     verify: "माल पाठवण्यापूर्वी बाजारात खात्री करा.",
     limit: "हा माल इतके दिवस ठेवता येईल",
     storage: "साठवण मार्गदर्शन",
+    suppressed:
+      "थांबण्याचा सल्ला बंद केला: या पिकासाठी मागील थांबण्याचे सल्ले पुरेसे वेळा फायद्याचे ठरले नाहीत, म्हणून आजच विका.",
+    notes: "इंजिनच्या नोंदी",
   },
   hi: {
     recommendation: "आपके लिए सलाह",
@@ -61,6 +67,9 @@ const labels = {
     verify: "माल भेजने से पहले मंडी से जांचें।",
     limit: "यह माल इतने दिन रखा जा सकता है",
     storage: "भंडारण मार्गदर्शन",
+    suppressed:
+      "रुकने की सलाह बंद की गई: इस फसल के लिए पिछली रुकने की सलाह पर्याप्त बार फ़ायदेमंद नहीं रही, इसलिए आज ही बेचें।",
+    notes: "इंजन के नोट",
   },
 };
 export function AdviceCard({
@@ -168,6 +177,20 @@ export function AdviceCard({
           Last season, hold advice beat the best sell-today option{" "}
           {percentage(advice.hold_success_rate)} of the time.
         </p>
+      )}
+      {advice.hold_suppressed && (
+        <p className="advice-footnote hold-suppressed" role="note">
+          <Info size={14} />
+          <strong>{t.suppressed}</strong>
+        </p>
+      )}
+      {advice.notes.length > 0 && (
+        <div className="advice-footnote advice-card-notes">
+          <span>{t.notes}:</span>
+          {advice.notes.map((note, i) => (
+            <p key={i}>{note}</p>
+          ))}
+        </div>
       )}
       {advice.uses_baseline && (
         <p className="advice-footnote">

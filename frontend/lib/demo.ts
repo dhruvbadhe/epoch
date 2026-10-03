@@ -22,6 +22,10 @@ import type {
 import { rupees } from "./format";
 export const defaultConfig = configFixture as Config;
 export const sampleLots = markets.sample_lots as Lot[];
+// The engine's demo request (ml/engine/real_run/demo_request.json): six lots via Niphad.
+// The FPO tab starts from these, so the live plan matches the engine's demo numbers.
+export const engineDemoLots = markets.engine_demo_lots as Lot[];
+export const sampleCentre: string = markets.collection_centre;
 export function mergeConfig(overrides: Overrides): Config {
   const merge = (
     base: Record<string, unknown>,
@@ -278,7 +282,11 @@ export function demoAdvice(request: AdviceRequest): Advice {
 }
 export function demoPlan(request: PlanRequest): Plan {
   const config = mergeConfig(request.overrides);
-  const centre = request.collection_centre ?? config.fpo.collection_centre;
+  const requested = request.collection_centre;
+  const centre =
+    typeof requested === "string"
+      ? { ...config.fpo.collection_centre, name: requested }
+      : (requested ?? config.fpo.collection_centre);
   if (centre.lat === null || centre.lon === null)
     throw new Error("Set the collection centre coordinates before planning.");
   const cap = request.mandi_cap_qtl_per_day ?? config.fpo.mandi_cap_qtl_per_day;

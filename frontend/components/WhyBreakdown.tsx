@@ -3,9 +3,9 @@ import type { Advice } from "@/lib/types";
 import { rupees, signedRupees } from "@/lib/format";
 export function WhyBreakdown({ advice }: { advice: Advice }) {
   const deductions = [
-    { label: "Spoilage loss", value: advice.why.spoilage_loss },
-    { label: "Transport & loading", value: advice.why.transport },
-    { label: "Storage", value: advice.why.storage },
+    { label: "Spoilage loss (assumption)", value: advice.why.spoilage_loss },
+    { label: "Transport & loading (assumption)", value: advice.why.transport },
+    { label: "Storage (assumption)", value: advice.why.storage },
     { label: "Mandi fees", value: advice.why.fees },
   ];
   return (

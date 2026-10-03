@@ -14,7 +14,13 @@ import {
   Sprout,
   UsersRound,
 } from "lucide-react";
-import { getConfig, getMandis, getVillages, mockEnabled } from "@/lib/api";
+import {
+  getBacktest,
+  getConfig,
+  getMandis,
+  getVillages,
+  mockEnabled,
+} from "@/lib/api";
 import { defaultConfig } from "@/lib/demo";
 import { dateLabel } from "@/lib/format";
 import { useResource } from "@/lib/useResource";
@@ -63,17 +69,17 @@ export default function Home() {
   const villageResource = useResource("villages", getVillages);
   const mandiResource = useResource("mandis", getMandis);
   const configResource = useResource("config", getConfig);
+  // "Prices as of" for every tab, from the backend (data/splits.json), before any tab has loaded
+  const asOfResource = useResource("prices-as-of", () => getBacktest("onion"));
+  const pricesAsOf = asOf ?? asOfResource.result?.data.prices_as_of ?? null;
   const config = configResource.result?.data ?? defaultConfig;
   const villages = villageResource.result?.data ?? [];
   const mandis = mandiResource.result?.data ?? [];
   const closeDrawer = useCallback(() => setDrawer(null), []);
   const onStatus = useCallback((result: ApiResult<unknown>) => {
     setSource(result.mock);
-    const data = result.data as {
-      prices_as_of?: string;
-      test_period?: { end: string };
-    };
-    setAsOf(data.prices_as_of ?? data.test_period?.end ?? null);
+    const data = result.data as { prices_as_of?: string | null };
+    if (data.prices_as_of) setAsOf(data.prices_as_of);
   }, []);
   const ignoreStatus = useCallback((_result: ApiResult<unknown>) => {}, []);
   useEffect(() => {
@@ -254,8 +260,8 @@ export default function Home() {
             <div className="heading-status">
               <span className="date-badge">
                 <span className="status-dot" />
-                {asOf
-                  ? `Prices as of ${dateLabel(asOf)}`
+                {pricesAsOf
+                  ? `Prices as of ${dateLabel(pricesAsOf)}`
                   : "Prices as of — awaiting data"}
               </span>
               <div>
@@ -365,8 +371,8 @@ export default function Home() {
             <h3>5. Read the evidence</h3>
             <p>
               Backtest metrics are simulated at default assumptions. Unmeasured
-              values say “Not evaluated”. Mock data is illustrative, and storage
-              guidance is general.
+              values say “Not enough data”. Mock data is illustrative, and
+              storage guidance is general.
             </p>
             <div className="notice">
               Prices always carry a date. This prototype covers Maharashtra,

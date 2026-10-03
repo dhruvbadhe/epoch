@@ -109,7 +109,7 @@ export function MandiTable({ advice }: { advice: Advice }) {
                 <th>
                   {todayOnly ? "Reported price" : "Reported / forecast price"}
                 </th>
-                <th>Transport</th>
+                <th>Transport (assumption)</th>
                 <th className="numeric">
                   <button
                     className="table-sort"

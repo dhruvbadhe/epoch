@@ -87,6 +87,7 @@ def backtest_view(crop: str) -> dict:
         result["selfcheck"] = _selfcheck_rows(crop)
     if not result.get("coverage"):
         result["coverage"] = _coverage_rows(crop)
+    result["prices_as_of"] = data_loader.as_of_date()  # the demo's "today" (data/splits.json)
     return result
 
 

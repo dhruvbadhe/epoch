@@ -96,6 +96,7 @@ export interface Advice {
   };
   options: MandiOption[];
   notes: string[];
+  hold_suppressed?: boolean;
   storage_tip: string | null;
   message: string;
 }
@@ -111,7 +112,7 @@ export interface PlanRequest {
   lots: Lot[];
   blocked_mandis: string[];
   mandi_cap_qtl_per_day: number | null;
-  collection_centre: Config["fpo"]["collection_centre"] | null;
+  collection_centre: Config["fpo"]["collection_centre"] | string | null;
   overrides: Overrides;
 }
 export interface Assignment {
@@ -145,6 +146,8 @@ export interface Plan {
   baseline_total: number;
   gain_vs_baseline: number;
   unplaced: { member: string; quantity_qtl: number; reason: string }[];
+  placed_qtl?: number;
+  unplaced_qtl?: number;
   prices_as_of: string;
   assumptions_default: boolean;
 }
@@ -160,6 +163,12 @@ export interface Backtest {
   worst_loss_per_qtl: number | null;
   hold_cases: number;
   hold_success_rate: number | null;
+  hold_record?: { won: number; lost: number; unscored: number };
+  gain_split?: {
+    from_mandi_choice: number | null;
+    from_holding: number | null;
+  };
+  prices_as_of?: string | null;
   ladder: { policy: string; avg_net: number | null }[];
   coverage: { horizon_days: number; coverage: number | null; n: number }[];
   selfcheck: {
