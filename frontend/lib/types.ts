@@ -46,7 +46,7 @@ export interface AdviceRequest {
   quantity_qtl: number;
   village: string;
   lot_condition: LotCondition;
-  cash_needed_in_days: 3 | 7 | null;
+  cash_needed_in_days: 1 | 3 | 7 | null;
   blocked_mandis: string[];
   overrides: Overrides;
   lang: Lang;
