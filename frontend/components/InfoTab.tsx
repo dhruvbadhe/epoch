@@ -1,12 +1,14 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { getAdvice, getForecast, getMandis } from "@/lib/api";
+import { getSnapshot } from "@/lib/api";
 import { useResource } from "@/lib/useResource";
-import { dateLabel, rupees } from "@/lib/format";
+import { NOT_ENOUGH, dateLabel, rupees, signedRupees } from "@/lib/format";
 import type { ApiResult, Crop } from "@/lib/types";
 import { HarvestIntro } from "./HarvestIntro";
-import { ErrorState, Loading, SourceNote } from "./ui";
+import { ErrorState, Loading, SourceBadge, SourceNote } from "./ui";
+
+const VILLAGE = "Niphad";
 
 export function InfoTab({
   onStatus,
@@ -14,38 +16,7 @@ export function InfoTab({
   onStatus: (result: ApiResult<unknown>) => void;
 }) {
   const [crop, setCrop] = useState<Crop>("onion");
-  const resource = useResource(crop, async () => {
-    const [advice, markets] = await Promise.all([
-      getAdvice({
-        crop,
-        quantity_qtl: 20,
-        village: "Niphad",
-        lot_condition: null,
-        cash_needed_in_days: null,
-        blocked_mandis: [],
-        overrides: null,
-        lang: "en",
-      }),
-      getMandis(),
-    ]);
-    const forecasts = await Promise.all(
-      markets.data
-        .filter((m) => m.crops.includes(crop))
-        .map(async (m) => ({
-          mandi: m.mandi,
-          result: await getForecast(crop, m.mandi),
-        })),
-    );
-    return {
-      data: {
-        advice: advice.data,
-        forecasts,
-        prices_as_of: advice.data.prices_as_of,
-      },
-      mock: advice.mock || markets.mock || forecasts.some((f) => f.result.mock),
-      fallback: advice.fallback,
-    };
-  });
+  const resource = useResource(crop, () => getSnapshot(crop, VILLAGE));
   useEffect(() => {
     if (resource.result) onStatus(resource.result);
   }, [resource.result, onStatus]);
@@ -53,45 +24,33 @@ export function InfoTab({
   if (resource.error)
     return <ErrorState error={resource.error} retry={resource.reload} />;
   if (!resource.result) return null;
-  const { advice, forecasts } = resource.result.data;
-  const asOf = advice.prices_as_of;
-  const day = (offset: number) => {
-    const date = new Date(asOf + "T12:00:00Z");
-    date.setUTCDate(date.getUTCDate() + offset);
-    return date.toISOString().slice(0, 10);
-  };
-  const yesterday = day(-1);
-  const previous = forecasts
-    .map((f) => ({
-      mandi: f.mandi,
-      price:
-        f.result.data.history.find((h) => h.date === yesterday)?.price ?? null,
-    }))
-    .sort((a, b) => (b.price ?? -Infinity) - (a.price ?? -Infinity));
-  const history =
-    forecasts.find((f) => f.mandi === advice.mandi)?.result.data.history ?? [];
-  const timeline = Array.from({ length: 7 }, (_, i) => {
-    const date = day(i - 7);
-    const row = history.find((h) => h.date === date);
-    return {
-      name: dateLabel(date),
-      title: `${dateLabel(date)} · ${advice.mandi}`,
-      copy: row
-        ? `${rupees(row.price)} per quintal reported for ${crop}. Gross market price; transport, storage and spoilage are not deducted.`
+  const s = resource.result.data;
+  const day = s.snapshot_date ? dateLabel(s.snapshot_date) : NOT_ENOUGH;
+  const net = new Map(
+    (s.money_in_hand?.rows ?? []).map((r) => [r.mandi, r] as const),
+  );
+  const top = s.highest_price?.mandi;
+  const topSeries = s.series_7d.find((m) => m.mandi === top)?.points ?? [];
+  const timeline = topSeries.map((p) => ({
+    name: dateLabel(p.date),
+    title: `${dateLabel(p.date)} · ${top}`,
+    copy:
+      p.modal_price !== null
+        ? `${rupees(p.modal_price)} per quintal reported for ${crop}. Gross market price; transport, storage and spoilage are not deducted.`
         : "No reported price for this day. No value has been estimated or carried forward.",
-    };
-  });
-  const today = advice.options
-    .filter((o) => o.sell_day === 0)
-    .sort((a, b) => b.net_per_qtl - a.net_per_qtl);
+  }));
   return (
     <div className="tab-content">
       <div className="evidence-intro">
         <div>
-          <strong>Market context for a 20-quintal lot from Niphad</strong>
+          <strong>
+            Reported mandi prices on {day} (the day before prices as of{" "}
+            {dateLabel(s.prices_as_of)})
+          </strong>
           <p>
-            Default transport, storage and spoilage assumptions. Net rankings
-            change with the lot and origin.
+            Reported prices only, no forecasts. Money in hand is for a lot from{" "}
+            {VILLAGE}, selling that day, at default transport, storage and
+            spoilage assumptions.
           </p>
         </div>
         <select
@@ -107,29 +66,35 @@ export function InfoTab({
       <SourceNote result={resource.result} />
       <div className="stat-grid three">
         <div className="stat-card accent">
-          <span>Best net mandi today</span>
-          <strong>{advice.best_today.mandi}</strong>
+          <span>Highest price</span>
+          <strong>
+            {s.highest_price ? rupees(s.highest_price.modal_price) : NOT_ENOUGH}
+          </strong>
           <small>
-            {rupees(advice.best_today.net)} / quintal · {dateLabel(asOf)}
+            {s.highest_price?.mandi ?? "No reported price"} · {day} · gross /
+            quintal
           </small>
         </div>
         <div className="stat-card">
-          <span>Gain over nearest mandi</span>
-          <strong>{rupees(advice.gain_from_mandi)}</strong>
-          <small>From mandi choice · estimated per quintal</small>
-        </div>
-        <div className="stat-card">
-          <span>Previous day’s highest reported price</span>
+          <span>Lowest price · spread</span>
           <strong>
-            {previous[0]?.price != null
-              ? rupees(previous[0].price)
-              : "Not enough data"}
+            {s.lowest_price ? rupees(s.lowest_price.modal_price) : NOT_ENOUGH}
           </strong>
           <small>
-            {previous[0]?.price != null
-              ? previous[0].mandi
-              : "No reported price"}{" "}
-            · {dateLabel(yesterday)} · gross / quintal
+            {s.lowest_price?.mandi ?? "No reported price"} · spread{" "}
+            {s.spread !== null ? rupees(s.spread) : NOT_ENOUGH}
+          </small>
+        </div>
+        <div className="stat-card">
+          <span>Highest money in hand from {VILLAGE}</span>
+          <strong>
+            {s.money_in_hand
+              ? rupees(s.money_in_hand.highest.net_per_qtl)
+              : NOT_ENOUGH}
+          </strong>
+          <small>
+            {s.money_in_hand?.highest.mandi ?? "No reported price"} · per
+            quintal after transport (assumption)
           </small>
         </div>
       </div>
@@ -137,62 +102,98 @@ export function InfoTab({
         <div className="section-heading">
           <div>
             <span className="eyebrow">Market comparison</span>
-            <h2>Today’s net options and previous-day prices</h2>
+            <h2>Reported prices on {day}</h2>
           </div>
+          <SourceBadge mock={resource.result.mock} />
         </div>
         <div className="table-scroll">
           <table>
             <thead>
               <tr>
                 <th>Mandi</th>
-                <th>Net today / quintal</th>
-                <th>Previous day gross / quintal</th>
+                <th>District</th>
+                <th>Modal / quintal</th>
+                <th>Min – max</th>
+                <th>Change vs previous report</th>
+                <th>Road km from {VILLAGE}</th>
+                <th>Money in hand / quintal</th>
               </tr>
             </thead>
             <tbody>
-              {today.map((o) => (
-                <tr key={o.mandi}>
-                  <td>{o.mandi}</td>
-                  <td>{rupees(o.net_per_qtl)}</td>
+              {s.reporting.map((r) => (
+                <tr key={r.mandi}>
+                  <td>{r.mandi}</td>
+                  <td>{r.district ?? "—"}</td>
+                  <td>{rupees(r.modal_price)}</td>
                   <td>
-                    {rupees(
-                      previous.find((p) => p.mandi === o.mandi)?.price ?? null,
-                    )}
+                    {rupees(r.min_price)} – {rupees(r.max_price)}
+                  </td>
+                  <td>
+                    {r.change === null
+                      ? NOT_ENOUGH
+                      : `${signedRupees(r.change)} (vs ${dateLabel(r.previous_date!)})`}
+                  </td>
+                  <td>{net.get(r.mandi)?.road_km ?? "—"}</td>
+                  <td>
+                    {net.has(r.mandi)
+                      ? rupees(net.get(r.mandi)!.net_per_qtl)
+                      : NOT_ENOUGH}
                   </td>
                 </tr>
               ))}
             </tbody>
           </table>
         </div>
+        {s.not_reporting.length > 0 && (
+          <p className="tiny">
+            Did not report on {day}:{" "}
+            {s.not_reporting
+              .map(
+                (m) =>
+                  `${m.mandi} (last report ${m.last_reported_date ? dateLabel(m.last_reported_date) : "none"})`,
+              )
+              .join(", ")}
+            .
+          </p>
+        )}
         <p className="tiny">
-          Prices as of {dateLabel(asOf)}. Previous-day values are reported gross
-          prices, not net profit. Collection totals and realised profits are not
-          supplied by the API.
+          {s.basis} Money in hand uses the engine’s own distance and cost
+          functions; transport, storage and spoilage are assumptions.
         </p>
       </section>
       <HarvestIntro key={crop} timeline={timeline} />
       <section className="panel">
         <div className="section-heading">
-          <h2>Seven-day reported price record</h2>
+          <h2>Seven-day reported modal prices</h2>
         </div>
         <div className="table-scroll">
           <table>
             <thead>
               <tr>
-                <th>Date and market</th>
-                <th>Reported observation</th>
+                <th>Mandi</th>
+                {s.series_dates.map((d) => (
+                  <th key={d}>{dateLabel(d)}</th>
+                ))}
               </tr>
             </thead>
             <tbody>
-              {timeline.map((row) => (
-                <tr key={row.name}>
-                  <td>{row.title}</td>
-                  <td>{row.copy}</td>
+              {s.series_7d.map((m) => (
+                <tr key={m.mandi}>
+                  <td>{m.mandi}</td>
+                  {m.points.map((p) => (
+                    <td key={p.date}>
+                      {p.modal_price !== null ? rupees(p.modal_price) : "—"}
+                    </td>
+                  ))}
                 </tr>
               ))}
             </tbody>
           </table>
         </div>
+        <p className="tiny">
+          “—” means no price was reported that day; nothing is estimated or
+          carried forward.
+        </p>
       </section>
     </div>
   );

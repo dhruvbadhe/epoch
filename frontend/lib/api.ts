@@ -2,6 +2,7 @@ import backtest from "@/mock/backtest.json";
 import mandis from "@/mock/mandis.json";
 import villages from "@/mock/villages.json";
 import queries from "@/mock/queries.json";
+import snapshot from "@/mock/snapshot.json";
 import { defaultConfig, demoAdvice, demoForecast, demoPlan } from "./demo";
 import type {
   Advice,
@@ -17,6 +18,7 @@ import type {
   Plan,
   PlanRequest,
   Query,
+  Snapshot,
   Village,
 } from "./types";
 const baseUrl = (
@@ -74,6 +76,13 @@ function validResponse(path: string, value: unknown): boolean {
       Array.isArray(record.selfcheck) &&
       !!record.test_period &&
       !!record.cases_excluded_by_reason
+    );
+  if (endpoint === "/market/snapshot")
+    return (
+      Array.isArray(record.reporting) &&
+      Array.isArray(record.not_reporting) &&
+      Array.isArray(record.series_7d) &&
+      typeof record.prices_as_of === "string"
     );
   if (endpoint === "/forecast")
     return (
@@ -156,6 +165,11 @@ export const getForecast = (crop: Crop, mandi: string) =>
   call<Forecast>(
     `/forecast?crop=${crop}&mandi=${encodeURIComponent(mandi)}`,
     () => demoForecast(crop, mandi),
+  );
+export const getSnapshot = (crop: Crop, village: string) =>
+  call<Snapshot>(
+    `/market/snapshot?crop=${crop}&village=${encodeURIComponent(village)}`,
+    () => ({ ...(structuredClone(snapshot) as unknown as Snapshot), crop }),
   );
 export const getMandis = () =>
   call<Mandi[]>("/mandis", () => structuredClone(mandis) as Mandi[]);

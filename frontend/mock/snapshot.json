@@ -1,0 +1,378 @@
+{
+  "crop": "onion",
+  "prices_as_of": "2025-09-21",
+  "snapshot_date": "2025-09-20",
+  "basis": "Reported mandi prices only (no forecasts). Gross price per quintal.",
+  "reporting": [
+    {
+      "mandi": "Pimpalgaon",
+      "district": "Nashik",
+      "modal_price": 1150,
+      "min_price": 400,
+      "max_price": 1623,
+      "previous_date": "2025-09-19",
+      "previous_modal_price": 1150,
+      "change": 0
+    },
+    {
+      "mandi": "Lasalgaon",
+      "district": "Nashik",
+      "modal_price": 1100,
+      "min_price": 400,
+      "max_price": 1480,
+      "previous_date": "2025-09-19",
+      "previous_modal_price": 1100,
+      "change": 0
+    },
+    {
+      "mandi": "Solapur",
+      "district": "Sholapur",
+      "modal_price": 1100,
+      "min_price": 100,
+      "max_price": 2100,
+      "previous_date": "2025-09-19",
+      "previous_modal_price": 1100,
+      "change": 0
+    },
+    {
+      "mandi": "Lasalgaon (Vinchur)",
+      "district": "Nashik",
+      "modal_price": 1080,
+      "min_price": 300,
+      "max_price": 1350,
+      "previous_date": "2025-09-19",
+      "previous_modal_price": 1125,
+      "change": -45
+    },
+    {
+      "mandi": "Lasalgaon (Niphad)",
+      "district": "Nashik",
+      "modal_price": 1075,
+      "min_price": 400,
+      "max_price": 1260,
+      "previous_date": "2025-09-19",
+      "previous_modal_price": 1100,
+      "change": -25
+    },
+    {
+      "mandi": "Nasik",
+      "district": "Nashik",
+      "modal_price": 825,
+      "min_price": 200,
+      "max_price": 1351,
+      "previous_date": "2025-09-19",
+      "previous_modal_price": 850,
+      "change": -25
+    }
+  ],
+  "highest_price": {
+    "mandi": "Pimpalgaon",
+    "modal_price": 1150
+  },
+  "lowest_price": {
+    "mandi": "Nasik",
+    "modal_price": 825
+  },
+  "spread": 325,
+  "not_reporting": [
+    {
+      "mandi": "Pune",
+      "last_reported_date": "2025-09-19"
+    }
+  ],
+  "series_dates": [
+    "2025-09-14",
+    "2025-09-15",
+    "2025-09-16",
+    "2025-09-17",
+    "2025-09-18",
+    "2025-09-19",
+    "2025-09-20"
+  ],
+  "series_7d": [
+    {
+      "mandi": "Lasalgaon",
+      "points": [
+        {
+          "date": "2025-09-14",
+          "modal_price": null
+        },
+        {
+          "date": "2025-09-15",
+          "modal_price": 1270
+        },
+        {
+          "date": "2025-09-16",
+          "modal_price": null
+        },
+        {
+          "date": "2025-09-17",
+          "modal_price": 1250
+        },
+        {
+          "date": "2025-09-18",
+          "modal_price": 1175
+        },
+        {
+          "date": "2025-09-19",
+          "modal_price": 1100
+        },
+        {
+          "date": "2025-09-20",
+          "modal_price": 1100
+        }
+      ]
+    },
+    {
+      "mandi": "Lasalgaon (Niphad)",
+      "points": [
+        {
+          "date": "2025-09-14",
+          "modal_price": null
+        },
+        {
+          "date": "2025-09-15",
+          "modal_price": null
+        },
+        {
+          "date": "2025-09-16",
+          "modal_price": 1225
+        },
+        {
+          "date": "2025-09-17",
+          "modal_price": 1175
+        },
+        {
+          "date": "2025-09-18",
+          "modal_price": 1150
+        },
+        {
+          "date": "2025-09-19",
+          "modal_price": 1100
+        },
+        {
+          "date": "2025-09-20",
+          "modal_price": 1075
+        }
+      ]
+    },
+    {
+      "mandi": "Lasalgaon (Vinchur)",
+      "points": [
+        {
+          "date": "2025-09-14",
+          "modal_price": null
+        },
+        {
+          "date": "2025-09-15",
+          "modal_price": 1100
+        },
+        {
+          "date": "2025-09-16",
+          "modal_price": 1210
+        },
+        {
+          "date": "2025-09-17",
+          "modal_price": 1200
+        },
+        {
+          "date": "2025-09-18",
+          "modal_price": null
+        },
+        {
+          "date": "2025-09-19",
+          "modal_price": 1125
+        },
+        {
+          "date": "2025-09-20",
+          "modal_price": 1080
+        }
+      ]
+    },
+    {
+      "mandi": "Nasik",
+      "points": [
+        {
+          "date": "2025-09-14",
+          "modal_price": null
+        },
+        {
+          "date": "2025-09-15",
+          "modal_price": 1000
+        },
+        {
+          "date": "2025-09-16",
+          "modal_price": 1020
+        },
+        {
+          "date": "2025-09-17",
+          "modal_price": 900
+        },
+        {
+          "date": "2025-09-18",
+          "modal_price": 850
+        },
+        {
+          "date": "2025-09-19",
+          "modal_price": 850
+        },
+        {
+          "date": "2025-09-20",
+          "modal_price": 825
+        }
+      ]
+    },
+    {
+      "mandi": "Pimpalgaon",
+      "points": [
+        {
+          "date": "2025-09-14",
+          "modal_price": null
+        },
+        {
+          "date": "2025-09-15",
+          "modal_price": 1175
+        },
+        {
+          "date": "2025-09-16",
+          "modal_price": 1150
+        },
+        {
+          "date": "2025-09-17",
+          "modal_price": 1150
+        },
+        {
+          "date": "2025-09-18",
+          "modal_price": 1200
+        },
+        {
+          "date": "2025-09-19",
+          "modal_price": 1150
+        },
+        {
+          "date": "2025-09-20",
+          "modal_price": 1150
+        }
+      ]
+    },
+    {
+      "mandi": "Pune",
+      "points": [
+        {
+          "date": "2025-09-14",
+          "modal_price": 9500
+        },
+        {
+          "date": "2025-09-15",
+          "modal_price": 950
+        },
+        {
+          "date": "2025-09-16",
+          "modal_price": 1000
+        },
+        {
+          "date": "2025-09-17",
+          "modal_price": 950
+        },
+        {
+          "date": "2025-09-18",
+          "modal_price": 1000
+        },
+        {
+          "date": "2025-09-19",
+          "modal_price": 1000
+        },
+        {
+          "date": "2025-09-20",
+          "modal_price": null
+        }
+      ]
+    },
+    {
+      "mandi": "Solapur",
+      "points": [
+        {
+          "date": "2025-09-14",
+          "modal_price": null
+        },
+        {
+          "date": "2025-09-15",
+          "modal_price": null
+        },
+        {
+          "date": "2025-09-16",
+          "modal_price": 950
+        },
+        {
+          "date": "2025-09-17",
+          "modal_price": 1100
+        },
+        {
+          "date": "2025-09-18",
+          "modal_price": null
+        },
+        {
+          "date": "2025-09-19",
+          "modal_price": 1100
+        },
+        {
+          "date": "2025-09-20",
+          "modal_price": 1100
+        }
+      ]
+    }
+  ],
+  "village": "Niphad",
+  "money_in_hand": {
+    "label": "highest money in hand from Niphad",
+    "rows": [
+      {
+        "mandi": "Pimpalgaon",
+        "road_km": 20.6,
+        "modal_price": 1150,
+        "transport_per_qtl": 61,
+        "net_per_qtl": 1089
+      },
+      {
+        "mandi": "Lasalgaon (Niphad)",
+        "road_km": 0.4,
+        "modal_price": 1075,
+        "transport_per_qtl": 21,
+        "net_per_qtl": 1054
+      },
+      {
+        "mandi": "Lasalgaon",
+        "road_km": 19.5,
+        "modal_price": 1100,
+        "transport_per_qtl": 59,
+        "net_per_qtl": 1041
+      },
+      {
+        "mandi": "Lasalgaon (Vinchur)",
+        "road_km": 22.3,
+        "modal_price": 1080,
+        "transport_per_qtl": 65,
+        "net_per_qtl": 1015
+      },
+      {
+        "mandi": "Nasik",
+        "road_km": 44.6,
+        "modal_price": 825,
+        "transport_per_qtl": 109,
+        "net_per_qtl": 716
+      },
+      {
+        "mandi": "Solapur",
+        "road_km": 428.0,
+        "modal_price": 1100,
+        "transport_per_qtl": 876,
+        "net_per_qtl": 224
+      }
+    ],
+    "highest": {
+      "mandi": "Pimpalgaon",
+      "net_per_qtl": 1089
+    },
+    "assumptions": "default transport, storage and spoilage from config.yaml (assumptions)"
+  }
+}

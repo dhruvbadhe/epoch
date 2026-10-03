@@ -226,3 +226,41 @@ export interface ApiResult<T> {
   mock: boolean;
   fallback?: string;
 }
+export interface Snapshot {
+  crop: Crop;
+  prices_as_of: string;
+  snapshot_date: string | null;
+  basis: string;
+  reporting: {
+    mandi: string;
+    district: string | null;
+    modal_price: number;
+    min_price: number;
+    max_price: number;
+    previous_date: string | null;
+    previous_modal_price: number | null;
+    change: number | null;
+  }[];
+  highest_price: { mandi: string; modal_price: number } | null;
+  lowest_price: { mandi: string; modal_price: number } | null;
+  spread: number | null;
+  not_reporting: { mandi: string; last_reported_date: string | null }[];
+  series_dates: string[];
+  series_7d: {
+    mandi: string;
+    points: { date: string; modal_price: number | null }[];
+  }[];
+  village: string | null;
+  money_in_hand: {
+    label: string;
+    rows: {
+      mandi: string;
+      road_km: number;
+      modal_price: number;
+      transport_per_qtl: number;
+      net_per_qtl: number;
+    }[];
+    highest: { mandi: string; net_per_qtl: number };
+    assumptions: string;
+  } | null;
+}
