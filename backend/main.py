@@ -21,7 +21,7 @@ from . import data_loader
 load_dotenv(data_loader.ROOT / "backend" / ".env")   # keys live here; before anything reads a key
 load_dotenv(data_loader.ROOT / ".env")
 
-from . import advice, conversation, db, engine_api, lookups, market, querylog, replies, speech, state  # noqa: E402
+from . import advice, conversation, db, engine_api, freshness, lookups, market, querylog, replies, speech, state  # noqa: E402
 from .errors import ApiError  # noqa: E402
 from . import whatsapp_adapter  # noqa: E402  (reads WA_PROVIDER / D360_API_KEY at import)
 from .whatsapp import cloud_api  # noqa: E402  (Meta Cloud API at /whatsapp/webhook; unused without its keys)
@@ -150,6 +150,7 @@ def advise(req: AdviseRequest, response: Response):
         overrides=req.overrides, lang=req.lang))
     response.headers[ENGINE_HEADER] = "fake" if engine_api.using_fake("advise") else "real"
     db.log_query("api", None, req.lang, req.crop, req.quantity_qtl, village["village"], result)
+    result["freshness"] = freshness.estimate(req.crop, req.lot_condition, req.lang)   # response layer only
     return result
 
 
