@@ -42,7 +42,9 @@ export function FpoPlanTab({
   config,
   overrides,
   onStatus,
+  asOfDate = null,
 }: {
+  asOfDate?: string | null;
   mandis: Mandi[];
   villages: Village[];
   config: Config;
@@ -91,6 +93,11 @@ export function FpoPlanTab({
       setPlanned((v) => (v ? { ...v, overrides } : v));
     }
   }, [overrides]); // Recalculate an existing plan after applying assumptions.
+  useEffect(() => {
+    if (planned) {
+      setPlanned((v) => (v ? { ...v, as_of_date: asOfDate } : v));
+    }
+  }, [asOfDate]); // Re-plan for the date picked in the header.
   const patchLot = (index: number, patch: Partial<Lot>) => {
     setLots((items) =>
       items.map((lot, i) => (i === index ? { ...lot, ...patch } : lot)),
@@ -114,6 +121,7 @@ export function FpoPlanTab({
       mandi_cap_qtl_per_day: null,
       collection_centre: centreName,
       overrides,
+      as_of_date: asOfDate,
     });
     setDirty(false);
   };

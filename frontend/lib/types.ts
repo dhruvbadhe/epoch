@@ -123,6 +123,7 @@ export interface PlanRequest {
   blocked_mandis: string[];
   mandi_cap_qtl_per_day: number | null;
   collection_centre: Config["fpo"]["collection_centre"] | string | null;
+  as_of_date?: string | null;
   overrides: Overrides;
 }
 export interface Assignment {
